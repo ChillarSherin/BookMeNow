@@ -1,0 +1,101 @@
+<resources>
+    <string name="app_name">BookmeNow</string>
+    <string name="app_heading">Welcome User !</string>
+    <string name="compy">Chillar Payments Solutions Pvt ltd</string>
+    <string name="currency">₹</string>
+    <string name="head">Create Account</string>
+    <string name="sub_title">Sign up to get started!</string>
+    <string name="ver">"Ver\u0020"</string>
+
+    <!--  HEAD-->
+    <string name="version">"Version\u0020"</string>
+    <string name="alert_heading">Are you sure?</string>
+    <string name="otp_head">Enter Verification Code</string>
+    <string name="register_head">register</string>
+    <string name="add_staff_head">Add Staff</string>
+    <string name="add_service_head">Add Service</string>
+    <string name="bank_head">Beneficiary Details</string>
+    <string name="map_head">Shop Location</string>
+    <string name="time_head">Working Hours</string>
+    <string name="booking_head">view appointment</string>
+    <string name="book_head">today\'s booking list</string>
+    <string name="staff_head">staff booking report</string>
+    <string name="staff_view">our staffs</string>
+    <string name="staff_sele">select staff</string>
+    <string name="book_info">Booking Information</string>
+    <string name="book_appointment">Book Appointment</string>
+    <string name="sales_report">Report</string>
+    <string name="general">General Settings</string>
+    <string name="profile">Profile Settings</string>
+    <string name="estimate">Estimate Bill</string>
+    <string name="serv_req">Required Service</string>
+    <string name="notify">Notification</string>
+    <string name="est_qr">please use QR code for payment</string>
+    <string name="profile_details">Public Profile View</string>
+
+    <string name="mobile_number">Mobile Number</string>
+    <string name="enter_mobile_number">Enter email or phone number</string>
+    <string name="enter_otp">Enter OTP</string>
+    <string name="otp_expired">OTP expired</string>
+    <string name="enter_shop_name">shop name</string>
+    <string name="enter_shop_add">shop building name</string>
+    <string name="enter_shop_street">shop street name</string>
+    <string name="enter_shop_city">shop city</string>
+    <string name="enter_shop_state">shop state</string>
+    <string name="enter_shop_dist">shop district</string>
+    <string name="enter_shop_pin">shop pin code</string>
+    <string name="enter_shop_email">email address</string>
+    <string name="enter_shop_loc">pin shop location</string>
+    <string name="enter_bank_acc">bank account number</string>
+    <string name="enter_bank_acc_re">re-enter bank account number</string>
+    <string name="enter_bank_ifsc">IFSC code</string>
+    <string name="enter_bank_name">bank account holder’s name</string>
+    <string name="enter_staff_name">staff name</string>
+    <string name="enter_staff_mob">staff mobile number</string>
+    <string name="enter_staff_ser">choose service</string>
+    <string name="enter_staff_rate">service charge</string>
+    <string name="enter_staff_hours">working hours</string>
+    <string name="fullname"> Full Name</string>
+    <string name="degree"> Qualification</string>
+    <string name="desig"> Designation</string>
+    <string name="worknghrs"> Working Hours</string>
+    <string name="fee"> Consultation Fee</string>
+    <string name="interval">Consultation Duration</string>
+    <string name="working_hrs">Working Hours Management</string>
+
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="login">Login</string>
+    <string name="lat_long">latitude &amp; longitude</string>
+
+    <string name="agree_tnc_one">By proceeding, you agree to the</string>
+    <string name="opt_message">We have send a 6 digit OTP to  xxxxxx6378</string>
+
+    <!--  MESSAGE-->
+    <string name="logout_alert_message">Are you sure you want to logout?</string>
+    <string name="pop_alert_message">Are you sure you want to go back?</string>
+    <string name="staff_view_msg">staff management and disable the service if we are not offering  for the day</string>
+
+    <!--  BUTTON-->
+    <string name="retry">try again</string>
+    <string name="contin">Continue</string>
+    <string name="register">Register</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="close">Close</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="update">Update</string>
+    <string name="print_bill">Print bill</string>
+    <string name="bck_home">Back to home</string>
+    <string name="bill">Generate bill</string>
+
+    <!--  Validation-->
+    <string name="mob_validation">Enter Valid Email or Mobile Number</string>
+
+</resources>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/root_cl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/bg_gradient">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            android:layout_marginTop="@dimen/_18sdp"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/_30sdp"
+
+                >
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageview_account_profile"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/dr"
+                    app:civ_border_color="#FFFFFF"
+                    app:civ_border_width="2dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Jabir Abdullakutty"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_11ssp"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginBottom="4dp"/>
+            </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/paybill"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="@dimen/_150sdp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_qr_code"/>
+
+            <TextView
+                android:id="@+id/scan_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Scan to pay with any UPI app "
+                android:textStyle="bold"
+                android:textSize="@dimen/_11ssp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginHorizontal="@dimen/_18sdp"
+                android:layout_marginBottom="@dimen/_18sdp"
+                android:layout_gravity="center"
+                app:layout_constraintTop_toBottomOf="@+id/appointment_card"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/_30sdp"
+
+                >
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_sbi"
+                    app:civ_border_color="#FFFFFF"
+                    app:civ_border_width="2dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="SBI Bank 2653"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_11ssp"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="@dimen/_10sdp"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="UPI ID: jabirabdullakutty@okkdfcbank"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_margin="@dimen/_10sdp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/action_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@android:dimen/app_icon_size"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="1"
+            android:layout_gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/customerNameTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="@dimen/_18sdp"
+            android:layout_marginVertical="@dimen/_18sdp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center">
+
+                <!-- Call Button -->
+                <TextView
+                    android:id="@+id/cashButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cash"
+                    android:background="@drawable/button_gradient"
+                    android:paddingVertical="@dimen/_10sdp"
+                    android:gravity="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/primary_blue"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="bold"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:layout_marginStart="@dimen/_14sdp"
+                android:orientation="vertical"
+                android:gravity="center|center_vertical"
+                android:layout_gravity="center">
+                <!-- Completed Button -->
+                <TextView
+                    android:id="@+id/upiButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="UPI"
+                    android:background="@drawable/button_gradient"
+                    android:paddingVertical="@dimen/_10sdp"
+                    android:gravity="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/primary_blue"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@null"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/print_bill_btn"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_18sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:alpha="0.55"
+            android:background="@drawable/button_gradient"
+            android:enabled="true"
+            android:paddingVertical="@dimen/_10sdp"
+            android:text="@string/print_bill"
+            android:textAllCaps="true"
+            android:textColor="@color/primary_blue"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            app:backgroundTint="@null"
+            app:layout_constraintTop_toBottomOf="@id/paybill" />
+
+    </LinearLayout>
+
+</layout>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_170sdp"
+                android:src="@drawable/login"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginHorizontal="@dimen/_18sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/app_title"
+                android:contentDescription="TODO" />
+
+
+            <TextView
+                android:visibility="visible"
+                android:id="@+id/version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:textColor="@color/white"
+                android:textAlignment="textEnd"
+                android:textSize="@dimen/_5ssp"
+                app:layout_constraintTop_toBottomOf="@id/logo" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/head"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_18ssp"
+                android:layout_marginHorizontal="@dimen/_18sdp"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/sub_title"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10ssp"
+                android:padding="@dimen/_5sdp"
+                android:layout_marginHorizontal="@dimen/_18sdp"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/mobile"
+                style="@style/ThemeOverlay.Material3.AutoCompleteTextView.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_18sdp"
+                android:layout_marginBottom="@dimen/_7sdp"
+                android:elevation="@dimen/_5sdp"
+                app:boxBackgroundColor="@color/white"
+                app:boxCornerRadiusBottomEnd="@dimen/_22sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_22sdp"
+                app:boxCornerRadiusTopEnd="@dimen/_22sdp"
+                app:boxCornerRadiusTopStart="@dimen/_22sdp"
+                app:boxStrokeColor="@color/color_pri_v"
+                app:boxStrokeErrorColor="@color/primary_peach"
+                app:boxStrokeWidth="0.2dp"
+                app:endIconDrawable="@drawable/ic_close"
+                app:endIconMode="clear_text"
+                app:errorTextColor="@color/secondary_peach"
+                app:hintEnabled="false"
+                app:layout_constraintBottom_toTopOf="@+id/terms"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/version"
+                app:layout_constraintVertical_bias="0.1"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/mobile_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_mobile_number"
+                    android:inputType="text"
+                    android:paddingVertical="@dimen/_11sdp"
+                    android:textSize="@dimen/_12ssp"
+                    tools:ignore="RtlSymmetry" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/login_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_18sdp"
+                android:layout_marginBottom="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_50sdp"
+                android:alpha="0.55"
+                android:background="@drawable/button_gradient"
+                android:enabled="false"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/contin"
+                android:textAllCaps="true"
+                android:textColor="@color/primary_blue"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
+                app:backgroundTint="@null"
+                app:layout_constraintTop_toBottomOf="@id/mobile" />
+
+               <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/terms"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_25sdp"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_9ssp"
+                        android:text="@string/agree_tnc_one"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintTop_toBottomOf="@id/login_btn"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/terms1"
+                        />
+
+                    <TextView
+                        android:id="@+id/terms1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_25sdp"
+
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_9ssp"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintTop_toBottomOf="@id/login_btn"
+                        app:layout_constraintStart_toEndOf="@id/terms"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
+
+
+                </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/login_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/primary_peach"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/login_btn"
+                app:layout_constraintEnd_toEndOf="@id/login_btn"
+                app:layout_constraintStart_toStartOf="@id/login_btn"
+                app:layout_constraintTop_toTopOf="@id/login_btn" />
+
+
+        </LinearLayout>
+            <TextView
+                android:id="@+id/bottom_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:text="@string/compy"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_8ssp"
+                android:layout_alignParentBottom="true"
+                />
+
+        </RelativeLayout>
+    </ScrollView>
+</layout>

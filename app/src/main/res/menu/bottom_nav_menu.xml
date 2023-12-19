@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/staff"
+        android:icon="@drawable/ic_staff"
+        android:title="our staff" />
+
+    <item
+        android:id="@+id/service"
+        android:icon="@drawable/ic_service"
+        android:title="services" />
+
+    <item
+        android:id="@+id/empty"
+        android:title="" />
+
+    <item
+        android:id="@+id/report"
+        android:icon="@drawable/ic_report"
+        android:title="reports" />
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/ic_setting"
+        android:title="setting" />
+
+</menu>

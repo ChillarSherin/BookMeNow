@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="select image source"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:padding="16dp"
+        android:gravity="center"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/galleryOption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="choose from gallery"
+            android:padding="16dp"
+            android:gravity="center"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="16sp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
+            android:id="@+id/cameraOption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="take a photo"
+            android:padding="16dp"
+            android:gravity="center"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="16sp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
+            android:id="@+id/cancelOption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:padding="16dp"
+            android:gravity="center"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+</LinearLayout>

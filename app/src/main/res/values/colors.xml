@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="app_theme">#742E2E2E</color>
+
+    <color name="theme_start">#0e1c26</color>
+    <color name="theme_center">#2a454b</color>
+    <color name="theme_end">#294861</color>
+    <color name="selectedColor">#E91E63</color>
+
+    <color name="transparent">#00FFFFFF</color>
+    <color name="theme_bg">#4BD9D9D9</color>
+
+    <color name="text_black">#545454</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="round_button_theme">#C60000</color>
+    <color name="bottom_app_menu">#D9D9D9</color>
+    <color name="button_theme_ix">#6Ac9c8</color>
+    <color name="button_theme_jx">#9592EAE9</color>
+
+    <color name="primary_theme">#75D9D9D9</color>
+    <color name="primary_red">#ab2328</color>
+    <color name="primary_blue">#00426a</color>
+    <color name="secondary_lavender">#C0C9D6</color>
+    <color name="primary_green">#02F309</color>
+    <color name="secondary_green">#C1DEDE</color>
+    <color name="tertiary_green">#A0CCC3</color>
+    <color name="primary_peach">#E39791</color>
+    <color name="secondary_red">#FAD9D6</color>
+    <color name="secondary_peach">#E6E3DA</color>
+    <color name="primary_cyan">#007D8A</color>
+    <color name="primary_brown">#8A391B</color>
+    <color name="color_pri_v">#D9E7FE</color>
+
+</resources>

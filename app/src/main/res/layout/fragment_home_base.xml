@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".HomeBaseFragment">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/inner_host_nav"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navGraph="@navigation/inner_nav_graph"  />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:id="@+id/bottom_menu"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity="bottom">
+
+                <com.google.android.material.bottomappbar.BottomAppBar
+                    android:id="@+id/bottomAppBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:layout_gravity="bottom"
+                    android:backgroundTint="@color/bottom_app_menu">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/add_profile"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:drawableTop="@drawable/ic_profile_set"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:text="Profile"
+                            android:textSize="@dimen/_10ssp"
+                            android:textAllCaps="false"
+                            android:textColor="#000000">
+
+                        </TextView>
+
+                        <TextView
+                            android:id="@+id/report"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:drawableTop="@drawable/ic_report"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:text="Report"
+                            android:textSize="@dimen/_10ssp"
+                            android:textAllCaps="false"
+                            android:textColor="#000000">
+
+                        </TextView>
+
+                        <TextView
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:drawableTop="@drawable/ic_report"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:textColor="#000000"
+                            android:textSize="@dimen/_10ssp"
+                            android:textAllCaps="false"
+                            android:visibility="invisible">
+
+                        </TextView>
+
+
+                        <TextView
+                            android:id="@+id/setting"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:drawableTop="@drawable/ic_setting"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:text="Setting"
+                            android:textSize="@dimen/_10ssp"
+                            android:textAllCaps="false"
+                            android:textColor="#000000">
+
+                        </TextView>
+
+                        <TextView
+                            android:id="@+id/logout"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:drawableTop="@drawable/ic_logout"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:text="Logout"
+                            android:textSize="@dimen/_10ssp"
+                            android:textAllCaps="false"
+                            android:textColor="#000000">
+
+                        </TextView>
+
+                    </LinearLayout>
+
+                </com.google.android.material.bottomappbar.BottomAppBar>
+
+
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabre"
+                    android:visibility="gone"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="41dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/_50sdp"
+                    android:clickable="true"
+                    android:contentDescription="TODO"
+                    android:focusable="true"
+                    android:padding="20dp"
+                    android:src="@drawable/ic_add_customer"
+                    app:backgroundTint="@color/button_theme_ix"
+                    app:layout_anchor="@id/bottomAppBar"
+                    app:layout_anchorGravity="center" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/walk_book"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:contentDescription="@string/app_name"
+                    android:backgroundTint="@color/button_theme_ix"
+                    android:background="@drawable/round_circle_colour"
+                    android:padding="@dimen/_1sdp"
+                    android:layout_gravity="center"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_calender"
+                    android:layout_marginBottom="@dimen/_14sdp"
+                    app:fabCustomSize="60dp"
+                    app:rippleColor="@color/white"
+                    app:layout_anchor="@id/bottomAppBar"
+                    app:layout_anchorGravity="center" />
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+<!--            <androidx.coordinatorlayout.widget.CoordinatorLayout-->
+<!--                android:id="@+id/bottom_menu"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:fitsSystemWindows="true">-->
+
+<!--                <com.google.android.material.bottomappbar.BottomAppBar-->
+<!--                    android:id="@+id/bottomAppBar"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    app:backgroundTint="@color/bottom_app_menu"-->
+<!--                    android:theme="@style/BottomNavThem"-->
+<!--                    app:contentInsetLeft="0dp"-->
+<!--                    app:contentInsetStart="0dp"-->
+<!--                    app:contentInsetRight="0dp"-->
+<!--                    app:contentInsetEnd="0dp"-->
+<!--                    app:hideOnScroll="true"-->
+<!--                    app:fabAlignmentMode="center"-->
+<!--                    app:fabCradleMargin="20dp"-->
+<!--                    app:fabCradleRoundedCornerRadius="1dp"-->
+<!--                    app:fabCradleVerticalOffset="5dp">-->
+
+<!--                    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--                        android:id="@+id/bottomNavigationView"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        app:backgroundTint="@color/bottom_app_menu"-->
+
+<!--                        android:background="@color/bottom_app_menu"-->
+<!--                        app:itemTextColor="@color/text_black"-->
+<!--                        app:itemIconTint="@color/text_black"-->
+<!--                        app:menu="@menu/bottom_nav_menu" />-->
+
+<!--                </com.google.android.material.bottomappbar.BottomAppBar>-->
+
+
+<!--            </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
