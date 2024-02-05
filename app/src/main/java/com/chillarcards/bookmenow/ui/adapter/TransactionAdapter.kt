@@ -17,8 +17,6 @@ class TransactionAdapter(private val items: List<Booking>,
                          private val getAdapterUtil: IAdapterViewUtills)
     : RecyclerView.Adapter<TransactionAdapter.ViewHolder>() {
 
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.transaction_adapter, parent, false)
         return ViewHolder(view)

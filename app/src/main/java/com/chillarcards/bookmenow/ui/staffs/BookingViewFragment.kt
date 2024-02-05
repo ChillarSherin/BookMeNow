@@ -1,6 +1,5 @@
-package com.chillarcards.bookmenow.ui.booking
+package com.chillarcards.bookmenow.ui.staffs
 
-import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -9,7 +8,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -19,16 +17,15 @@ import com.chillarcards.bookmenow.databinding.FragmentViewAllBinding
 import com.chillarcards.bookmenow.ui.Booking
 import com.chillarcards.bookmenow.ui.Dummy
 import com.chillarcards.bookmenow.ui.adapter.BookingAdapter
+import com.chillarcards.bookmenow.ui.booking.BookingAllFragmentDirections
 import com.chillarcards.bookmenow.ui.interfaces.IAdapterViewUtills
 import com.chillarcards.bookmenow.utills.CommonDBaseModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import java.util.Calendar
 
 
-class BookingAllFragment : Fragment(), IAdapterViewUtills {
+class BookingViewFragment : Fragment(), IAdapterViewUtills {
 
     lateinit var binding: FragmentViewAllBinding
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,6 +43,7 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
 
         setToolbar()
         binding.headTran.text = getString(R.string.book_head)
+
         val transItem = listOf(
             Booking("8.00 am", 1, "Muhammad Hussain",1),
             Booking("8.15 am", 2, "Vihaan Mehta ",1),
@@ -55,44 +53,16 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
             Booking("9:15 am", 6, "Aditya Joshi ",1),
             Booking("9:30 am", 7, "Layla Akhtar",0),
             Booking("9:45 am", 8, "Aara Farooq ",0),
-            Booking("10:00 am", 9, "Amina Muhammad",1),
-            Booking("10:15 am", 10, "Ibrahim MK ",1),
-            Booking("10:30 am", 11, "Christopher Thomas ",1)
+            Booking("10:00 am", 9, "Amina Muhammad",0),
+            Booking("10:15 am", 10, "Ibrahim MK ",0),
+            Booking("10:30 am", 11, "Christopher Thomas ",0)
         )
+
         val bookingAdapter = BookingAdapter(
-            transItem, context,this@BookingAllFragment)
+            transItem, context,this@BookingViewFragment)
 
         binding.tranRv.adapter = bookingAdapter
         binding.tranRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
-        binding.neztDayTv.setOnClickListener {
-            val calendar = Calendar.getInstance()
-            val currentYear = calendar.get(Calendar.YEAR)
-            val currentMonth = calendar.get(Calendar.MONTH)
-            val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
-
-            val datePickerDialog = DatePickerDialog(
-                requireContext(),
-                { _, year, month, day ->
-                    // Handle the selected date
-                    val selectedDate = "$year-${month + 1}-$day"
-                    // TODO: Do something with the selected date (e.g., display it)
-                },
-                currentYear,
-                currentMonth,
-                currentDay
-            )
-
-            // Set the minimum date to today
-            datePickerDialog.datePicker.minDate = calendar.timeInMillis
-
-            // Set the maximum date to one week from today
-            calendar.add(Calendar.DAY_OF_MONTH, 7)
-            datePickerDialog.datePicker.maxDate = calendar.timeInMillis
-
-            datePickerDialog.show()
-
-        }
 
     }
 
@@ -106,7 +76,6 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
     private fun setBottomSheet(selectedData: ArrayList<CommonDBaseModel>) {
 //        val bottomSheetFragment = BottomSheetFragment(selectedData)
 //        bottomSheetFragment.show((context as AppCompatActivity).supportFragmentManager, bottomSheetFragment.tag)
-//
 
         val bottomSheetView = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_persistent, null)
         val bottomSheetDialog = BottomSheetDialog(requireContext())
@@ -115,6 +84,10 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
         val customerTV: TextView = bottomSheetView.findViewById(R.id.customerNameTextView)
         customerTV.text = selectedData[0].valueStr1
 
+//        val closeButton: ImageView = bottomSheetView.findViewById(R.id.closeButton)
+//        closeButton.setOnClickListener {
+//            bottomSheetDialog.dismiss()
+//        }
 
         val completeButton: TextView = bottomSheetView.findViewById(R.id.completedButton)
         completeButton.setOnClickListener {

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="32dp"
+    android:paddingBottom="32dp">
+
+
+    <!-- Heading -->
+    <TextView
+        android:id="@+id/headingTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Service Provided"
+        android:textStyle="bold"
+        android:textSize="@dimen/_19ssp"
+        android:textColor="@color/text_black"
+        android:layout_marginHorizontal="@dimen/_18sdp"
+        android:layout_marginVertical="@dimen/_18sdp"
+        android:layout_marginTop="@dimen/_18sdp"
+        android:layout_marginBottom="@dimen/_18sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="MissingConstraints" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/service_name"
+        style="@style/ThemeOverlay.Material3.AutoCompleteTextView.FilledBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_18sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:elevation="@dimen/_5sdp"
+        app:boxBackgroundColor="@color/white"
+        app:boxCornerRadiusBottomEnd="@dimen/_22sdp"
+        app:boxCornerRadiusBottomStart="@dimen/_22sdp"
+        app:boxCornerRadiusTopEnd="@dimen/_22sdp"
+        app:boxCornerRadiusTopStart="@dimen/_22sdp"
+        app:boxStrokeColor="@color/color_pri_v"
+        app:boxStrokeErrorColor="@color/primary_peach"
+        app:boxStrokeWidth="0.2dp"
+        app:endIconDrawable="@drawable/ic_close"
+        app:endIconMode="clear_text"
+        app:errorTextColor="@color/secondary_peach"
+        app:hintEnabled="false"
+        app:layout_constraintTop_toBottomOf="@+id/headingTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.1">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/service_name_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_service"
+            android:inputType="text"
+            android:paddingVertical="@dimen/_11sdp"
+            android:textSize="@dimen/_12ssp"
+            tools:ignore="RtlSymmetry" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Service Time TextInputLayout -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/service_time"
+        style="@style/ThemeOverlay.Material3.AutoCompleteTextView.FilledBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_18sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:elevation="@dimen/_5sdp"
+        app:boxBackgroundColor="@color/white"
+        app:boxCornerRadiusBottomEnd="@dimen/_22sdp"
+        app:boxCornerRadiusBottomStart="@dimen/_22sdp"
+        app:boxCornerRadiusTopEnd="@dimen/_22sdp"
+        app:boxCornerRadiusTopStart="@dimen/_22sdp"
+        app:boxStrokeColor="@color/color_pri_v"
+        app:boxStrokeErrorColor="@color/primary_peach"
+        app:boxStrokeWidth="0.2dp"
+        app:endIconDrawable="@drawable/ic_close"
+        app:endIconMode="clear_text"
+        app:errorTextColor="@color/secondary_peach"
+        app:hintEnabled="false"
+        app:layout_constraintTop_toBottomOf="@+id/service_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.1">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/service_time_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_service_rate"
+            android:inputType="text"
+            android:paddingVertical="@dimen/_11sdp"
+            android:textSize="@dimen/_12ssp"
+            tools:ignore="RtlSymmetry" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Service Time TextInputLayout -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/service_min"
+        style="@style/ThemeOverlay.Material3.AutoCompleteTextView.FilledBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_18sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:elevation="@dimen/_5sdp"
+        app:boxBackgroundColor="@color/white"
+        app:boxCornerRadiusBottomEnd="@dimen/_22sdp"
+        app:boxCornerRadiusBottomStart="@dimen/_22sdp"
+        app:boxCornerRadiusTopEnd="@dimen/_22sdp"
+        app:boxCornerRadiusTopStart="@dimen/_22sdp"
+        app:boxStrokeColor="@color/color_pri_v"
+        app:boxStrokeErrorColor="@color/primary_peach"
+        app:boxStrokeWidth="0.2dp"
+        app:endIconDrawable="@drawable/ic_close"
+        app:endIconMode="clear_text"
+        app:errorTextColor="@color/secondary_peach"
+        app:hintEnabled="false"
+        app:layout_constraintTop_toBottomOf="@+id/service_time"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.1">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/service_min_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_service_min"
+            android:inputType="text"
+            android:paddingVertical="@dimen/_11sdp"
+            android:textSize="@dimen/_12ssp"
+            tools:ignore="RtlSymmetry" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Action Buttons LinearLayout -->
+    <LinearLayout
+        android:id="@+id/action_btn"
+        android:layout_width="match_parent"
+        android:layout_height="@android:dimen/app_icon_size"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="1"
+        android:layout_gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/service_min"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="@dimen/_18sdp"
+        android:layout_marginVertical="@dimen/_18sdp">
+
+        <!-- Call Button -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/callButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel"
+                android:background="@drawable/button_gradient"
+                android:paddingVertical="@dimen/_10sdp"
+                android:gravity="center"
+                android:textAllCaps="true"
+                android:textColor="@color/primary_blue"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Completed Button -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:orientation="vertical"
+            android:gravity="center|center_vertical"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/completedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ok"
+                android:background="@drawable/button_gradient"
+                android:paddingVertical="@dimen/_10sdp"
+                android:gravity="center"
+                android:textAllCaps="true"
+                android:textColor="@color/primary_blue"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
+                app:backgroundTint="@null" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -88,7 +88,8 @@ class HomeBaseFragment : Fragment() {
                 R.id.BookingFragment, R.id.StaffBookFragment, R.id.estimateFragment,
                 R.id.successFragment,  R.id.walk_book_Fragment , R.id.reportFragment ,
                 R.id.generalFragment, R.id.profileFragment, R.id.TimeFragment ,
-                R.id.RegisterFragment, R.id.StaffFragment , R.id.AddStaffFragment  -> {
+                R.id.RegisterFragment, R.id.StaffFragment , R.id.AddStaffFragment ,
+                R.id.StaffModuleFragment, R.id.ServiceModuleFragment  -> {
                     binding.bottomMenu.visibility = View.GONE
                 }
                 else -> {

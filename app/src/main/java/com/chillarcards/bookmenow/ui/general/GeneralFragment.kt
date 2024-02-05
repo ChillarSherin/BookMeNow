@@ -46,13 +46,13 @@ class GeneralFragment : Fragment(), IAdapterViewUtills {
         }
         binding.addStaff.setOnClickListener{
             findNavController().navigate(
-                GeneralFragmentDirections.actionGeneralFragmentToStaffFragment(
+                GeneralFragmentDirections.actionGeneralFragmentToModuleStaffFragment(
                 )
             )
         }
         binding.addService.setOnClickListener{
             findNavController().navigate(
-                GeneralFragmentDirections.actionGeneralFragmentToStaffFragment(
+                GeneralFragmentDirections.actionGeneralFragmentToModuleServiceFragment(
                 )
             )
         }

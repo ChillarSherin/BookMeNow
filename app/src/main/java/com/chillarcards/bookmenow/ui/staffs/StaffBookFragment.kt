@@ -85,9 +85,9 @@ class StaffBookFragment : Fragment(), IAdapterViewUtills {
         if(Mode.equals("VIEW")){
             val staffId: String = ValueArray[0].mastIDs.toString()
 
-            findNavController().navigate(
-                StaffBookFragmentDirections.actionStaffFragmentToBookingFragment(staffId)
-            )
+//            findNavController().navigate(
+//                StaffBookFragmentDirections.actionStaffFragmentToAddStaffFragment()
+//            )
         }
     }
 }

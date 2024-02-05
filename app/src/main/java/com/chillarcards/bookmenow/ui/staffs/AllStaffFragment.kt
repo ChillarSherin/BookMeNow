@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chillarcards.bookmenow.R
+import com.chillarcards.bookmenow.databinding.FragmentModuleStaffsBinding
 import com.chillarcards.bookmenow.databinding.FragmentViewStaffsBinding
 import com.chillarcards.bookmenow.ui.DummyStaff
 import com.chillarcards.bookmenow.ui.adapter.AllStaffAdapter
@@ -21,7 +22,7 @@ import com.chillarcards.bookmenow.utills.Const
 
 class AllStaffFragment : Fragment(), IAdapterViewUtills {
 
-    lateinit var binding: FragmentViewStaffsBinding
+    lateinit var binding: FragmentModuleStaffsBinding
 
 
     override fun onCreateView(
@@ -29,7 +30,7 @@ class AllStaffFragment : Fragment(), IAdapterViewUtills {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentViewStaffsBinding.inflate(layoutInflater)
+        binding = FragmentModuleStaffsBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -41,7 +42,10 @@ class AllStaffFragment : Fragment(), IAdapterViewUtills {
 
         setToolbar()
         binding.headTran.text = getString(R.string.staff_view_msg)
-        Const.enableButton(binding.staffConfirmBtn)
+        binding.headOne.text = "Staff Name"
+        binding.headTwo.text = "Rate"
+        binding.headThree.text = "Status"
+        binding.headFour.text = "Update"
 
         val transItem = listOf(
             DummyStaff(1,"Sajith",  "500"),
@@ -57,18 +61,13 @@ class AllStaffFragment : Fragment(), IAdapterViewUtills {
         val staffAdapter = AllStaffAdapter(
             transItem, this@AllStaffFragment,context)
 
-        Const.enableButton(binding.addStaffBtn)
+        Const.enableButton(binding.confirmBtn)
         binding.staffRv.adapter = staffAdapter
         binding.staffRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.addStaffBtn.setOnClickListener {
+        binding.confirmBtn.setOnClickListener {
             findNavController().navigate(
                 AllStaffFragmentDirections.actionStaffFragmentToAddStaffFragment()
             )
-        }
-
-        binding.staffConfirmBtn.setOnClickListener{
-            binding.activateOn.visibility =View.GONE
-            binding.allFrame.visibility =View.VISIBLE
         }
     }
 

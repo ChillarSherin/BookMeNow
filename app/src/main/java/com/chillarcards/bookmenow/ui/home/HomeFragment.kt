@@ -75,7 +75,7 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
         )
 
         val salesTopPicAdapter = HorizontalAdapter(
-            dummyItem, context)
+            dummyItem, context,this@HomeFragment)
         binding.topPicRv.adapter = salesTopPicAdapter
         binding.topPicRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
@@ -127,6 +127,12 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
     ) {
         if(Mode.equals("VIEW")) {
             setBottomSheet(ValueArray)
+        }  else if(Mode.equals("STAFFVIEW")) {
+            val staffId: String = ValueArray[0].mastIDs.toString()
+
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeToStaffViewBookFragment(staffId)
+            )
         }
     }
 

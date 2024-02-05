@@ -4,17 +4,16 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.chillarcards.bookmenow.R
+import com.chillarcards.bookmenow.ui.Booking
 import com.chillarcards.bookmenow.utills.CommonDBaseModel
-import com.chillarcards.bookmenow.ui.Dummy
 import com.chillarcards.bookmenow.ui.interfaces.IAdapterViewUtills
 
-class BookingAdapter(private val items: List<Dummy>,
-                     context: Context?,
+class BookingAdapter(private val items: List<Booking>,
+                     private val context: Context?,
                      private val getAdapterUtil: IAdapterViewUtills)
     : RecyclerView.Adapter<BookingAdapter.ViewHolder>() {
 
@@ -28,6 +27,13 @@ class BookingAdapter(private val items: List<Dummy>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.bind(item)
+        if(item.status == 1) {
+            holder.paymentStatus.text = "Done"
+            context?.let { holder.paymentStatus.setTextColor(it.getColor(R.color.primary_green)) }
+        } else {
+            holder.paymentStatus.text = "Pending"
+            context?.let { holder.paymentStatus.setTextColor(it.getColor(R.color.white)) }
+        }
 
         holder.BookingView.setOnClickListener {
             val commonDObj = CommonDBaseModel()
@@ -46,27 +52,14 @@ class BookingAdapter(private val items: List<Dummy>,
         val BookingView: CardView = itemView.findViewById(R.id.book_frm)
         private val CustomNameTextView: TextView = itemView.findViewById(R.id.tran_cust_name)
         private val TimeTextView: TextView = itemView.findViewById(R.id.tran_cust_date)
+        val paymentStatus: TextView = itemView.findViewById(R.id.tran_sales_name)
 
-
-        fun bind(item: Dummy) {
+        fun bind(item: Booking) {
             TimeTextView.text = item.name
             CustomNameTextView.text = item.custname
+
         }
 
-    }
-
-    fun getFirstLetterAfterSpace(inputText: String): String {
-        val words = inputText.split(" ")
-        val result = StringBuilder()
-
-        for (word in words) {
-            if (word.isNotEmpty()) {
-                val firstChar = word[0]
-                result.append(firstChar)
-            }
-        }
-
-        return result.toString()
     }
 
 }

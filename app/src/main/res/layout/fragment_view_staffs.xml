@@ -81,7 +81,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:hint="@string/fullname"
-                                    android:text="Dr. Jabir Abdullakutty"
+                                    android:text="Enter Full Name"
                                     android:imeOptions="actionNext"
                                     android:inputType="text"
                                     android:textColorHighlight="@color/white"
@@ -113,7 +113,7 @@
                                     android:layout_height="wrap_content"
                                     android:hint="@string/degree"
                                     android:imeOptions="actionNext"
-                                    android:text="Cardiology"
+                                    android:text="Enter Qualification"
                                     android:inputType="text"
                                     android:textColor="@color/white"
                                     android:textColorHint="@color/white" />
@@ -141,7 +141,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:hint="@string/desig"
-                                    android:text="Senior Consultant &amp; Director of Clinical Research (Cardiology)"
+                                    android:text="Enter Designation"
                                     android:imeOptions="actionNext"
                                     android:inputType="textMultiLine"
                                     android:textColor="@color/white"
@@ -171,7 +171,7 @@
                                     android:hint="@string/fee"
                                     android:imeOptions="actionDone"
                                     android:inputType="text"
-                                    android:text="500"
+                                    android:text="@string/fee"
                                     android:ems="4"
                                     android:textColor="@color/white"
                                     android:textColorHint="@color/white" />
@@ -211,7 +211,7 @@
                             android:layout_height="150dp"
                             android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true"
-                            android:src="@drawable/dr"
+                            android:src="@drawable/ic_profile"
                             app:civ_border_color="#FFFFFF"
                             app:civ_border_width="2dp" />
 
@@ -223,13 +223,9 @@
                             android:layout_marginTop="10dp"
                             android:src="@drawable/ic_edit"
                             android:id="@+id/floatingActionButton" />
-
                     </RelativeLayout>
-
-
                 </RelativeLayout>
             </ScrollView>
-
         </LinearLayout>
         <LinearLayout
             android:visibility="gone"

@@ -20,7 +20,8 @@
     <string name="booking_head">view appointment</string>
     <string name="book_head">today\'s booking list</string>
     <string name="staff_head">staff booking report</string>
-    <string name="staff_view">our staffs</string>
+    <string name="staff_view">Our Staffs</string>
+    <string name="service_view">Our Service</string>
     <string name="staff_sele">select staff</string>
     <string name="book_info">Booking Information</string>
     <string name="book_appointment">Book Appointment</string>
@@ -30,11 +31,15 @@
     <string name="estimate">Estimate Bill</string>
     <string name="serv_req">Required Service</string>
     <string name="notify">Notification</string>
+    <string name="min">min</string>
     <string name="est_qr">please use QR code for payment</string>
     <string name="profile_details">Public Profile View</string>
 
     <string name="mobile_number">Mobile Number</string>
     <string name="enter_mobile_number">Enter email or phone number</string>
+    <string name="enter_service">Service Name</string>
+    <string name="enter_service_rate">Service Rate</string>
+    <string name="enter_service_min">Service Duration</string>
     <string name="enter_otp">Enter OTP</string>
     <string name="otp_expired">OTP expired</string>
     <string name="enter_shop_name">shop name</string>
@@ -79,7 +84,8 @@
     <!--  MESSAGE-->
     <string name="logout_alert_message">Are you sure you want to logout?</string>
     <string name="pop_alert_message">Are you sure you want to go back?</string>
-    <string name="staff_view_msg">staff management and disable the service if we are not offering  for the day</string>
+    <string name="staff_view_msg">Staff management and disable the service if we are not offering  for the day</string>
+    <string name="service_view_msg">Rate management and disable the service if we are not offering  for the day</string>
 
     <!--  BUTTON-->
     <string name="retry">try again</string>
