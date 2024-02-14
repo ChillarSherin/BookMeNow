@@ -79,7 +79,7 @@
             android:id="@+id/action_BookingFragment_to_EstimateFragment"
             app:destination="@id/estimateFragment" />
         <argument
-            android:name="staffId"
+            android:name="date"
             android:defaultValue=""
             app:argType="string"
             app:nullable="true" />
@@ -94,7 +94,12 @@
             android:id="@+id/action_estimateFragment_to_SuccessFragment"
             app:destination="@id/successFragment" />
         <argument
-            android:name="staffId"
+            android:name="bookId"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="docName"
             android:defaultValue=""
             app:argType="string"
             app:nullable="true" />
@@ -134,6 +139,12 @@
         android:label="generalFragment"
         tools:layout="@layout/fragment_general">
         <action
+            android:id="@+id/action_generalFragment_to_ProfileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_generalFragment_to_bankFragment"
+            app:destination="@id/BankFragment" />
+        <action
             android:id="@+id/action_generalFragment_to_TimeFragment"
             app:destination="@id/TimeFragment" />
         <action
@@ -147,7 +158,19 @@
         <action
             android:id="@+id/action_generalFragment_to_ModuleServiceFragment"
             app:destination="@id/ServiceModuleFragment" />
+        <action
+            android:id="@+id/action_generalFragment_to_HomeFragment"
+            app:destination="@id/homeFragment" />
 
+    </fragment>
+    <fragment
+        android:id="@+id/BankFragment"
+        android:name="com.chillarcards.bookmenow.ui.register.BankFragment"
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_bank">
+        <action
+            android:id="@+id/action_BankFragment_to_TimeFragment"
+            app:destination="@id/TimeFragment" />
     </fragment>
     <fragment
         android:id="@+id/ServiceModuleFragment"
@@ -216,6 +239,11 @@
         <action
             android:id="@+id/action_TimeFragment_to_HomeFragment"
             app:destination="@id/homeBaseFragment" />
+        <argument
+            android:name="mobile"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 
     <fragment
@@ -232,4 +260,12 @@
             app:argType="string"
             app:nullable="true" />
     </fragment>
+    <fragment
+        android:id="@+id/GeneralHomeFragment"
+        android:name="com.chillarcards.bookmenow.ui.general.HomeGeneralFragment"
+        android:label="HomeGeneralFragment"
+        tools:layout="@layout/fragment_general_home" >
+
+    </fragment>
+
 </navigation>

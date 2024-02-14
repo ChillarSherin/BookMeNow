@@ -8,11 +8,22 @@ import com.chillarcards.bookmenow.data.api.ApiHelper
  * Chillar
  */
 class AuthRepository(private val apiHelper: ApiHelper) {
-
-    suspend fun getOTP(mobileNumber: String, userID: String, token: String) =
-        apiHelper.sendOTP(mobileNumber, userID, token)
-
-    suspend fun verifyOTP(mobileNumber: String, otp: String, userID: String, token: String) =
-        apiHelper.verifyOTP(mobileNumber, otp, userID, token)
-
+    suspend fun verifyMobile(mobileNumber: String) =
+        apiHelper.verifyMobile(mobileNumber)
+   suspend fun getProfile(mobileNumber: String) =
+        apiHelper.getProfile(mobileNumber)
+   suspend fun getWork(doctorId: String) =
+        apiHelper.getWork(doctorId)
+   suspend fun getGeneral() =
+        apiHelper.getGeneral()
+   suspend fun getBankDetails() =
+        apiHelper.getBankDetails()
+    suspend fun getShopClose() =
+        apiHelper.getShopClose()
+    suspend fun getBookigDetails(doctorId: String,date: String) =
+        apiHelper.getBookigDetails(doctorId,date)
+    suspend fun getReport(doctorId: String,date: String) =
+        apiHelper.getReport(doctorId,date)
+    suspend fun getUpdate(bookingId: String) =
+        apiHelper.getUpdate(bookingId)
 }

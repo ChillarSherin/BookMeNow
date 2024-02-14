@@ -83,6 +83,7 @@
                             >
 
                             <EditText
+                                android:id="@+id/p_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="@string/fullname"
@@ -92,7 +93,7 @@
                                 android:textColorHighlight="@color/white"
                                 android:textColor="@color/white"
                                 android:textColorHint="@color/white"
-                                />
+                                android:importantForAutofill="no" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -114,17 +115,18 @@
                             app:hintTextColor="@color/white">
 
                             <EditText
+                                android:id="@+id/p_qualifi"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="@string/degree"
                                 android:imeOptions="actionNext"
                                 android:text="Cardiology"
-                                android:inputType="text"
+                                android:inputType="textMultiLine"
                                 android:textColor="@color/white"
-                                android:textColorHint="@color/white" />
+                                android:textColorHint="@color/white"
+                                android:importantForAutofill="no" />
 
                         </com.google.android.material.textfield.TextInputLayout>
-
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
@@ -143,6 +145,7 @@
                             app:hintTextColor="@color/white">
 
                             <EditText
+                                android:id="@+id/p_desi"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="@string/desig"
@@ -150,9 +153,42 @@
                                 android:imeOptions="actionNext"
                                 android:inputType="textMultiLine"
                                 android:textColor="@color/white"
-                                android:textColorHint="@color/white" />
+                                android:textColorHint="@color/white"
+                                android:importantForAutofill="no" />
 
                         </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:errorTextColor="@color/secondary_peach"
+                            android:textColorHint="@color/white"
+                            android:layout_marginBottom="@dimen/_8sdp"
+                            app:boxStrokeWidth="1dp"
+                            app:boxBackgroundColor="@color/theme_bg"
+                            app:boxStrokeColor="@color/select"
+                            app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
+                            app:boxCornerRadiusBottomStart="@dimen/_8sdp"
+                            app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+                            app:boxCornerRadiusTopStart="@dimen/_8sdp"
+                            app:counterTextColor="@color/white"
+                            app:hintTextColor="@color/white">
+
+                            <EditText
+                                android:id="@+id/p_detail"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/desig"
+                                android:text="Clinical Research (Cardiology)"
+                                android:imeOptions="actionNext"
+                                android:inputType="none"
+                                android:focusable="false"
+                                android:textColor="@color/white"
+                                android:textColorHint="@color/white"
+                                android:importantForAutofill="no" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
@@ -170,16 +206,18 @@
                             app:hintTextColor="@color/white">
 
                             <EditText
-
+                                android:id="@+id/p_fee"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="@string/fee"
                                 android:imeOptions="actionDone"
-                                android:inputType="text"
+                                android:inputType="none"
+                                android:focusable="false"
                                 android:text="500"
                                 android:ems="4"
                                 android:textColor="@color/white"
-                                android:textColorHint="@color/white" />
+                                android:textColorHint="@color/white"
+                                android:importantForAutofill="no" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -200,6 +238,18 @@
                             android:textSize="@dimen/_12ssp"
                             android:textStyle="bold"
                             app:backgroundTint="@null"/>
+                        <ProgressBar
+                            android:id="@+id/otp_progress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:indeterminate="true"
+                            android:indeterminateTint="@color/primary_peach"
+                            android:layout_gravity="center"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="@id/confirm_btn"
+                            app:layout_constraintEnd_toEndOf="@id/confirm_btn"
+                            app:layout_constraintStart_toStartOf="@id/confirm_btn"
+                            app:layout_constraintTop_toTopOf="@id/confirm_btn" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -211,7 +261,7 @@
                     android:layout_alignParentStart="true">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/imageview_account_profile"
+                        android:id="@+id/im_profile"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_alignParentTop="true"
@@ -224,7 +274,7 @@
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
                         android:layout_alignParentTop="true"
-                        android:layout_alignEnd="@+id/imageview_account_profile"
+                        android:layout_alignEnd="@+id/im_profile"
                         android:layout_marginTop="10dp"
                         android:src="@drawable/ic_edit"
                         android:id="@+id/floatingActionButton" />

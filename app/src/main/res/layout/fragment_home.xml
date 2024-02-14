@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -100,6 +101,7 @@
                             android:layout_margin="@dimen/_3sdp"
                             android:orientation="vertical">
                             <TextView
+                                android:id="@+id/daydate"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Sat 9"
@@ -113,6 +115,7 @@
                                 android:src="@drawable/ic_shop_open" />
 
                             <TextView
+                                android:id="@+id/year"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="2023"
@@ -310,9 +313,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="6"
+                    tools:listitem="@layout/staff_adapter"/>
+
 
             </LinearLayout>
+            <ProgressBar
+                android:id="@+id/otp_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal"
+                android:indeterminateTint="@color/primary_peach"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </LinearLayout>
 

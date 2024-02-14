@@ -22,7 +22,7 @@
             android:layout_gravity="center"
             android:gravity="center">
 
-        <LinearLayout
+         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -106,13 +106,51 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/enter_mobile_number"
-                    android:inputType="text"
+                    android:inputType="phone"
                     android:paddingVertical="@dimen/_11sdp"
                     android:textSize="@dimen/_12ssp"
+                    android:maxLength="10"
+                    android:imeOptions="actionDone"
                     tools:ignore="RtlSymmetry" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/service_type"
+                android:visibility="gone"
+                style="@style/ThemeOverlay.Material3.AutoCompleteTextView.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_18sdp"
+                android:layout_marginBottom="@dimen/_7sdp"
+                android:elevation="@dimen/_5sdp"
+                app:boxBackgroundColor="@color/white"
+                app:boxCornerRadiusBottomEnd="@dimen/_22sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_22sdp"
+                app:boxCornerRadiusTopEnd="@dimen/_22sdp"
+                app:boxCornerRadiusTopStart="@dimen/_22sdp"
+                app:boxStrokeColor="@color/color_pri_v"
+                app:boxStrokeErrorColor="@color/primary_peach"
+                app:boxStrokeWidth="0.2dp"
+                app:errorTextColor="@color/secondary_peach"
+                app:hintEnabled="false"
+                app:layout_constraintBottom_toTopOf="@+id/terms"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/version"
+                app:layout_constraintVertical_bias="0.1"
+                android:background="@drawable/border"
+
+                >
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    style="@style/mySpinnerItemSelectedStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@android:dimen/app_icon_size"
+                    android:overlapAnchor="false"
+                    android:spinnerMode="dropdown" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/login_btn"
@@ -132,8 +170,27 @@
                 android:textStyle="bold"
                 app:backgroundTint="@null"
                 app:layout_constraintTop_toBottomOf="@id/mobile" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/waiting_btn"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_18sdp"
+                android:layout_marginBottom="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_50sdp"
+                android:alpha="0.55"
+                android:background="@drawable/button_gradient"
+                android:enabled="false"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/wait"
+                android:textAllCaps="true"
+                android:textColor="@color/primary_blue"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
+                app:backgroundTint="@null"
+                app:layout_constraintTop_toBottomOf="@id/mobile" />
 
-               <LinearLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -189,7 +246,7 @@
 
 
         </LinearLayout>
-            <TextView
+         <TextView
                 android:id="@+id/bottom_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -204,5 +261,6 @@
                 />
 
         </RelativeLayout>
+
     </ScrollView>
 </layout>

@@ -33,12 +33,70 @@
                 <ImageView
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
+                    android:src="@drawable/ic_shop"
+                    android:contentDescription="TODO" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_8sdp"
+                android:layout_gravity="center|center_vertical">
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Booking Link Status"
+                    android:textColor="@color/white"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/_13ssp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:gravity="end|center_vertical">
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/shop_status"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    app:trackTint="@color/switch_track_selector"
+                    app:thumbTint="@color/switch_thumb_selector"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profile"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:gravity="start"
+            android:orientation="horizontal"
+            android:layout_marginVertical="@dimen/_8sdp"
+            android:layout_marginHorizontal="@dimen/_18sdp"
+            android:background="@drawable/theme_border">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_18sdp"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
                     android:src="@drawable/ic_profile"
                     android:contentDescription="TODO" />
 
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/profile"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -47,7 +105,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Account Setting"
+                    android:text="Profile Setting"
                     android:textColor="@color/white"
                     android:gravity="center_vertical"
                     android:textSize="@dimen/_13ssp" />
@@ -72,66 +130,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
-            android:gravity="start"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="@dimen/_18sdp"
-            android:layout_marginVertical="@dimen/_8sdp"
-            android:background="@drawable/theme_border">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/_18sdp"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_25sdp"
-                    android:src="@drawable/ic_shop"
-                    android:contentDescription="TODO" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_margin="@dimen/_8sdp"
-                android:layout_gravity="center|center_vertical">
-                <TextView
-                    android:id="@+id/date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Shop Public Status"
-                    android:textColor="@color/white"
-                    android:gravity="center_vertical"
-                    android:textSize="@dimen/_13ssp" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_margin="@dimen/_8sdp"
-                android:paddingEnd="@dimen/_10sdp"
-                android:gravity="end|center_vertical">
-
-                <Switch
-                    android:id="@+id/shop_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:switchMinWidth="56dp"
-                    android:layout_below="@+id/switch1"
-                    android:layout_alignLeft="@+id/switch1"
-                    android:textOff="OFF"
-                    android:textOn ="ON"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
+            android:visibility="gone"
             android:id="@+id/add_staff"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
@@ -187,6 +186,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/add_service"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
@@ -243,6 +243,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
             android:gravity="start"
@@ -302,6 +303,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
             android:gravity="start"
@@ -394,10 +396,10 @@
                 app:suffixTextColor="@color/white"
                 app:counterTextColor="@color/white"
                 app:hintTextColor="@color/white"
-                app:endIconDrawable="@android:drawable/ic_delete"
                 app:endIconMode="custom"
                 app:endIconTint="@color/white"
                 >
+<!--                app:endIconDrawable="@android:drawable/ic_delete"-->
 
                 <EditText
                     android:id="@+id/interval"
@@ -406,10 +408,12 @@
                     android:hint="@string/interval"
                     android:imeOptions="actionDone"
                     android:inputType="number"
-                    android:text="15"
+                    android:text=""
                     android:maxLength="2"
+                    android:focusable="false"
                     android:textColor="@color/white"
-                    android:textColorHint="@color/white" />
+                    android:textColorHint="@color/white"
+                    android:importantForAutofill="no" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -472,6 +476,64 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/bank_frm"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:gravity="start"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="@dimen/_18sdp"
+            android:layout_marginVertical="@dimen/_8sdp"
+            android:background="@drawable/theme_border">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_18sdp"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:src="@drawable/ic_bank"
+                    android:contentDescription="TODO" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_8sdp"
+                android:layout_gravity="center|center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="Bank Account Setting"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13ssp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:gravity="end|center_vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
+                    android:src="@drawable/ic_next"
+                    android:contentDescription="TODO" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/confirm_btn"
             android:layout_width="match_parent"
@@ -489,6 +551,19 @@
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold"
             app:backgroundTint="@null"/>
+
+        <ProgressBar
+            android:id="@+id/otp_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/primary_peach"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/confirm_btn"
+            app:layout_constraintEnd_toEndOf="@id/confirm_btn"
+            app:layout_constraintStart_toStartOf="@id/confirm_btn"
+            app:layout_constraintTop_toTopOf="@id/confirm_btn" />
 
     </LinearLayout>
 

@@ -19,6 +19,7 @@ import com.chillarcards.bookmenow.databinding.FragmentHomeBaseBinding
 import com.chillarcards.bookmenow.utills.PrefManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.util.Calendar
+import java.util.Locale
 
 class HomeBaseFragment : Fragment() {
 
@@ -60,9 +61,14 @@ class HomeBaseFragment : Fragment() {
                 requireContext(),
                 { _, year, month, day ->
                     // Handle the selected date
-                    val selectedDate = "$year-${month + 1}-$day"
+                    val selectedDate = "$year-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}"
                     // TODO: Do something with the selected date (e.g., display it)
-                    navController.navigate(R.id.BookingFragment)
+                   //   navController.navigate(R.id.BookingFragment)
+
+                    // Navigate to BookingFragment with selected date using Safe Args
+                    val action = HomeFragmentDirections.actionHomeFragmentToBookingFragment(selectedDate,)
+                    navController.navigate(action)
+
                 },
                 currentYear,
                 currentMonth,
@@ -88,8 +94,8 @@ class HomeBaseFragment : Fragment() {
                 R.id.BookingFragment, R.id.StaffBookFragment, R.id.estimateFragment,
                 R.id.successFragment,  R.id.walk_book_Fragment , R.id.reportFragment ,
                 R.id.generalFragment, R.id.profileFragment, R.id.TimeFragment ,
-                R.id.RegisterFragment, R.id.StaffFragment , R.id.AddStaffFragment ,
-                R.id.StaffModuleFragment, R.id.ServiceModuleFragment  -> {
+                R.id.RegisterFragment, R.id.StaffFragment , R.id.AddStaffFragment,
+                R.id.BankFragment , R.id.StaffModuleFragment, R.id.ServiceModuleFragment  -> {
                     binding.bottomMenu.visibility = View.GONE
                 }
                 else -> {

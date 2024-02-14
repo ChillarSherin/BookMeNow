@@ -73,10 +73,7 @@ class RegisterFragment : Fragment() {
         Const.enableButton(binding.confirmBtn)
 
         binding.confirmBtn.setOnClickListener {
-            findNavController().navigate(
-                RegisterFragmentDirections.actionRegisterFragmentToBankFragment(
-                )
-            )
+
         }
 
     }

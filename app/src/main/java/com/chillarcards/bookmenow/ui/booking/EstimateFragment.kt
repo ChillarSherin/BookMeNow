@@ -10,18 +10,31 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.chillarcards.bookmenow.R
 import com.chillarcards.bookmenow.databinding.FragmentEstimateBinding
+import com.chillarcards.bookmenow.ui.adapter.BookingAdapter
+import com.chillarcards.bookmenow.ui.home.HomeFragmentDirections
 import com.chillarcards.bookmenow.ui.interfaces.IAdapterViewUtills
+import com.chillarcards.bookmenow.ui.register.OTPFragmentArgs
 import com.chillarcards.bookmenow.utills.BottomSheetFragment
 import com.chillarcards.bookmenow.utills.CommonDBaseModel
+import com.chillarcards.bookmenow.utills.Const
+import com.chillarcards.bookmenow.utills.PrefManager
+import com.chillarcards.bookmenow.utills.Status
+import com.chillarcards.bookmenow.viewmodel.BookingViewModel
+import com.chillarcards.bookmenow.viewmodel.RegisterViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class EstimateFragment : Fragment(), IAdapterViewUtills {
 
     lateinit var binding: FragmentEstimateBinding
     private var mediaPlayer: MediaPlayer? = null
-
+    private val bookingViewModel by viewModel<BookingViewModel>()
+    private lateinit var prefManager: PrefManager
+    private val args: EstimateFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,33 +47,40 @@ class EstimateFragment : Fragment(), IAdapterViewUtills {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val pInfo =
-            activity?.let { activity?.packageManager!!.getPackageInfo(it.packageName, PackageManager.GET_ACTIVITIES) }
+        prefManager = PrefManager(requireContext())
 
         setToolbar()
 
+        binding.entityName.text = args.docName
         binding.cashButton.setOnClickListener {
             // Initialize MediaPlayer in onCreate or another appropriate method
             mediaPlayer = MediaPlayer.create(context, R.raw.bell_audio)
             if (!mediaPlayer!!.isPlaying) {
                 mediaPlayer!!.start()
             }
-            findNavController().navigate(
-                EstimateFragmentDirections.actionEstimateFragmentToSuccessFragment(
-                )
-            )
+            bookingViewModel.run {
+                bookingId.value = args.bookId
+                getConfirmBooking()
+            }
+            setUpObserver()
+
         }
+
         binding.upiButton.setOnClickListener {
             // Initialize MediaPlayer in onCreate or another appropriate method
             mediaPlayer = MediaPlayer.create(context, R.raw.bell_audio)
             if (!mediaPlayer!!.isPlaying) {
                 mediaPlayer!!.start()
             }
-            findNavController().navigate(
-                EstimateFragmentDirections.actionEstimateFragmentToSuccessFragment(
-                )
-            )
+            bookingViewModel.run {
+                bookingId.value = args.bookId
+                getConfirmBooking()
+            }
+            setUpObserver()
+
         }
+
+
     }
 
     private fun setToolbar() {
@@ -78,8 +98,59 @@ class EstimateFragment : Fragment(), IAdapterViewUtills {
 
         val bottomSheetFragment = BottomSheetFragment(selectedData)
         bottomSheetFragment.show((context as AppCompatActivity).supportFragmentManager, bottomSheetFragment.tag)
+    }
 
 
+    private fun setUpObserver() {
+        try {
+            bookingViewModel.bookStatusData.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    when (it.status) {
+                        Status.SUCCESS -> {
+                            it.data?.let { bookStatusData ->
+                                when (bookStatusData.statusCode) {
+                                    200 -> {
+
+                                        findNavController().navigate(
+                                            EstimateFragmentDirections.actionEstimateFragmentToSuccessFragment(
+                                            )
+                                        )
+
+                                    }
+                                    403 -> {
+                                        prefManager.setRefresh("1")
+                                        val authViewModel by viewModel<RegisterViewModel>()
+                                        Const.getNewTokenAPI(
+                                            requireContext(),
+                                            authViewModel,
+                                            viewLifecycleOwner
+                                        )
+
+                                    }
+                                    else -> Const.shortToast(requireContext(), bookStatusData.message)
+
+                                }
+                            }
+                        }
+                        Status.LOADING -> {
+                        }
+                        Status.ERROR -> {
+                            prefManager.setRefresh("1")
+                            val authViewModel by viewModel<RegisterViewModel>()
+                            Const.getNewTokenAPI(
+                                requireContext(),
+                                authViewModel,
+                                viewLifecycleOwner
+                            )
+
+                        }
+                    }
+                }
+            }
+
+        } catch (e: Exception) {
+            Log.e("abc_otp", "setUpObserver: ", e)
+        }
     }
 
     override fun onStop() {

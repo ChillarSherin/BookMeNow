@@ -25,7 +25,6 @@ class App : Application() {
             modules(listOf(appModule, repoModule, viewModelModule))
         }
         FirebaseApp.initializeApp(this)
-
         // Generate Hash Key >>>>> GOOGLE SMS
         //  val appSignatureHashHelper = AppSignatureHashHelper(this)
         //  Log.e(TAG, "HashKey: " + appSignatureHashHelper.appSignatures[0])

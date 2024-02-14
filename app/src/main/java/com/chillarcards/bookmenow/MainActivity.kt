@@ -1,5 +1,6 @@
 package com.chillarcards.bookmenow
 
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.IntentSender
@@ -14,6 +15,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.ActivityCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.fragment.NavHostFragment
 import com.chillarcards.bookmenow.databinding.ActivityMainBinding
@@ -28,6 +30,7 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.firebase.messaging.FirebaseMessaging
+import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity(), ConnectivityReceiver.ConnectivityReceiverListener {
@@ -51,12 +54,12 @@ class MainActivity : AppCompatActivity(), ConnectivityReceiver.ConnectivityRecei
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         );
+
         getFCMToken()
         getUpdate() //Check new version is released for not
+        saveLoginTime()
+        checkLogout()
         installSplashScreen()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            hideStatusBar();
-        }
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -64,6 +67,10 @@ class MainActivity : AppCompatActivity(), ConnectivityReceiver.ConnectivityRecei
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         prefManager = PrefManager(this)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            hideStatusBar();
+        }
+
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
@@ -73,7 +80,12 @@ class MainActivity : AppCompatActivity(), ConnectivityReceiver.ConnectivityRecei
         justLoggedIn = false
 
         val destination =
-            if (prefManager.isLoggedIn()) R.id.homeBaseFragment else R.id.mobileFragment
+            if (prefManager.isLoggedIn()){
+                if(prefManager.getStatus() == 0)
+                 R.id.GeneralHomeFragment
+                else R.id.homeBaseFragment
+            } else R.id.mobileFragment
+
         navGraph.setStartDestination(destination)
         navController.graph = navGraph
 
@@ -233,4 +245,40 @@ class MainActivity : AppCompatActivity(), ConnectivityReceiver.ConnectivityRecei
             }
     }
 
+    fun saveLoginTime() {
+        val currentTimeMillis = System.currentTimeMillis()
+        val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putLong("loginTime", currentTimeMillis)
+        editor.apply()
+    }
+
+    // Function to check if automatic logout is required
+    fun checkLogout() {
+        val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+        val loginTime = sharedPreferences.getLong("loginTime", 0)
+        val currentTimeMillis = System.currentTimeMillis()
+
+        // Calculate the difference in milliseconds
+        val difference = currentTimeMillis - loginTime
+
+        // Convert milliseconds to days
+        val daysDifference = TimeUnit.MILLISECONDS.toDays(difference)
+
+        if (daysDifference >= 1) {
+            // Perform logout
+            logoutUser()
+        }
+    }
+
+    // Function to logout the user
+    fun logoutUser() {
+        prefManager.clearAll()
+
+        val intent = Intent(this.applicationContext, MainActivity::class.java)
+        ActivityCompat.finishAffinity(this)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+
+    }
 }

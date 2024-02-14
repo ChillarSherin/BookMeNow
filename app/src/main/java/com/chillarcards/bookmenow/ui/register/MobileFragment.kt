@@ -24,6 +24,13 @@ import androidx.navigation.fragment.findNavController
 import com.chillarcards.bookmenow.R
 import com.chillarcards.bookmenow.databinding.FragmentMobileBinding
 import com.chillarcards.bookmenow.utills.Const
+import com.google.firebase.FirebaseApp
+import com.google.firebase.FirebaseException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthOptions
+import com.google.firebase.auth.PhoneAuthProvider
+import java.util.concurrent.TimeUnit
 
 
 class MobileFragment : Fragment() {
@@ -31,10 +38,17 @@ class MobileFragment : Fragment() {
     lateinit var binding: FragmentMobileBinding
 
     private val mobileRegex = "^[7869]\\d{9}$".toRegex()
-    private val emailRegex = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})".toRegex()
 
     private var statusTrue: Boolean = false
     private var tempMobileNo: String = ""
+    private var selectedItemId: Int = -1
+
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
+    private var mVerificationId = ""
+    private lateinit var mResendToken: PhoneAuthProvider.ForceResendingToken
+
+    // 9447574837
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,19 +64,60 @@ class MobileFragment : Fragment() {
         val pInfo =
             activity?.let { activity?.packageManager!!.getPackageInfo(it.packageName, PackageManager.GET_ACTIVITIES) }
         val versionName = pInfo?.versionName //Version Name
+        FirebaseApp.initializeApp(this.requireContext())
+        firebaseAuth = FirebaseAuth.getInstance()
+
+        callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                // This callback will be invoked in two situations:
+                // 1 - Instant verification. In some cases the phone number can be instantly
+                //     verified without needing to send or enter a verification code.
+                // 2 - Auto-retrieval. On some devices Google Play services can automatically
+                //     detect the incoming verification SMS and perform verification without
+                //     user action.
+                Log.d(TAG, "onVerificationCompleted:$credential")
+            }
+
+            override fun onVerificationFailed(e: FirebaseException) {
+                // This callback is invoked in an invalid request for verification is made,
+                // for instance if the the phone number format is not valid.
+                Log.w(TAG, "onVerificationFailed", e)
+            }
+
+            override fun onCodeSent(
+                verificationId: String,
+                token: PhoneAuthProvider.ForceResendingToken
+            ) {
+                // The SMS verification code has been sent to the provided phone number,
+                // we now need to ask the user to enter the code and then construct a credential
+                // by combining the code with a verification ID.
+
+                mVerificationId = verificationId
+                mResendToken = token
+                Log.d(TAG, "onCodeSent:$verificationId")
+                findNavController().navigate(
+                    MobileFragmentDirections.actionMobileFragmentToOTPFragment(tempMobileNo,
+                        mVerificationId, mResendToken.toString()
+                    )
+                )
+                Const.shortToast(requireContext(),"OTP Shared")
+            }
+        }
 
         binding.version.text = "${getString(R.string.version)}" + Const.ver_title + versionName
 
         binding.mobileEt.addTextChangedListener {
             val input = it.toString()
             if (input.isNotEmpty()) {
-                if (!input.matches(mobileRegex) && !input.matches(emailRegex)) {
-                    binding.mobile.error = "Enter a valid email or mobile number"
+                if (!input.matches(mobileRegex)) {
+                    binding.mobile.error = "Enter a valid mobile number"
                     Const.disableButton(binding.loginBtn)
                 } else if (input.length == 10 && input.matches(mobileRegex)) {
                     binding.mobile.error = null
                     binding.mobile.isErrorEnabled = false
                     Const.enableButton(binding.loginBtn)
+                    startPhoneNumberVerification(input)
+
                     tempMobileNo = input
                     val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     imm.hideSoftInputFromWindow(view.windowToken, 0)
@@ -72,7 +127,8 @@ class MobileFragment : Fragment() {
                     Const.enableButton(binding.loginBtn)
                     tempMobileNo = input
                 }
-            } else {
+            }
+            else {
                 binding.mobile.error = null
                 binding.mobile.isErrorEnabled = false
             }
@@ -80,23 +136,27 @@ class MobileFragment : Fragment() {
 
         setUpObserver()
 
-
-//        binding.terms.setOnClickListener {
-//            binding.terms.isChecked = false
-//            findNavController().navigate(MobileFragmentDirections.actionMobileFragmentToPrivacyPolicyFragment(statusTrue,tempMobileNo))
-//        }
-
         binding.loginBtn.setOnClickListener {
             val input = binding.mobileEt.text.toString()
             when {
-                !mobileRegex.containsMatchIn(input) && !emailRegex.containsMatchIn(input) -> {
+                !mobileRegex.containsMatchIn(input) -> {
                     binding.mobile.error = getString(R.string.mob_validation)
                 }
                 else -> {
+                    binding.loginBtn.visibility =View.GONE
+                    binding.waitingBtn.visibility =View.VISIBLE
                     try {
                         findNavController().navigate(
-                            MobileFragmentDirections.actionMobileFragmentToOTPFragment(input)
+                            MobileFragmentDirections.actionMobileFragmentToOTPFragment(input,
+                                mVerificationId, mResendToken.toString()
+                            )
                         )
+
+//                        findNavController().navigate(
+//                            MobileFragmentDirections.actionMobileFragmentToOTPFragment(input,
+//                                mVerificationId, "mResendToken"
+//                            )
+//                        )
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
@@ -104,7 +164,12 @@ class MobileFragment : Fragment() {
             }
         }
 
+        binding.waitingBtn.setOnClickListener{
+            Const.shortToast(requireContext(),"Please check your message inbox")
+        }
+
         setTextColorForTerms()
+
     }
 
 
@@ -185,5 +250,22 @@ class MobileFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         Log.d("abc_mob", "onDestroy: ")
+    }
+
+    private fun startPhoneNumberVerification(phoneNumber: String) {
+
+        Log.w(TAG, "onVerificationMOb +91$phoneNumber")
+
+        val options = PhoneAuthOptions.newBuilder(firebaseAuth)
+            .setPhoneNumber("+91$phoneNumber")
+            .setTimeout(60L, TimeUnit.SECONDS)
+            .setActivity(requireActivity())
+            .setCallbacks(callbacks) // OnVerificationStateChangedCallbacks
+            .build()
+
+        PhoneAuthProvider.verifyPhoneNumber(options)
+    }
+   companion object {
+        private const val TAG = "MobileFragment"
     }
 }

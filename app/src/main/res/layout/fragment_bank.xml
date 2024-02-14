@@ -15,12 +15,15 @@
         android:overScrollMode="never"
         android:scrollbars="none">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_18sdp"
+            android:orientation="vertical"
             >
 
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar" />
 
             <TextView
                 android:id="@+id/title"
@@ -30,7 +33,7 @@
                 android:text="@string/bank_head"
                 android:textAlignment="textStart"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_25ssp"
+                android:textSize="@dimen/_20ssp"
                 android:layout_marginHorizontal="@dimen/_18sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -41,156 +44,173 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/bank_account"
-                style="@style/ThemeOverlay.Material3.AutoCompleteTextView.FilledBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_50sdp"
                 android:layout_marginHorizontal="@dimen/_18sdp"
-                android:layout_marginBottom="@dimen/_7sdp"
+                android:layout_marginBottom="@dimen/_3sdp"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:elevation="@dimen/_5sdp"
-                app:boxBackgroundColor="@color/white"
-                app:boxCornerRadiusBottomEnd="@dimen/_22sdp"
-                app:boxCornerRadiusBottomStart="@dimen/_22sdp"
-                app:boxCornerRadiusTopEnd="@dimen/_22sdp"
-                app:boxCornerRadiusTopStart="@dimen/_22sdp"
-                app:boxStrokeColor="@color/color_pri_v"
-                app:boxStrokeErrorColor="@color/primary_peach"
-                app:boxStrokeWidth="0.2dp"
-                app:endIconDrawable="@drawable/ic_mobile"
-                app:endIconMode="custom"
                 app:errorTextColor="@color/secondary_peach"
-                app:hintEnabled="false"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/title"
-                app:layout_constraintVertical_bias="0.6"
-                >
+                android:textColorHint="@color/white"
+                app:boxStrokeWidth="1dp"
+                app:boxBackgroundColor="@color/theme_bg"
+                app:boxStrokeColor="@color/select"
+                app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_8sdp"
+                app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+                app:boxCornerRadiusTopStart="@dimen/_8sdp"
+                app:counterTextColor="@color/white"
+                app:hintTextColor="@color/white"
+                tools:ignore="MissingConstraints">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
                     android:id="@+id/bank_account_et"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:hint="@string/enter_bank_acc"
-                    android:inputType="text"
-                    android:maxLength="25"
-                    android:paddingVertical="@dimen/_11sdp"
-                    android:textSize="@dimen/_12ssp"
-                    tools:ignore="RtlSymmetry" />
+                    android:text="@string/enter_bank_acc"
+                    android:imeOptions="actionNext"
+                    android:textColorHighlight="@color/white"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:inputType="none"
+                    android:focusable="false"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/bank_acc_re"
-                style="@style/ThemeOverlay.Material3.AutoCompleteTextView.FilledBox"
+                android:visibility="gone"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_50sdp"
                 android:layout_marginHorizontal="@dimen/_18sdp"
-                android:layout_marginBottom="@dimen/_7sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:elevation="@dimen/_5sdp"
-                app:boxBackgroundColor="@color/white"
-                app:boxCornerRadiusBottomEnd="@dimen/_22sdp"
-                app:boxCornerRadiusBottomStart="@dimen/_22sdp"
-                app:boxCornerRadiusTopEnd="@dimen/_22sdp"
-                app:boxCornerRadiusTopStart="@dimen/_22sdp"
-                app:boxStrokeColor="@color/color_pri_v"
-                app:boxStrokeErrorColor="@color/primary_peach"
-                app:boxStrokeWidth="0.2dp"
-                app:endIconDrawable="@drawable/ic_mobile"
-                app:endIconMode="custom"
+                android:layout_marginBottom="@dimen/_3sdp"
                 app:errorTextColor="@color/secondary_peach"
-                app:hintEnabled="false"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/bank_account"
-                app:layout_constraintVertical_bias="0.6"
-                >
+                android:textColorHint="@color/white"
+                app:boxStrokeWidth="1dp"
+                app:boxBackgroundColor="@color/theme_bg"
+                app:boxStrokeColor="@color/select"
+                app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_8sdp"
+                app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+                app:boxCornerRadiusTopStart="@dimen/_8sdp"
+                app:counterTextColor="@color/white"
+                app:hintTextColor="@color/white"
+                tools:ignore="MissingConstraints">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/bank_address_et"
+                <EditText
+                    android:id="@+id/bank_account_re_et"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:hint="@string/enter_bank_acc_re"
-                    android:inputType="text"
-                    android:maxLength="10"
-                    android:paddingVertical="@dimen/_11sdp"
-                    android:textSize="@dimen/_12ssp"
-                    tools:ignore="RtlSymmetry" />
+                    android:text="@string/enter_bank_acc_re"
+                    android:imeOptions="actionNext"
+                    android:textColorHighlight="@color/white"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:inputType="none"
+                    android:focusable="false"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/bank_ifsc"
-                style="@style/ThemeOverlay.Material3.AutoCompleteTextView.FilledBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_50sdp"
                 android:layout_marginHorizontal="@dimen/_18sdp"
                 android:layout_marginBottom="@dimen/_7sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-
-                android:elevation="@dimen/_5sdp"
-                app:boxBackgroundColor="@color/white"
-                app:boxCornerRadiusBottomEnd="@dimen/_22sdp"
-                app:boxCornerRadiusBottomStart="@dimen/_22sdp"
-                app:boxCornerRadiusTopEnd="@dimen/_22sdp"
-                app:boxCornerRadiusTopStart="@dimen/_22sdp"
-                app:boxStrokeColor="@color/color_pri_v"
-                app:boxStrokeErrorColor="@color/primary_peach"
-                app:boxStrokeWidth="0.2dp"
-                app:endIconDrawable="@drawable/ic_mobile"
-                app:endIconMode="custom"
                 app:errorTextColor="@color/secondary_peach"
-                app:hintEnabled="false"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/bank_acc_re"
-                app:layout_constraintVertical_bias="0.6"
-                >
+                android:textColorHint="@color/white"
+                app:boxStrokeWidth="1dp"
+                app:boxBackgroundColor="@color/theme_bg"
+                app:boxStrokeColor="@color/select"
+                app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_8sdp"
+                app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+                app:boxCornerRadiusTopStart="@dimen/_8sdp"
+                app:counterTextColor="@color/white"
+                app:hintTextColor="@color/white"
+                tools:ignore="MissingConstraints">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
                     android:id="@+id/bank_ifsc_et"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:hint="@string/enter_bank_ifsc"
-                    android:inputType="number"
-                    android:paddingVertical="@dimen/_11sdp"
-                    android:textSize="@dimen/_12ssp"
-                    tools:ignore="RtlSymmetry" />
+                    android:text="@string/enter_bank_ifsc"
+                    android:imeOptions="actionNext"
+                    android:textColorHighlight="@color/white"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:inputType="none"
+                    android:focusable="false"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/bank_name"
-                style="@style/ThemeOverlay.Material3.AutoCompleteTextView.FilledBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_50sdp"
                 android:layout_marginHorizontal="@dimen/_18sdp"
                 android:layout_marginBottom="@dimen/_7sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:elevation="@dimen/_5sdp"
-                app:boxBackgroundColor="@color/white"
-                app:boxCornerRadiusBottomEnd="@dimen/_22sdp"
-                app:boxCornerRadiusBottomStart="@dimen/_22sdp"
-                app:boxCornerRadiusTopEnd="@dimen/_22sdp"
-                app:boxCornerRadiusTopStart="@dimen/_22sdp"
-                app:boxStrokeColor="@color/color_pri_v"
-                app:boxStrokeErrorColor="@color/primary_peach"
-                app:boxStrokeWidth="0.2dp"
-                app:endIconDrawable="@drawable/ic_mobile"
-                app:endIconMode="custom"
                 app:errorTextColor="@color/secondary_peach"
-                app:hintEnabled="false"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/bank_ifsc"
-                app:layout_constraintVertical_bias="0.6">
+                android:textColorHint="@color/white"
+                app:boxStrokeWidth="1dp"
+                app:boxBackgroundColor="@color/theme_bg"
+                app:boxStrokeColor="@color/select"
+                app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_8sdp"
+                app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+                app:boxCornerRadiusTopStart="@dimen/_8sdp"
+                app:counterTextColor="@color/white"
+                app:hintTextColor="@color/white"
+                tools:ignore="MissingConstraints">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
                     android:id="@+id/bank_name_et"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:hint="@string/enter_bank_name"
-                    android:inputType="textEmailAddress"
-                    android:maxLength="10"
-                    android:paddingVertical="@dimen/_11sdp"
-                    android:textSize="@dimen/_12ssp"
-                    tools:ignore="RtlSymmetry" />
+                    android:text="@string/enter_bank_name"
+                    android:imeOptions="actionNext"
+                    android:textColorHighlight="@color/white"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:inputType="none"
+                    android:focusable="false"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/bank_holder_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_marginHorizontal="@dimen/_18sdp"
+                android:layout_marginBottom="@dimen/_7sdp"
+                app:errorTextColor="@color/secondary_peach"
+                android:textColorHint="@color/white"
+                app:boxStrokeWidth="1dp"
+                app:boxBackgroundColor="@color/theme_bg"
+                app:boxStrokeColor="@color/select"
+                app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_8sdp"
+                app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+                app:boxCornerRadiusTopStart="@dimen/_8sdp"
+                app:counterTextColor="@color/white"
+                app:hintTextColor="@color/white"
+                tools:ignore="MissingConstraints">
+
+                <EditText
+                    android:id="@+id/bank_holder_name_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/enter_bank_holder"
+                    android:text="@string/enter_bank_holder"
+                    android:imeOptions="actionNext"
+                    android:textColorHighlight="@color/white"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:inputType="none"
+                    android:focusable="false"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -213,7 +233,6 @@
                 android:textStyle="bold"
                 app:backgroundTint="@null"
                 app:layout_constraintTop_toBottomOf="@+id/bank_name"/>
-
 
             <ProgressBar
                 android:id="@+id/otp_progress"
@@ -241,7 +260,7 @@
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </ScrollView>
 

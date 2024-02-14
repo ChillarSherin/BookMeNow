@@ -32,8 +32,9 @@
             android:baselineAligned="false">
 
             <LinearLayout
+                android:id="@+id/choose_date"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="0.6"
                 android:layout_marginEnd="@dimen/_8sdp"
                 android:gravity="center"
@@ -67,6 +68,7 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/_13ssp" />
                     <TextView
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Today"
@@ -116,7 +118,6 @@
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:weightSum="1"
-                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_gravity="center"
                 app:layout_constraintTop_toBottomOf="@+id/top_staff_frame"
                 android:baselineAligned="false">
@@ -144,6 +145,7 @@
                     android:layout_gravity="center">
 
                     <TextView
+                        android:visibility="invisible"
                         android:id="@+id/booking_view_all"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -174,6 +176,18 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
             </LinearLayout>
+            <ProgressBar
+                android:id="@+id/otp_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal"
+                android:indeterminateTint="@color/primary_peach"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </LinearLayout>
 

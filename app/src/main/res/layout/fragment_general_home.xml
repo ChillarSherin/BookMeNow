@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/root_cl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/bg_gradient">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_heading"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_20ssp"
+            android:layout_marginVertical="@dimen/_18sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/logo"
+            />
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_80sdp"
+            android:src="@drawable/login"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/_18sdp"
+            android:contentDescription="TODO"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/otp_head_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginVertical="@dimen/_18sdp"
+            android:text="Your application need to complete following options to view booking"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@id/title"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:gravity="start"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="@dimen/_18sdp"
+            android:layout_marginVertical="@dimen/_8sdp"
+            android:background="@drawable/theme_border">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_18sdp"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:src="@drawable/ic_shop"
+                    android:contentDescription="TODO" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_8sdp"
+                android:layout_gravity="center|center_vertical">
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Booking Link Status"
+                    android:textColor="@color/white"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/_13ssp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/onoff_shop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingEnd="@dimen/_10sdp"
+                android:gravity="end|center_vertical">
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/shop_status"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    app:trackTint="@color/switch_track_selector"
+                    app:thumbTint="@color/switch_thumb_selector"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/profile"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:gravity="start"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="@dimen/_18sdp"
+            android:background="@drawable/theme_border">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_18sdp"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:src="@drawable/ic_profile"
+                    android:contentDescription="TODO" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_8sdp"
+                android:layout_gravity="center|center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Profile Setting"
+                    android:textColor="@color/white"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/_13ssp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:gravity="end|center_vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
+                    android:src="@drawable/ic_next"
+                    android:contentDescription="TODO" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginHorizontal="@dimen/_18sdp"
+            android:text="@string/working_hrs"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:gravity="start"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="@dimen/_18sdp"
+            android:layout_marginVertical="@dimen/_8sdp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/interval_frm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/white"
+                app:boxStrokeWidth="1dp"
+                app:boxBackgroundColor="@color/theme_bg"
+                app:boxStrokeColor="@color/select"
+                app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_8sdp"
+                app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+                app:boxCornerRadiusTopStart="@dimen/_8sdp"
+                app:suffixText="min"
+                app:suffixTextColor="@color/white"
+                app:counterTextColor="@color/white"
+                app:hintTextColor="@color/white"
+                >
+
+                <EditText
+                    android:id="@+id/interval"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/interval"
+                    android:imeOptions="actionDone"
+                    android:inputType="none"
+                    android:text="15"
+                    android:maxLength="2"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:focusable="false"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/working_hrs"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:gravity="start"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="@dimen/_18sdp"
+            android:layout_marginVertical="@dimen/_8sdp"
+            android:background="@drawable/theme_border">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_18sdp"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:src="@drawable/ic_time"
+                    android:contentDescription="TODO" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/working_frm"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_8sdp"
+                android:layout_gravity="center|center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Working Hours"
+                    android:textColor="@color/white"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/_13ssp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:gravity="end|center_vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
+                    android:src="@drawable/ic_next"
+                    android:contentDescription="TODO" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bank_frm"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:gravity="start"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="@dimen/_18sdp"
+            android:layout_marginVertical="@dimen/_8sdp"
+            android:background="@drawable/theme_border">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_18sdp"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:src="@drawable/ic_bank"
+                    android:contentDescription="TODO" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_8sdp"
+                android:layout_gravity="center|center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="Bank Account Setting"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13ssp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:gravity="end|center_vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
+                    android:src="@drawable/ic_next"
+                    android:contentDescription="TODO" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/confirm_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_18sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:alpha="0.55"
+            android:background="@drawable/button_gradient"
+            android:enabled="false"
+            android:paddingVertical="@dimen/_10sdp"
+            android:text="@string/book"
+            android:textAllCaps="true"
+            android:textColor="@color/primary_blue"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            app:backgroundTint="@null"/>
+
+        <ProgressBar
+            android:id="@+id/otp_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/primary_peach"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/confirm_btn"
+            app:layout_constraintEnd_toEndOf="@id/confirm_btn"
+            app:layout_constraintStart_toStartOf="@id/confirm_btn"
+            app:layout_constraintTop_toTopOf="@id/confirm_btn" />
+
+        <TextView
+            android:id="@+id/logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_18sdp"
+            android:layout_marginBottom="@dimen/_25sdp"
+            android:singleLine="true"
+            android:text="@string/logout"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_11ssp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </LinearLayout>
+
+</layout>

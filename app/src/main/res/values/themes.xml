@@ -7,7 +7,7 @@
         <item name="android:colorPrimaryDark">@color/app_theme</item>
         <item name="android:navigationBarColor">@color/primary_blue</item>
         <item name="colorPrimaryVariant">@color/color_pri_v</item>
-        <item name="colorOnPrimary">@color/primary_cyan</item>
+        <item name="colorOnPrimary">@color/primary_blue</item>
         <item name="android:colorBackground">@color/app_theme</item>
         <item name="colorOnBackground">@color/color_pri_v</item>
         <item name="colorSecondary">@color/primary_red</item>
@@ -48,7 +48,7 @@
 
     <style name="Theme.AppSplash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@drawable/bg_gradient</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/check_icon</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
         <item name="windowSplashScreenAnimationDuration">300</item>
         <item name="postSplashScreenTheme">@style/Theme.MyApplication</item>
 
@@ -68,5 +68,9 @@
 
     <style name="PopupMenuStyle" parent="@style/Widget.AppCompat.PopupMenu">
         <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="mySpinnerItemSelectedStyle" parent="@android:style/Widget.Holo.TextView.SpinnerItem">
+        <item name="android:textColor">@color/app_theme</item>
     </style>
 </resources>

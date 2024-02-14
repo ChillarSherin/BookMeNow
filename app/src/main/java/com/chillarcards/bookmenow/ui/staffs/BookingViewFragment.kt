@@ -18,15 +18,26 @@ import com.chillarcards.bookmenow.ui.Booking
 import com.chillarcards.bookmenow.ui.Dummy
 import com.chillarcards.bookmenow.ui.adapter.BookingAdapter
 import com.chillarcards.bookmenow.ui.booking.BookingAllFragmentDirections
+import com.chillarcards.bookmenow.ui.home.HomeFragmentDirections
 import com.chillarcards.bookmenow.ui.interfaces.IAdapterViewUtills
 import com.chillarcards.bookmenow.utills.CommonDBaseModel
+import com.chillarcards.bookmenow.utills.Const
+import com.chillarcards.bookmenow.utills.PrefManager
+import com.chillarcards.bookmenow.utills.Status
+import com.chillarcards.bookmenow.viewmodel.BookingViewModel
+import com.chillarcards.bookmenow.viewmodel.RegisterViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 
 class BookingViewFragment : Fragment(), IAdapterViewUtills {
 
     lateinit var binding: FragmentViewAllBinding
-
+    private val bookingViewModel by viewModel<BookingViewModel>()
+    private lateinit var prefManager: PrefManager
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,31 +49,21 @@ class BookingViewFragment : Fragment(), IAdapterViewUtills {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val pInfo =
-            activity?.let { activity?.packageManager!!.getPackageInfo(it.packageName, PackageManager.GET_ACTIVITIES) }
+        prefManager = PrefManager(requireContext())
 
         setToolbar()
         binding.headTran.text = getString(R.string.book_head)
 
-        val transItem = listOf(
-            Booking("8.00 am", 1, "Muhammad Hussain",1),
-            Booking("8.15 am", 2, "Vihaan Mehta ",1),
-            Booking("8:30 am ", 3, "Williams Johnson",0),
-            Booking("8:45 am", 4, "Daniel Jones ",1),
-            Booking("9:00 am", 5, "Reyansh K",1),
-            Booking("9:15 am", 6, "Aditya Joshi ",1),
-            Booking("9:30 am", 7, "Layla Akhtar",0),
-            Booking("9:45 am", 8, "Aara Farooq ",0),
-            Booking("10:00 am", 9, "Amina Muhammad",0),
-            Booking("10:15 am", 10, "Ibrahim MK ",0),
-            Booking("10:30 am", 11, "Christopher Thomas ",0)
-        )
+        val currentDate = Calendar.getInstance().time
+        val formattedDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(currentDate)
 
-        val bookingAdapter = BookingAdapter(
-            transItem, context,this@BookingViewFragment)
+        bookingViewModel.run {
+            doctorID.value = prefManager.getDoctorId().toString()
+            date.value = formattedDate
+            getBookingList()
+        }
 
-        binding.tranRv.adapter = bookingAdapter
-        binding.tranRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        setUpObserver()
 
     }
 
@@ -72,7 +73,76 @@ class BookingViewFragment : Fragment(), IAdapterViewUtills {
             findNavController().popBackStack()
         }
     }
+    private fun setUpObserver() {
+        try {
+            bookingViewModel.bookingData.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    when (it.status) {
+                        Status.SUCCESS -> {
+                            hideProgress()
+                            it.data?.let { bookingData ->
+                                when (bookingData.statusCode) {
+                                    200 -> {
 
+                                        val bookingAdapter = BookingAdapter(
+                                            bookingData.data.appointmentList, context,this@BookingViewFragment)
+                                        binding.tranRv.adapter = bookingAdapter
+                                        binding.tranRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+
+                                    }
+                                    403 -> {
+                                        prefManager.setRefresh("1")
+                                        val authViewModel by viewModel<RegisterViewModel>()
+                                        Const.getNewTokenAPI(
+                                            requireContext(),
+                                            authViewModel,
+                                            viewLifecycleOwner
+                                        )
+
+                                    }
+                                    else -> Const.shortToast(requireContext(), bookingData.message)
+
+                                }
+                            }
+                        }
+                        Status.LOADING -> {
+                            showProgress()
+                        }
+                        Status.ERROR -> {
+                            hideProgress()
+                            Const.shortToast(requireContext(), it.message.toString())
+                            Const.shortToast(requireContext(),"403 profile")
+                            prefManager.setRefresh("1")
+                            val authViewModel by viewModel<RegisterViewModel>()
+                            Const.getNewTokenAPI(
+                                requireContext(),
+                                authViewModel,
+                                viewLifecycleOwner
+                            )
+
+//                            profileViewModel.run {
+//                                mob.value = prefManager.getMobileNo()
+//                                getProfile()
+//                            }
+//                            setUpObserver()
+                        }
+                    }
+                }
+            }
+
+
+        } catch (e: Exception) {
+            Log.e("abc_otp", "setUpObserver: ", e)
+        }
+    }
+    private fun showProgress() {
+        binding.otpProgress.visibility = View.VISIBLE
+    }
+
+    private fun hideProgress() {
+        binding.otpProgress.visibility = View.GONE
+    }
     private fun setBottomSheet(selectedData: ArrayList<CommonDBaseModel>) {
 //        val bottomSheetFragment = BottomSheetFragment(selectedData)
 //        bottomSheetFragment.show((context as AppCompatActivity).supportFragmentManager, bottomSheetFragment.tag)

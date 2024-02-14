@@ -12,86 +12,114 @@
         android:id="@+id/order_frm"
         app:cardCornerRadius="10dp"
         app:cardElevation="0dp"
-        app:cardBackgroundColor="@color/primary_theme"
+        app:cardBackgroundColor="@color/sub"
         android:layout_gravity="center"
         android:padding="8dp"
         tools:ignore="MissingConstraints">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
+            android:baselineAligned="false"
             android:gravity="center"
-            android:weightSum="1"
-            android:baselineAligned="false">
+            android:orientation="horizontal"
+            android:weightSum="1">
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.15"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/service_shift"
+                    android:layout_width="@dimen/_9sdp"
+                    android:layout_height="@dimen/_9sdp"
+                    android:src="@drawable/ic_dot"
+                    android:layout_gravity="center"
+                    android:contentDescription="TODO" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.4"
-                android:orientation="vertical" >
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/service_name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="service name"
-                    android:textStyle="bold"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:textColor="@color/white"
-                    />
+                    android:layout_height="match_parent"
+                    android:gravity="start|center_vertical"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/theme"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="0.2"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/service_rate"
+                    android:id="@+id/service_from"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="rate"
-                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+
                     android:textColor="@color/white"
-                    />
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="0.2"
-                android:orientation="vertical" >
+                android:orientation="vertical">
+
                 <TextView
-                    android:id="@+id/service_min"
+                    android:id="@+id/service_to"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="min"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.2"
-                android:orientation="vertical" >
+                    android:layout_height="match_parent"
+                    android:gravity="center"
 
-                <Switch
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/service_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:switchMinWidth="56dp"
-                    android:layout_below="@+id/switch1"
-                    android:layout_alignLeft="@+id/switch1"
-                    android:textOff="OFF"
-                    android:textOn ="ON"/>
+                    android:layout_width="100dp"
+                    android:layout_height="56dp"
+                    app:trackTint="@color/switch_track_selector"
+                    app:thumbTint="@color/switch_thumb_selector"/>
+
             </LinearLayout>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/sub_work"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@id/order_frm" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

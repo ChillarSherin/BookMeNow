@@ -14,6 +14,6 @@ object ConfigBuild {
 
     //Need to change MainActivity  page for installation priority immediate or flexi
     // Field from build type: debug
-    const val BASE_URL = ""
+    const val BASE_URL = "http://35.154.16.95/api/v1/"
 
 }

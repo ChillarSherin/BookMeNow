@@ -36,7 +36,8 @@
     <string name="profile_details">Public Profile View</string>
 
     <string name="mobile_number">Mobile Number</string>
-    <string name="enter_mobile_number">Enter email or phone number</string>
+    <string name="enter_mobile_number">Enter phone number</string>
+    <string name="enter_entity">Enter entity name</string>
     <string name="enter_service">Service Name</string>
     <string name="enter_service_rate">Service Rate</string>
     <string name="enter_service_min">Service Duration</string>
@@ -51,10 +52,11 @@
     <string name="enter_shop_pin">shop pin code</string>
     <string name="enter_shop_email">email address</string>
     <string name="enter_shop_loc">pin shop location</string>
-    <string name="enter_bank_acc">bank account number</string>
+    <string name="enter_bank_acc">Bank account number</string>
     <string name="enter_bank_acc_re">re-enter bank account number</string>
     <string name="enter_bank_ifsc">IFSC code</string>
-    <string name="enter_bank_name">bank account holder’s name</string>
+    <string name="enter_bank_name">Bank name</string>
+    <string name="enter_bank_holder">Bank account holder’s name</string>
     <string name="enter_staff_name">staff name</string>
     <string name="enter_staff_mob">staff mobile number</string>
     <string name="enter_staff_ser">choose service</string>
@@ -76,6 +78,7 @@
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
     <string name="login">Login</string>
+    <string name="logout"><u> Logout </u></string>
     <string name="lat_long">latitude &amp; longitude</string>
 
     <string name="agree_tnc_one">By proceeding, you agree to the</string>
@@ -84,17 +87,20 @@
     <!--  MESSAGE-->
     <string name="logout_alert_message">Are you sure you want to logout?</string>
     <string name="pop_alert_message">Are you sure you want to go back?</string>
+    <string name="pop_status_message">Are you sure you want to go back?</string>
     <string name="staff_view_msg">Staff management and disable the service if we are not offering  for the day</string>
     <string name="service_view_msg">Rate management and disable the service if we are not offering  for the day</string>
 
     <!--  BUTTON-->
     <string name="retry">try again</string>
     <string name="contin">Continue</string>
+    <string name="book">View Booking</string>
+    <string name="wait">Please Wait For Otp</string>
     <string name="register">Register</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="close">Close</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="update">Update</string>
     <string name="print_bill">Print bill</string>
@@ -102,6 +108,6 @@
     <string name="bill">Generate bill</string>
 
     <!--  Validation-->
-    <string name="mob_validation">Enter Valid Email or Mobile Number</string>
+    <string name="mob_validation">Enter Valid Mobile Number</string>
 
 </resources>

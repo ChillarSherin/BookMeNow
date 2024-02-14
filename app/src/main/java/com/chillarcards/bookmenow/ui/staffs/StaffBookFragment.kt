@@ -34,8 +34,6 @@ class StaffBookFragment : Fragment(), IAdapterViewUtills {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val pInfo =
-            activity?.let { activity?.packageManager!!.getPackageInfo(it.packageName, PackageManager.GET_ACTIVITIES) }
 
         setToolbar()
         binding.headTran.text = getString(R.string.staff_head)
