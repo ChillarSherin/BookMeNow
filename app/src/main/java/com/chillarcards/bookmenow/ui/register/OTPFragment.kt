@@ -17,8 +17,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.activity.OnBackPressedCallback
-import androidx.annotation.NonNull
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
@@ -32,7 +32,6 @@ import com.chillarcards.bookmenow.utills.Const
 import com.chillarcards.bookmenow.utills.GenericKeyEvent
 import com.chillarcards.bookmenow.utills.GenericTextWatcher
 import com.chillarcards.bookmenow.utills.PrefManager
-import com.chillarcards.bookmenow.utills.SMSReceiver
 import com.chillarcards.bookmenow.utills.Status
 import com.chillarcards.bookmenow.viewmodel.RegisterViewModel
 import com.google.android.gms.auth.api.phone.SmsRetriever
@@ -133,7 +132,10 @@ open class OTPFragment : Fragment() {
 
         val maskedPhoneNumber = maskPhoneNumber(args.mobile.toString())
         binding.otpHeadMsg.text="We have send a 6 digit OTP to $maskedPhoneNumber"
+        if (binding.otpA.text.isNullOrEmpty() || binding.otpB.text.isNullOrEmpty() || binding.otpC.text.isNullOrEmpty() || binding.otpD.text.isNullOrEmpty() || binding.otpE.text.isNullOrEmpty() || binding.otpF.text.isNullOrEmpty()) {
+            binding.textinputError.visibility=View.GONE
 
+        }
         binding.resendText.visibility = View.GONE
 
         binding.confirmBtn.setOnClickListener {
@@ -235,12 +237,12 @@ open class OTPFragment : Fragment() {
                 if (binding.timer.text == "00:60")
                     startTimer()
 
+                startSMSListener()
+
                 Const.shortToast(requireContext(),"OTP Shared")
             }
         }
 
-    //    startPhoneNumberVerification(args.mobile.toString())
-        startSMSListener()
     }
 
     private fun maskPhoneNumber(phoneNumber: String): String {
@@ -264,12 +266,24 @@ open class OTPFragment : Fragment() {
         binding.otpF.setText("")
         binding.otpA.requestFocus()
     }
+    // Add a method to check if the EditText is empty
+    private fun EditText.isEmpty(): Boolean {
+        return text.toString().isEmpty()
+    }
 
+    // Add a method to focus on the first EditText if it's empty
+    private fun focusOnFirstIfEmpty() {
+        if (binding.otpA.isEmpty()) {
+            binding.otpA.requestFocus()
+        }
+    }
     private fun otpViewActions() {
+// Attach TextWatcher and focus listener to the EditText fields
         binding.otpA.addTextChangedListener(GenericTextWatcher(binding.otpA, binding.otpB))
         binding.otpA.addTextChangedListener {
             aOk = it != null && it.matches(digitRegex)
             checkValidationStatus()
+            focusOnFirstIfEmpty() // Focus on the first EditText if it's empty
         }
         binding.otpB.addTextChangedListener(GenericTextWatcher(binding.otpB, binding.otpC))
         binding.otpB.addTextChangedListener {
@@ -297,8 +311,7 @@ open class OTPFragment : Fragment() {
             checkValidationStatus()
         }
 
-//      GenericKeyEvent here works for deleting the element and to switch back to previous EditText
-//      first parameter is the current EditText and second parameter is previous EditText
+// Attach key listener to handle navigation between EditText fields
         binding.otpA.setOnKeyListener(GenericKeyEvent(binding.otpA, null))
         binding.otpB.setOnKeyListener(GenericKeyEvent(binding.otpB, binding.otpA))
         binding.otpC.setOnKeyListener(GenericKeyEvent(binding.otpC, binding.otpB))
@@ -340,6 +353,7 @@ open class OTPFragment : Fragment() {
                         binding.sec.visibility = View.GONE
                         binding.timer.text = getString(R.string.otp_expired)
                         binding.resendText.visibility = View.VISIBLE
+                        binding.textinputError.visibility =View.GONE
 
                     } catch (e: Exception) {
                         e.printStackTrace()
@@ -360,19 +374,6 @@ open class OTPFragment : Fragment() {
             Const.disableButton(binding.confirmBtn)
     }
 
-    private fun startPhoneNumberVerification(phoneNumber: String) {
-
-        Log.w(TAG, "onVerificationMOb +91$phoneNumber")
-
-        val options = PhoneAuthOptions.newBuilder(firebaseAuth)
-            .setPhoneNumber("+91$phoneNumber")
-            .setTimeout(60L, TimeUnit.SECONDS)
-            .setActivity(requireActivity())
-            .setCallbacks(callbacks) // OnVerificationStateChangedCallbacks
-            .build()
-
-        PhoneAuthProvider.verifyPhoneNumber(options)
-    }
     private fun verifyPhoneNumberWithCode(code: String) {
         val credential = PhoneAuthProvider.getCredential(args.verificationID.toString(), code)
         signInWithPhoneAuthCredential(credential)
@@ -401,44 +402,37 @@ open class OTPFragment : Fragment() {
                     // Sign in failed
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
                         // The verification code entered was invalid
-                        binding.textinputError.text="wrong"
+                        binding.textinputError.text="Invalid OTP"
+
+                        binding.otpA.setText("")
+                        binding.otpB.setText("")
+                        binding.otpC.setText("")
+                        binding.otpD.setText("")
+                        binding.otpE.setText("")
+                        binding.otpF.setText("")
+                        binding.otpA.requestFocus()
                     }
                 }
             }
     }
 
-    private fun startSMSListener() {
-        smsBroadcastReceiver = object : BroadcastReceiver() {
-            override fun onReceive(context: Context?, intent: Intent?) {
-                if (SmsRetriever.SMS_RETRIEVED_ACTION == intent?.action) {
-                    val extras = intent.extras
-                    if (extras != null) {
-                        val sms = extras.getString(SmsRetriever.EXTRA_SMS_MESSAGE)
-                        // Process the SMS message and extract the OTP code
-                        processSMSMessage(sms)
-                    }
-                }
-            }
-        }
-        val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
-        requireActivity().registerReceiver(smsBroadcastReceiver, intentFilter)
-    }
-
-
-    private fun processSMSMessage(otp: String?) {
-        // Extract the OTP code from the message
-        // and fill it in the OTP fields
-        Log.d(TAG, "Received SMS: $otp")
-//        if (otp != null && otp.length == 6) {
-//            binding.otpA.setText(otp[0])
-//            binding.otpB.setText(otp.charAt(1))
-//            binding.otpC.setText(otp.charAt(2))
-//            binding.otpD.setText(otp.charAt(3))
-//            binding.otpE.setText(otp.charAt(4))
-//            binding.otpF.setText(otp.charAt(5))
-//            binding.confirmBtn.performClick()
+//    private fun startSMSListener() {
+//        smsBroadcastReceiver = object : BroadcastReceiver() {
+//            override fun onReceive(context: Context?, intent: Intent?) {
+//                if (SmsRetriever.SMS_RETRIEVED_ACTION == intent?.action) {
+//                    val extras = intent.extras
+//                    if (extras != null) {
+//                        val sms = extras.getString(SmsRetriever.EXTRA_SMS_MESSAGE)
+//                        // Process the SMS message and extract the OTP code
+//                        processSMSMessage(sms)
+//                    }
+//                }
+//            }
 //        }
-    }
+//        val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
+//        requireActivity().registerReceiver(smsBroadcastReceiver, intentFilter)
+//    }
+
 
     companion object {
         private const val TAG = "OTPFragment"
@@ -470,14 +464,7 @@ open class OTPFragment : Fragment() {
                                         prefManager.setIsLoggedIn(true)
                                         prefManager.setRefresh("0")
 
-                                        if(mobileData.data.profile_completed == 0){
-                                            gotoGeneralHome()
-                                        }else{
-                                            gotoHomePage()
-                                        }
-
-                                    }
-                                    "401" -> {
+                                        gotoGeneralHome()
 
                                     }
                                     "400" -> {
@@ -527,6 +514,42 @@ open class OTPFragment : Fragment() {
             findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToRegFragment())
         } catch (e: Exception) {
             e.printStackTrace()
+        }
+    }
+
+
+    // Create a BroadcastReceiver to listen for incoming SMS messages
+    private fun startSMSListener() {
+        val smsBroadcastReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                if (SmsRetriever.SMS_RETRIEVED_ACTION == intent?.action) {
+                    val extras = intent.extras
+                    if (extras != null) {
+                        val sms = extras.getString(SmsRetriever.EXTRA_SMS_MESSAGE)
+                        // Process the SMS message and extract the OTP code
+                        processSMSMessage(sms)
+                    }
+                }
+            }
+        }
+        val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
+        requireActivity().registerReceiver(smsBroadcastReceiver, intentFilter)
+    }
+
+    // Process the received SMS message to extract the OTP code
+    private fun processSMSMessage(otp: String?) {
+        // Extract the OTP code from the message
+        // and fill it in the OTP fields
+        Log.d(TAG, "Received SMS: $otp")
+        if (otp != null && otp.length == 6) {
+            // Assume your OTP input fields are named otpA, otpB, ..., otpF
+            binding.otpA.setText(otp[0].toString())
+            binding.otpB.setText(otp[1].toString())
+            binding.otpC.setText(otp[2].toString())
+            binding.otpD.setText(otp[3].toString())
+            binding.otpE.setText(otp[4].toString())
+            binding.otpF.setText(otp[5].toString())
+            // Proceed with verification or any other action you need
         }
     }
 }

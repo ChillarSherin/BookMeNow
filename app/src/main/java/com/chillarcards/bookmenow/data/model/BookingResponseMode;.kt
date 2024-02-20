@@ -20,5 +20,5 @@ data class Appointment(
     val timeSlot: String,
     val customerName: String,
     val customerPhone: String,
-    val bookingStatus: Int
+    val bookingStatus: Int?
 )

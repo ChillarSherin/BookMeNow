@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -14,10 +13,12 @@ import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.chillarcards.bookmenow.MainActivity
 import com.chillarcards.bookmenow.R
 import com.chillarcards.bookmenow.databinding.FragmentGeneralHomeBinding
 import com.chillarcards.bookmenow.ui.interfaces.IAdapterViewUtills
+import com.chillarcards.bookmenow.ui.register.OTPFragmentArgs
 import com.chillarcards.bookmenow.utills.CommonDBaseModel
 import com.chillarcards.bookmenow.utills.Const
 import com.chillarcards.bookmenow.utills.PrefManager
@@ -48,7 +49,8 @@ class HomeGeneralFragment : Fragment(), IAdapterViewUtills {
         super.onViewCreated(view, savedInstanceState)
 
         prefManager = PrefManager(requireContext())
-        Const.enableButton(binding.confirmBtn)
+
+
         generalViewModel.run {
             getGeneralSetting()
         }
@@ -88,28 +90,25 @@ class HomeGeneralFragment : Fragment(), IAdapterViewUtills {
             setBottomSheet()
         }
 
-//        binding.onoffShop.setOnClickListener{
-//            if (generalViewModel.shopStatus.value==1) {
-//                alertMsg(requireContext(),"Are you sure you want to OFF the booking link ?")
-//            } else {
-//                alertMsg(requireContext(),"Are you sure you want to ON the booking link ?")
-//            }
-//        }
-        setCheckBoxListener()
     }
 
     private fun setCheckBoxListener(){
         binding.shopStatus.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                alertMsg(requireContext(),"Are you sure you want to OFF the booking link ?")
-            } else {
-                alertMsg(requireContext(),"Are you sure you want to ON the booking link ?")
-            }
+            alertMsg(requireContext())
         }
     }
-    private fun alertMsg(context: Context, message :String) {
+   // private fun alertMsg(context: Context, message :String) {
+    private fun alertMsg(context: Context) {
         try {
             PrefManager(context)
+
+            val message: String
+            message = if (generalViewModel.shopStatus.value == 1) {
+                "Are you sure you want to OFF the booking link ?"
+            } else {
+                "Are you sure you want to ON the booking link ?"
+            }
+
             val builder = AlertDialog.Builder(context)
             builder.setTitle(R.string.alert_heading)
             builder.setMessage(message)
@@ -123,18 +122,19 @@ class HomeGeneralFragment : Fragment(), IAdapterViewUtills {
                 }
             }
             builder.setNegativeButton(context.getString(R.string.cancel)) { _, _ ->
-                Const.shortToast(requireContext(),generalViewModel.shopStatus.value.toString())
-
                 binding.shopStatus.setOnCheckedChangeListener( null )
                 binding.shopStatus.isChecked = (generalViewModel.shopStatus.value == 1)
                 setCheckBoxListener()
 
-                findNavController().popBackStack()
             }
             val alertDialog: AlertDialog = builder.create()
 
             alertDialog.setCanceledOnTouchOutside(false)
             alertDialog.show()
+            // Close the dialog when OK is clicked
+            builder.setPositiveButton(context.getString(R.string.ok)) { _, _ ->
+                alertDialog.dismiss()
+            }
         } catch (e: Exception) {
             //e.printstackTrace()
         }
@@ -163,6 +163,18 @@ class HomeGeneralFragment : Fragment(), IAdapterViewUtills {
                                         generalViewModel.shopStatus.value = settingData.data.entityStatus
                                         generalViewModel.doctorID.value = settingData.data.doctor_id.toString()
                                         prefManager.setDoctorId(settingData.data.doctor_id)
+
+                                        if(settingData.data.profile_completed==1) {
+                                            binding.confirmBtn.visibility =View.VISIBLE
+                                            Const.enableButton(binding.confirmBtn)
+                                        }else{
+                                            binding.confirmBtn.visibility =View.GONE
+                                        }
+
+                                    }
+                                    422 -> {
+                                        Const.shortToast(requireContext(), "Profile is not yet completed")
+                                        binding.confirmBtn.visibility=View.GONE
                                     }
                                     else -> Const.shortToast(requireContext(), settingData.message)
 
@@ -224,6 +236,7 @@ class HomeGeneralFragment : Fragment(), IAdapterViewUtills {
                     }
                 }
             }
+
         } catch (e: Exception) {
             Log.e("abc_otp", "setUpObserver: ", e)
         }

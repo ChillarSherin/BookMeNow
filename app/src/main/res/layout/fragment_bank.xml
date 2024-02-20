@@ -25,30 +25,13 @@
                 android:id="@+id/toolbar"
                 layout="@layout/toolbar" />
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:text="@string/bank_head"
-                android:textAlignment="textStart"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_20ssp"
-                android:layout_marginHorizontal="@dimen/_18sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.1" />
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/bank_account"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_marginHorizontal="@dimen/_18sdp"
                 android:layout_marginBottom="@dimen/_3sdp"
-                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 app:errorTextColor="@color/secondary_peach"
                 android:textColorHint="@color/white"
                 app:boxStrokeWidth="1dp"

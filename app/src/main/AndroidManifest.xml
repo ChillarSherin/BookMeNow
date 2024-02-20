@@ -61,7 +61,7 @@
         </service>
         <receiver
             android:name=".utills.SMSReceiver"
-            android:exported="true">
+            android:exported="false"> <!-- Set to true or false based on your requirement -->
             <intent-filter>
                 <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
             </intent-filter>

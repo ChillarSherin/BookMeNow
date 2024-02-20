@@ -104,7 +104,7 @@ class AddProfileFragment : Fragment() {
                                         }
                                         setUpObserver()
                                     }
-                                    else -> Const.shortToast(requireContext(),"dfgdfgdfgd"+ profileData.message)
+                                    else -> Const.shortToast(requireContext(), profileData.message)
 
                                 }
                             }

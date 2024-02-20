@@ -61,7 +61,7 @@ class ProfileFragment : Fragment(), IAdapterViewUtills {
         }
 
         binding.confirmBtn.setOnClickListener{
-            Toast.makeText(requireContext(),"Updated",Toast.LENGTH_SHORT).show()
+            findNavController().popBackStack()
         }
 
      }

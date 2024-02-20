@@ -48,8 +48,6 @@ class MobileFragment : Fragment() {
     private var mVerificationId = ""
     private lateinit var mResendToken: PhoneAuthProvider.ForceResendingToken
 
-    // 9447574837
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -82,6 +80,11 @@ class MobileFragment : Fragment() {
                 // This callback is invoked in an invalid request for verification is made,
                 // for instance if the the phone number format is not valid.
                 Log.w(TAG, "onVerificationFailed", e)
+
+                Const.shortToast(requireContext(),"Something went wrong")
+                binding.loginBtn.visibility =View.VISIBLE
+                binding.waitingBtn.visibility =View.GONE
+                hideProgress()
             }
 
             override fun onCodeSent(
@@ -145,18 +148,13 @@ class MobileFragment : Fragment() {
                 else -> {
                     binding.loginBtn.visibility =View.GONE
                     binding.waitingBtn.visibility =View.VISIBLE
+                    showProgress()
                     try {
                         findNavController().navigate(
                             MobileFragmentDirections.actionMobileFragmentToOTPFragment(input,
                                 mVerificationId, mResendToken.toString()
                             )
                         )
-
-//                        findNavController().navigate(
-//                            MobileFragmentDirections.actionMobileFragmentToOTPFragment(input,
-//                                mVerificationId, "mResendToken"
-//                            )
-//                        )
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }

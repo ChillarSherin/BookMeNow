@@ -81,10 +81,14 @@ class MainActivity : AppCompatActivity(), ConnectivityReceiver.ConnectivityRecei
 
         val destination =
             if (prefManager.isLoggedIn()){
-                if(prefManager.getStatus() == 0)
-                 R.id.GeneralHomeFragment
-                else R.id.homeBaseFragment
+                R.id.GeneralHomeFragment
             } else R.id.mobileFragment
+
+//        if (prefManager.isLoggedIn()){
+//            if(prefManager.getStatus() == 0)
+//                R.id.GeneralHomeFragment
+//            else R.id.homeBaseFragment
+//        } else R.id.mobileFragment
 
         navGraph.setStartDestination(destination)
         navController.graph = navGraph

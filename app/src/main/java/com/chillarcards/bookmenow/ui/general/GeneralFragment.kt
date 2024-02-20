@@ -26,10 +26,7 @@ class GeneralFragment : Fragment(), IAdapterViewUtills {
 
     lateinit var binding: FragmentGeneralBinding
     private val generalViewModel by viewModel<GeneralViewModel>()
-    private val statusViewModel by viewModel<StatusViewModel>()
     private lateinit var prefManager: PrefManager
-    private var doctorID  = 0
-    private var shopStatus  = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,13 +46,7 @@ class GeneralFragment : Fragment(), IAdapterViewUtills {
         generalViewModel.run {
             getGeneralSetting()
         }
-
-        statusViewModel.run {
-            getStatus()
-        }
-
         setUpObserver()
-        updateUpObserver()
 
         binding.intervalFrm.setEndIconOnClickListener {
             binding.interval.setText("")
@@ -90,16 +81,15 @@ class GeneralFragment : Fragment(), IAdapterViewUtills {
                 )
             )
         }
+//        binding.shopStatus.setOnCheckedChangeListener( null )
+//        setCheckBoxListener()
+
+    }
+    private fun setCheckBoxListener(){
         binding.shopStatus.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                binding.shopStatus.setTextColor(resources.getColor(R.color.theme_end))
-            } else {
-                binding.shopStatus.setTextColor(resources.getColor(R.color.onoff))
-            }
             alertMsg(requireContext())
         }
     }
-
     private fun setToolbar() {
         binding.toolbar.toolbarBack.setOnClickListener {
             findNavController().popBackStack()
@@ -108,14 +98,16 @@ class GeneralFragment : Fragment(), IAdapterViewUtills {
     }
     private fun alertMsg(context: Context) {
         try {
-            val builder = AlertDialog.Builder(context)
-            var message=""
-            if(shopStatus==1){
-                message = "Are you sure you want to ON the booking link ?"
-            }else{
-                message = "Are you sure you want to OFF the booking link ?"
+            PrefManager(context)
+
+            val message: String
+            message = if (generalViewModel.shopStatus.value == 1) {
+                "Are you sure you want to OFF the booking link ?"
+            } else {
+                "Are you sure you want to ON the booking link ?"
             }
 
+            val builder = AlertDialog.Builder(context)
             builder.setTitle(R.string.alert_heading)
             builder.setMessage(message)
             builder.setIcon(R.mipmap.ic_launcher)
@@ -123,10 +115,15 @@ class GeneralFragment : Fragment(), IAdapterViewUtills {
 
             //performing positive action
             builder.setPositiveButton(context.getString(R.string.ok)) { _, _ ->
-                findNavController().popBackStack()
+                generalViewModel.run {
+                    getStatus()
+                }
             }
             builder.setNegativeButton(context.getString(R.string.cancel)) { _, _ ->
-                // alertDialog.dismiss()
+                binding.shopStatus.setOnCheckedChangeListener( null )
+                binding.shopStatus.isChecked = (generalViewModel.shopStatus.value == 1)
+                setCheckBoxListener()
+
             }
             val alertDialog: AlertDialog = builder.create()
 
@@ -147,14 +144,17 @@ class GeneralFragment : Fragment(), IAdapterViewUtills {
                         it.data?.let { settingData ->
                             when (settingData.statusCode) {
                                 200 -> {
-                                    binding.shopStatus.isChecked = (settingData.data.bookingLinkStatus == 1)
-                                    if (settingData.data.bookingLinkStatus == 0) {
+                                    binding.shopStatus.setOnCheckedChangeListener( null )
+                                    binding.shopStatus.isChecked = (settingData.data.entityStatus == 1)
+                                    setCheckBoxListener()
+                                    if (settingData.data.entityStatus == 0) {
+                                        binding.shopStatus.setTextColor(resources.getColor(R.color.theme_end))
+                                    }else{
                                         binding.shopStatus.setTextColor(resources.getColor(R.color.onoff))
                                     }
-                                    shopStatus = settingData.data.bookingLinkStatus
 
                                     binding.interval.setText(settingData.data.consultationDuration.toString())
-                                    doctorID = settingData.data.doctor_id
+                                    generalViewModel.shopStatus.value = settingData.data.entityStatus
                                     prefManager.setDoctorId(settingData.data.doctor_id)
                                 }
                                 else -> Const.shortToast(requireContext(), settingData.message)
@@ -175,11 +175,44 @@ class GeneralFragment : Fragment(), IAdapterViewUtills {
                             viewLifecycleOwner
                         )
 
-    //                            profileViewModel.run {
-    //                                mob.value = prefManager.getMobileNo()
-    //                                getProfile()
-    //                            }
-    //                            setUpObserver()
+//                            profileViewModel.run {
+//                                mob.value = prefManager.getMobileNo()
+//                                getProfile()
+//                            }
+//                            setUpObserver()
+                    }
+                }
+            }
+        }
+        generalViewModel.statusData.observe(viewLifecycleOwner) {
+            if (it != null) {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        hideProgress()
+                        it.data?.let { settingData ->
+                            when (settingData.statusCode) {
+                                200 -> {
+                                    generalViewModel.run {
+                                        getGeneralSetting()
+                                    }
+                                }
+                                else -> Const.shortToast(requireContext(), settingData.message)
+
+                            }
+                        }
+                    }
+                    Status.LOADING -> {
+                        showProgress()
+                    }
+                    Status.ERROR -> {
+                        hideProgress()
+                        prefManager.setRefresh("1")
+                        val authViewModel by viewModel<RegisterViewModel>()
+                        Const.getNewTokenAPI(
+                            requireContext(),
+                            authViewModel,
+                            viewLifecycleOwner
+                        )
                     }
                 }
             }
@@ -188,46 +221,6 @@ class GeneralFragment : Fragment(), IAdapterViewUtills {
     } catch (e: Exception) {
         Log.e("abc_otp", "setUpObserver: ", e)
     }
-    }
-    private fun updateUpObserver() {
-        try {
-            statusViewModel.statusData.observe(viewLifecycleOwner) {
-                if (it != null) {
-                    when (it.status) {
-                        Status.SUCCESS -> {
-                            hideProgress()
-                            it.data?.let { settingData ->
-                                when (settingData.statusCode) {
-                                    200 -> {
-                                        generalViewModel.run {
-                                            getGeneralSetting()
-                                        }
-                                    }
-                                    else -> Const.shortToast(requireContext(), settingData.message)
-                                }
-                            }
-                        }
-                        Status.LOADING -> {
-                            showProgress()
-                        }
-                        Status.ERROR -> {
-                            hideProgress()
-                            prefManager.setRefresh("1")
-                            val authViewModel by viewModel<RegisterViewModel>()
-                            Const.getNewTokenAPI(
-                                requireContext(),
-                                authViewModel,
-                                viewLifecycleOwner
-                            )
-
-                        }
-                    }
-                }
-            }
-
-        } catch (e: Exception) {
-            Log.e("abc_otp", "setUpObserver: ", e)
-        }
     }
 
     private fun showProgress() {

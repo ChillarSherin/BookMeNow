@@ -12,5 +12,6 @@ data class GeneralSettingsData(
     val phone: String,
     val bookingLinkStatus: Int,
     val consultationDuration: Int,
+    val profile_completed: Int,
     val entityStatus : Int
 )

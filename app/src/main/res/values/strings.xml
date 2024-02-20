@@ -17,8 +17,8 @@
     <string name="bank_head">Beneficiary Details</string>
     <string name="map_head">Shop Location</string>
     <string name="time_head">Working Hours</string>
-    <string name="booking_head">view appointment</string>
-    <string name="book_head">today\'s booking list</string>
+    <string name="booking_head">View Appointment</string>
+    <string name="book_head">Today\'s booking list</string>
     <string name="staff_head">staff booking report</string>
     <string name="staff_view">Our Staffs</string>
     <string name="service_view">Our Service</string>

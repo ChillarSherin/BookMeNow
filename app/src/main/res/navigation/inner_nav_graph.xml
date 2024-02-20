@@ -265,6 +265,29 @@
         android:name="com.chillarcards.bookmenow.ui.general.HomeGeneralFragment"
         android:label="HomeGeneralFragment"
         tools:layout="@layout/fragment_general_home" >
+        <action
+            android:id="@+id/action_generalFragment_to_ProfileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_generalFragment_to_bankFragment"
+            app:destination="@id/BankFragment" />
+        <action
+            android:id="@+id/action_generalFragment_to_TimeFragment"
+            app:destination="@id/TimeFragment" />
+        <action
+            android:id="@+id/action_generalFragment_to_RegisterFragment"
+            app:destination="@id/RegisterFragment" />
+
+        <action
+            android:id="@+id/action_generalFragment_to_ModuleStaffFragment"
+            app:destination="@id/StaffModuleFragment" />
+
+        <action
+            android:id="@+id/action_generalFragment_to_ModuleServiceFragment"
+            app:destination="@id/ServiceModuleFragment" />
+        <action
+            android:id="@+id/action_generalFragment_to_HomeFragment"
+            app:destination="@id/homeFragment" />
 
     </fragment>
 

@@ -70,7 +70,6 @@
         <action
             android:id="@+id/action_generalFragment_to_bankFragment"
             app:destination="@id/BankFragment" />
-
     </fragment>
 
     <fragment

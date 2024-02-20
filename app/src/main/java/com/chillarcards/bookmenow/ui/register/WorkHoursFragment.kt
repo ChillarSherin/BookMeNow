@@ -53,9 +53,10 @@ class WorkHoursFragment : Fragment() {
 
         setUpObserver()
         binding.confirmBtn.setOnClickListener {
-            findNavController().navigate(
-                WorkHoursFragmentDirections.actionTimeFragmentToHomeFragment()
-            )
+//            findNavController().navigate(
+//                WorkHoursFragmentDirections.actionTimeFragmentToHomeFragment()
+//            )
+            findNavController().popBackStack()
 
         }
     }

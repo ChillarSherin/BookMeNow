@@ -1,5 +1,6 @@
 package com.chillarcards.bookmenow.ui.booking
 
+import android.Manifest
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -9,21 +10,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chillarcards.bookmenow.R
 import com.chillarcards.bookmenow.databinding.FragmentViewAllBinding
-import com.chillarcards.bookmenow.ui.Booking
-import com.chillarcards.bookmenow.ui.Dummy
 import com.chillarcards.bookmenow.ui.adapter.BookingAdapter
-import com.chillarcards.bookmenow.ui.home.HomeFragmentDirections
 import com.chillarcards.bookmenow.ui.interfaces.IAdapterViewUtills
-import com.chillarcards.bookmenow.ui.register.OTPFragmentArgs
 import com.chillarcards.bookmenow.utills.CommonDBaseModel
 import com.chillarcards.bookmenow.utills.Const
 import com.chillarcards.bookmenow.utills.PrefManager
@@ -44,6 +42,8 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
     private lateinit var prefManager: PrefManager
     private val args: BookingAllFragmentArgs by navArgs()
     private var doctorName =""
+    private var phoneNo =""
+    private val PERMISSION_REQUEST_CALL_PHONE = 1
 
 
     override fun onCreateView(
@@ -121,6 +121,7 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
                             it.data?.let { bookingData ->
                                 when (bookingData.statusCode) {
                                     200 -> {
+                                        binding.appointmentCard.visibility = View.VISIBLE
                                         doctorName = bookingData.data.doctorName
 
                                         val dateString = bookingData.data.appointmentDate;
@@ -226,7 +227,6 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
             actionButton.visibility=View.GONE
         }else{
             completeButton.setOnClickListener {
-
                 findNavController().navigate(
                     BookingAllFragmentDirections.actionBookingFragmentToEstimateFragment(
                         selectedData[0].mastIDs,doctorName
@@ -238,17 +238,15 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
 
         val callButton: TextView = bottomSheetView.findViewById(R.id.callButton)
         callButton.setOnClickListener {
-            val phoneNumber = "tel:" + selectedData[0].mobile
-            val dialIntent = Intent(Intent.ACTION_DIAL)
-            dialIntent.data = Uri.parse(phoneNumber)
-            if (dialIntent.resolveActivity(requireContext().packageManager) != null) {
-                startActivity(dialIntent)
-            }
+            phoneNo = selectedData[0].mobile.toString()
+            makePhoneCall(phoneNo)
             bottomSheetDialog.dismiss()
         }
         bottomSheetDialog.show()
 
     }
+
+
 
     override fun onStop() {
         super.onStop()
@@ -268,6 +266,44 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
     ) {
         if(Mode.equals("VIEW")){
             setBottomSheet(ValueArray)
+        }
+    }
+    private fun makePhoneCall(phoneNumber: String) {
+        if (phoneNumber.isNotEmpty()) {
+            val permission = Manifest.permission.CALL_PHONE
+            if (ContextCompat.checkSelfPermission(requireContext(), permission) != PackageManager.PERMISSION_GRANTED) {
+                // Permission is not granted
+                ActivityCompat.requestPermissions(requireActivity(), arrayOf(permission), PERMISSION_REQUEST_CALL_PHONE)
+            } else {
+                // Permission has already been granted
+
+                val dialIntent = Intent(Intent.ACTION_CALL)
+                dialIntent.data = Uri.parse("tel:$phoneNumber")
+
+                if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    // Request the permission to make a phone call if not granted
+                    ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CALL_PHONE), PERMISSION_REQUEST_CALL_PHONE)
+                }
+                try {
+                    startActivity(dialIntent)
+                } catch (e: SecurityException) {
+                    e.printStackTrace()
+                    // Handle security exception
+                }
+            }
+        } else {
+            Log.e("PhoneCall", "Phone number is empty or null")
+        }
+    }
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        if (requestCode == PERMISSION_REQUEST_CALL_PHONE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted
+                makePhoneCall(phoneNo)
+            } else {
+                // Permission denied
+                Const.shortToast(requireContext(), "Permission denied")
+            }
         }
     }
 
