@@ -147,10 +147,8 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
                                             authViewModel,
                                             viewLifecycleOwner
                                         )
-
                                     }
                                     else -> Const.shortToast(requireContext(), bookingData.message)
-
                                 }
                             }
                         }

@@ -59,8 +59,6 @@ open class OTPFragment : Fragment() {
     private val digitRegex = "^\\d$".toRegex()
     private val args: OTPFragmentArgs by navArgs()
     private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var callbacks: OnVerificationStateChangedCallbacks
-    private lateinit var smsBroadcastReceiver: BroadcastReceiver
     private val mobileViewModel by viewModel<RegisterViewModel>()
     private var mVerificationId = ""
     private var mResendToken: ForceResendingToken? = null
@@ -120,7 +118,7 @@ open class OTPFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        FirebaseApp.initializeApp(this.requireContext())
+//        FirebaseApp.initializeApp(this.requireContext())
         firebaseAuth = FirebaseAuth.getInstance()
         prefManager = PrefManager(requireContext())
 
@@ -128,7 +126,6 @@ open class OTPFragment : Fragment() {
             startTimer()
 
         otpViewActions()
-        otpObserver()
 
         val maskedPhoneNumber = maskPhoneNumber(args.mobile.toString())
         binding.otpHeadMsg.text="We have send a 6 digit OTP to $maskedPhoneNumber"
@@ -147,7 +144,8 @@ open class OTPFragment : Fragment() {
                 Log.d("abc_otp", "onViewCreated: $otp")
                 if (otp.isNotEmpty()){
                     verifyPhoneNumberWithCode(otp)
-//                    mobileVerify()
+                    otpObserver()
+
                 }
                 else
                     Const.shortToast(requireContext(), getString(R.string.enter_otp))
@@ -155,12 +153,7 @@ open class OTPFragment : Fragment() {
         }
 
         binding.resendText.setOnClickListener {
-            // Const.shortToast(requireContext(), "Resending OTP. Please wait")
-//            otpViewModel.mob.value = prefManager.getUserPhoneNumber()
-//            otpViewModel.userId.value = prefManager.getUserId()
-//            otpViewModel.getOTP()
             clearOTP()
-           // resendVerificationCode(args.mobile.toString(), mResendToken!!)
             resendVerificationCode(args.mobile.toString())
         }
 
@@ -186,7 +179,10 @@ open class OTPFragment : Fragment() {
             //e.printstackTrace()
         }
 
-        callbacks = object : OnVerificationStateChangedCallbacks() {
+    }
+
+    private fun createCallbacks(): OnVerificationStateChangedCallbacks {
+        return object : OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
                 // This callback will be invoked in two situations:
                 // 1 - Instant verification. In some cases the phone number can be instantly
@@ -239,12 +235,10 @@ open class OTPFragment : Fragment() {
 
                 startSMSListener()
 
-                Const.shortToast(requireContext(),"OTP Shared")
+                Const.shortToast(requireContext(),"otp sent successfully")
             }
         }
-
     }
-
     private fun maskPhoneNumber(phoneNumber: String): String {
         if (phoneNumber.length < 5) {
             return phoneNumber
@@ -254,7 +248,6 @@ open class OTPFragment : Fragment() {
             "*".repeat(maskedLength)
         return maskedString + phoneNumber.substring(phoneNumber.length - 5)
     }
-
 
     private fun clearOTP() {
         binding.textinputError.visibility=View.GONE
@@ -266,19 +259,18 @@ open class OTPFragment : Fragment() {
         binding.otpF.setText("")
         binding.otpA.requestFocus()
     }
-    // Add a method to check if the EditText is empty
+
     private fun EditText.isEmpty(): Boolean {
         return text.toString().isEmpty()
     }
 
-    // Add a method to focus on the first EditText if it's empty
     private fun focusOnFirstIfEmpty() {
         if (binding.otpA.isEmpty()) {
             binding.otpA.requestFocus()
         }
     }
     private fun otpViewActions() {
-// Attach TextWatcher and focus listener to the EditText fields
+        // Attach TextWatcher and focus listener to the EditText fields
         binding.otpA.addTextChangedListener(GenericTextWatcher(binding.otpA, binding.otpB))
         binding.otpA.addTextChangedListener {
             aOk = it != null && it.matches(digitRegex)
@@ -379,14 +371,14 @@ open class OTPFragment : Fragment() {
         signInWithPhoneAuthCredential(credential)
     }
 
-    //private fun resendVerificationCode(phoneNumber: String, mResendToken: ForceResendingToken) {
     private fun resendVerificationCode(phoneNumber: String) {
         setTimer()
         val options = PhoneAuthOptions.newBuilder(firebaseAuth)
             .setPhoneNumber("+91$phoneNumber")
             .setTimeout(60L, TimeUnit.SECONDS)
             .setActivity(requireActivity())
-            .setCallbacks(callbacks)
+            .setCallbacks(createCallbacks()
+            )
           //  .setForceResendingToken(mResendToken) // ForceResendingToken from callbacks
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)
@@ -416,23 +408,6 @@ open class OTPFragment : Fragment() {
             }
     }
 
-//    private fun startSMSListener() {
-//        smsBroadcastReceiver = object : BroadcastReceiver() {
-//            override fun onReceive(context: Context?, intent: Intent?) {
-//                if (SmsRetriever.SMS_RETRIEVED_ACTION == intent?.action) {
-//                    val extras = intent.extras
-//                    if (extras != null) {
-//                        val sms = extras.getString(SmsRetriever.EXTRA_SMS_MESSAGE)
-//                        // Process the SMS message and extract the OTP code
-//                        processSMSMessage(sms)
-//                    }
-//                }
-//            }
-//        }
-//        val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
-//        requireActivity().registerReceiver(smsBroadcastReceiver, intentFilter)
-//    }
-
 
     companion object {
         private const val TAG = "OTPFragment"
@@ -456,6 +431,7 @@ open class OTPFragment : Fragment() {
                             it.data?.let { mobileData ->
                                 when (mobileData.statusCode) {
                                     "200" -> {
+
                                         // TODO: check if response from verifying otp or sending otp
                                         prefManager.setMobileNo(mobileData.data.phone)
                                         prefManager.setRefToken(mobileData.data.refresh_token.trim())
@@ -465,7 +441,6 @@ open class OTPFragment : Fragment() {
                                         prefManager.setRefresh("0")
 
                                         gotoGeneralHome()
-
                                     }
                                     "400" -> {
                                         if(mobileData.message.contentEquals("Invalid OTP.")){
@@ -495,7 +470,6 @@ open class OTPFragment : Fragment() {
                     }
                 }
             }
-
 
         } catch (e: Exception) {
             Log.e("abc_otp", "setUpObserver: ", e)

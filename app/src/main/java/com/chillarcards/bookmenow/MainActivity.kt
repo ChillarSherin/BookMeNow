@@ -11,8 +11,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
@@ -21,8 +19,6 @@ import androidx.navigation.fragment.NavHostFragment
 import com.chillarcards.bookmenow.databinding.ActivityMainBinding
 import com.chillarcards.bookmenow.utills.ConnectivityReceiver
 import com.chillarcards.bookmenow.utills.PrefManager
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.InstallStateUpdatedListener
@@ -37,6 +33,7 @@ class MainActivity : AppCompatActivity(), ConnectivityReceiver.ConnectivityRecei
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var prefManager: PrefManager
+    private var lastActivityTimestamp: Long = 0
 
     private val  MY_REQUEST_CODE = 5
 
@@ -54,7 +51,7 @@ class MainActivity : AppCompatActivity(), ConnectivityReceiver.ConnectivityRecei
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         );
-
+        lastActivityTimestamp = System.currentTimeMillis()
         getFCMToken()
         getUpdate() //Check new version is released for not
         saveLoginTime()
@@ -98,6 +95,7 @@ class MainActivity : AppCompatActivity(), ConnectivityReceiver.ConnectivityRecei
             IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
         )
 
+        lastActivityTimestamp = System.currentTimeMillis()
 
         //FIREBASE CRASH
 
@@ -121,7 +119,8 @@ class MainActivity : AppCompatActivity(), ConnectivityReceiver.ConnectivityRecei
     override fun onResume() {
         super.onResume()
         ConnectivityReceiver.connectivityReceiverListener = this
-
+        // Update last activity timestamp when the app resumes
+        lastActivityTimestamp = System.currentTimeMillis()
         // TODO: check the time taken to execute the following and in case it is taking too long, run it in a separate thread
         if (!isFinishing) {
             if (justLoggedIn) {
@@ -129,11 +128,8 @@ class MainActivity : AppCompatActivity(), ConnectivityReceiver.ConnectivityRecei
                 startActivity(intent)
             }
         }
-
         getUpdate()
-
     }
-
 
     private fun getUpdate(){
         val appUpdateManager = AppUpdateManagerFactory.create(this)
@@ -205,7 +201,7 @@ class MainActivity : AppCompatActivity(), ConnectivityReceiver.ConnectivityRecei
             }
         }
 
-// Unregister the listener when it's no longer needed
+        // Unregister the listener when it's no longer needed
         appUpdateManager.unregisterListener(listener)
 
     }
@@ -249,7 +245,7 @@ class MainActivity : AppCompatActivity(), ConnectivityReceiver.ConnectivityRecei
             }
     }
 
-    fun saveLoginTime() {
+    private fun saveLoginTime() {
         val currentTimeMillis = System.currentTimeMillis()
         val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
@@ -258,7 +254,7 @@ class MainActivity : AppCompatActivity(), ConnectivityReceiver.ConnectivityRecei
     }
 
     // Function to check if automatic logout is required
-    fun checkLogout() {
+    private fun checkLogout() {
         val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
         val loginTime = sharedPreferences.getLong("loginTime", 0)
         val currentTimeMillis = System.currentTimeMillis()
@@ -276,7 +272,7 @@ class MainActivity : AppCompatActivity(), ConnectivityReceiver.ConnectivityRecei
     }
 
     // Function to logout the user
-    fun logoutUser() {
+    private fun logoutUser() {
         prefManager.clearAll()
 
         val intent = Intent(this.applicationContext, MainActivity::class.java)

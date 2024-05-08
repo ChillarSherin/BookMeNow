@@ -52,6 +52,7 @@ class EstimateFragment : Fragment(), IAdapterViewUtills {
         setToolbar()
 
         binding.entityName.text = args.docName
+        binding.upi.text = "UPI ID: "+args.docName+"@oksbi"
         binding.cashButton.setOnClickListener {
             // Initialize MediaPlayer in onCreate or another appropriate method
             mediaPlayer = MediaPlayer.create(context, R.raw.bell_audio)

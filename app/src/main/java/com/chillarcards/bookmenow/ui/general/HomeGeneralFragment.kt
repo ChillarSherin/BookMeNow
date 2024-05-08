@@ -50,7 +50,6 @@ class HomeGeneralFragment : Fragment(), IAdapterViewUtills {
 
         prefManager = PrefManager(requireContext())
 
-
         generalViewModel.run {
             getGeneralSetting()
         }
@@ -293,17 +292,18 @@ class HomeGeneralFragment : Fragment(), IAdapterViewUtills {
         clearUserSession()
 
         Log.d("abc_home", "showLogoutAlert: recreating activity.. all data cleared")
-        val intent = Intent(requireContext(), MainActivity::class.java)
+        val intent = Intent(this.requireContext(), MainActivity::class.java)
         ActivityCompat.finishAffinity(requireActivity())
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
 
+
     }
 
     private fun clearUserSession() {
-
         val prefManager = PrefManager(requireContext())
         prefManager.clearAll()
+        prefManager.setIsLoggedIn(false)
     }
 
 }

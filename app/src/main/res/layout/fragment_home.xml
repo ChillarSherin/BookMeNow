@@ -38,7 +38,7 @@
                     android:id="@+id/logo_icon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Hi Dr. Jabir Abdullakutty !"
+                    android:text="Hi User!"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_16ssp" />
             </LinearLayout>

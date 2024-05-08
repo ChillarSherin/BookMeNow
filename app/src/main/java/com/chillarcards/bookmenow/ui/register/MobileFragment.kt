@@ -81,7 +81,7 @@ class MobileFragment : Fragment() {
                 // for instance if the the phone number format is not valid.
                 Log.w(TAG, "onVerificationFailed", e)
 
-                Const.shortToast(requireContext(),"Something went wrong")
+                Const.shortToast(requireContext(),"Failed to send OTP to given mobile number")
                 binding.loginBtn.visibility =View.VISIBLE
                 binding.waitingBtn.visibility =View.GONE
                 hideProgress()
@@ -100,10 +100,10 @@ class MobileFragment : Fragment() {
                 Log.d(TAG, "onCodeSent:$verificationId")
                 findNavController().navigate(
                     MobileFragmentDirections.actionMobileFragmentToOTPFragment(tempMobileNo,
-                        mVerificationId, mResendToken.toString()
+                        mVerificationId
                     )
                 )
-                Const.shortToast(requireContext(),"OTP Shared")
+                Const.shortToast(requireContext(),"OTP sent successfully")
             }
         }
 
@@ -119,8 +119,6 @@ class MobileFragment : Fragment() {
                     binding.mobile.error = null
                     binding.mobile.isErrorEnabled = false
                     Const.enableButton(binding.loginBtn)
-                    startPhoneNumberVerification(input)
-
                     tempMobileNo = input
                     val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     imm.hideSoftInputFromWindow(view.windowToken, 0)
@@ -149,15 +147,7 @@ class MobileFragment : Fragment() {
                     binding.loginBtn.visibility =View.GONE
                     binding.waitingBtn.visibility =View.VISIBLE
                     showProgress()
-                    try {
-                        findNavController().navigate(
-                            MobileFragmentDirections.actionMobileFragmentToOTPFragment(input,
-                                mVerificationId, mResendToken.toString()
-                            )
-                        )
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
+                    startPhoneNumberVerification(input)
                 }
             }
         }
@@ -212,7 +202,6 @@ class MobileFragment : Fragment() {
                             Uri.parse("https://www.chillarpayments.com/terms-and-conditions.html")
                         )
                     startActivity(browserIntent)
-
                 }
             }
             wordToSpan.setSpan(
@@ -242,7 +231,6 @@ class MobileFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         Log.d("abc_mob", "onStop: ")
-       // mobileViewModel.clear()
     }
 
     override fun onDestroy() {
@@ -251,16 +239,12 @@ class MobileFragment : Fragment() {
     }
 
     private fun startPhoneNumberVerification(phoneNumber: String) {
-
-        Log.w(TAG, "onVerificationMOb +91$phoneNumber")
-
         val options = PhoneAuthOptions.newBuilder(firebaseAuth)
             .setPhoneNumber("+91$phoneNumber")
             .setTimeout(60L, TimeUnit.SECONDS)
             .setActivity(requireActivity())
             .setCallbacks(callbacks) // OnVerificationStateChangedCallbacks
             .build()
-
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
    companion object {

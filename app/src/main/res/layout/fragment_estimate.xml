@@ -44,7 +44,6 @@
                     android:id="@+id/entity_name"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Jabir Abdullakutty"
                     android:textStyle="bold"
                     android:textSize="@dimen/_11ssp"
                     android:gravity="center"
@@ -104,9 +103,10 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/upi"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="UPI ID: jabirabdullakutty@okkdfcbank"
+                android:text="UPI ID: "
                 android:textStyle="bold"
                 android:gravity="center"
                 android:textColor="@color/white"

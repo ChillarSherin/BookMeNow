@@ -76,7 +76,6 @@
                             android:id="@+id/current_year"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="2023"
                             android:textSize="@dimen/_13ssp"
                             android:textStyle="bold"
                             android:gravity="center"

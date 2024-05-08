@@ -76,5 +76,6 @@ class RegisterViewModel(
 
     fun clear() {
         _regData.value = null
+        _tokenData.value = null
     }
 }

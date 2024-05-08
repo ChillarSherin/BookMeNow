@@ -89,6 +89,7 @@ class HomeBaseFragment : Fragment() {
         binding.logout.setOnClickListener {
             setBottomSheet()
         }
+
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when (destination.id) {
                 R.id.BookingFragment, R.id.StaffBookFragment, R.id.estimateFragment,
