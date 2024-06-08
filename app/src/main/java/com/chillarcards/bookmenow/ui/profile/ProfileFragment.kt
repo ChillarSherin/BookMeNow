@@ -9,19 +9,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.chillarcards.bookmenow.R
-import com.chillarcards.bookmenow.databinding.FragmentGeneralBinding
 import com.chillarcards.bookmenow.databinding.FragmentProfileBinding
+import com.chillarcards.bookmenow.ui.adapter.FeeAdapter
 import com.chillarcards.bookmenow.ui.interfaces.IAdapterViewUtills
-import com.chillarcards.bookmenow.ui.register.BankFragmentDirections
 import com.chillarcards.bookmenow.utills.CommonDBaseModel
 import com.chillarcards.bookmenow.utills.Const
 import com.chillarcards.bookmenow.utills.PrefManager
@@ -78,10 +76,30 @@ class ProfileFragment : Fragment(), IAdapterViewUtills {
                                         // TODO: check if response from verifying otp or sending otp
                                         binding.pName.setText(profileData.data.doctor_name)
                                         binding.pQualifi.setText(profileData.data.qualification)
-                                        binding.pDesi.setText(profileData.data.designation)
+                                        binding.pDesi.setText(profileData.data.departmentName)
                                         binding.pDetail.setText(profileData.data.description)
                                         val consultationChargeText = profileData.data.consultation_charge.toString()
-                                        binding.pFee.setText("₹"+consultationChargeText)
+
+
+                                        if(profileData.data.additionalInfo.isNotEmpty()) {
+                                            binding.topFeeFrame.visibility=View.VISIBLE
+                                            binding.pFee.visibility=View.GONE
+
+                                            val salesTopPicAdapter = FeeAdapter(
+                                                profileData.data.additionalInfo,
+                                                requireContext(),
+                                            )
+                                            binding.topPicRv.adapter = salesTopPicAdapter
+                                            binding.topPicRv.layoutManager = LinearLayoutManager(
+                                                context,
+                                                LinearLayoutManager.HORIZONTAL,
+                                                false
+                                            )
+
+                                        }else{
+                                            //binding.pFee.setText("₹"+consultationChargeText)
+
+                                        }
                                         Glide.with(requireActivity())
                                             .load(profileData.data.profileImageUrl)
 //                                            .load("https://www.chillarpayments.com/Demo/Direct-Book/images/Wc2xbVeJl0d6cyfWGCxlvcsxxYogVqsJElJy5tvN.jpeg")

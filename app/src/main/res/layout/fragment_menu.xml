@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_170sdp"
+                android:src="@drawable/login"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginHorizontal="@dimen/_18sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/app_title"
+                android:contentDescription="TODO" />
+
+
+            <TextView
+                android:visibility="visible"
+                android:id="@+id/version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:textColor="@color/white"
+                android:textAlignment="textEnd"
+                android:textSize="@dimen/_5ssp"
+                app:layout_constraintTop_toBottomOf="@id/logo" />
+
+             <TextView
+                 android:id="@+id/title"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:text="@string/general_head"
+                 android:textAlignment="center"
+                 android:textColor="@color/black"
+                 android:textSize="@dimen/_15ssp"
+                 android:textStyle="bold"
+                 android:layout_marginVertical="@dimen/_5sdp"
+                 app:layout_constraintBottom_toBottomOf="@+id/logo"
+                 tools:ignore="MissingConstraints" />
+
+             <androidx.recyclerview.widget.RecyclerView
+                 android:id="@+id/menu_rv"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:clipToPadding="false"
+                 android:paddingTop="@dimen/_5sdp"
+                 android:paddingBottom="@dimen/_80sdp" />
+
+
+            <ProgressBar
+                android:id="@+id/login_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/primary_peach"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/login_btn"
+                app:layout_constraintEnd_toEndOf="@id/login_btn"
+                app:layout_constraintStart_toStartOf="@id/login_btn"
+                app:layout_constraintTop_toTopOf="@id/login_btn" />
+
+
+        </LinearLayout>
+         <TextView
+                android:id="@+id/bottom_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:text="@string/compy"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_8ssp"
+                android:layout_alignParentBottom="true"
+                />
+
+        </RelativeLayout>
+
+    </ScrollView>
+</layout>

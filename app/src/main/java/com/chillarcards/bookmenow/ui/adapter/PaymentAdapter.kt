@@ -39,16 +39,26 @@ class PaymentAdapter(private val items: List<BookingReportItem>,
             orderId.text = item.orderId
 
             //0= vist pending 1 = vist completed  2 cancelled
-//            when(item.bookingStatus){
-//                2{}
+
+//            if(item.bookingStatus==2){
+//                PayStatus.setImageDrawable(context?.getDrawable(R.drawable.ic_down))
+//            }else if(item.bookingStatus==3){
+//                PayStatus.setImageDrawable(context?.getDrawable(R.drawable.ic_down))
+//            }  else  if(item.bookingStatus==0){
+//                PayStatus.setImageDrawable(context?.getDrawable(R.drawable.ic_pending))
+//            } else  if(item.bookingStatus==1){
+//                PayStatus.setImageDrawable(context?.getDrawable(R.drawable.ic_top))
 //            }
-            if(item.bookingStatus==2){
-                PayStatus.setImageDrawable(context?.getDrawable(R.drawable.ic_down))
-            }  else  if(item.bookingStatus==0){
-                PayStatus.setImageDrawable(context?.getDrawable(R.drawable.ic_pending))
-            } else  if(item.bookingStatus==1){
-                PayStatus.setImageDrawable(context?.getDrawable(R.drawable.ic_top))
+
+            val drawable = when (item.bookingStatus) {
+                2, 3 -> context?.getDrawable(R.drawable.ic_down)
+                0 -> context?.getDrawable(R.drawable.ic_pending)
+                1 -> context?.getDrawable(R.drawable.ic_top)
+                else -> null // Handle any other unexpected statuses if necessary
             }
+
+            PayStatus.setImageDrawable(drawable)
+
         }
 
     }

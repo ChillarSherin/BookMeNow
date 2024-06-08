@@ -1,0 +1,76 @@
+<!-- res/layout/list_item_layout.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginStart="@dimen/_5sdp"
+  >
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:errorTextColor="@color/secondary_peach"
+        android:textColorHint="@color/white"
+        android:layout_marginBottom="@dimen/_8sdp"
+        app:boxStrokeWidth="1dp"
+        app:boxBackgroundColor="@color/theme_bg"
+        app:boxStrokeColor="@color/select"
+        app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
+        app:boxCornerRadiusBottomStart="@dimen/_8sdp"
+        app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+        app:boxCornerRadiusTopStart="@dimen/_8sdp"
+        app:counterTextColor="@color/white"
+        app:hintTextColor="@color/white"
+        >
+
+        <EditText
+            android:id="@+id/service_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/fee"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:textColorHighlight="@color/white"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:importantForAutofill="no" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:errorTextColor="@color/secondary_peach"
+        android:textColorHint="@color/white"
+        android:layout_marginBottom="@dimen/_8sdp"
+        app:boxStrokeWidth="1dp"
+        app:boxBackgroundColor="@color/theme_bg"
+        app:boxStrokeColor="@color/select"
+        app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
+        app:boxCornerRadiusBottomStart="@dimen/_8sdp"
+        app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+        app:boxCornerRadiusTopStart="@dimen/_8sdp"
+        app:counterTextColor="@color/white"
+        app:hintTextColor="@color/white"
+        >
+
+        <EditText
+            android:id="@+id/service_fee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/interval"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:textColorHighlight="@color/white"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:importantForAutofill="no" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+</LinearLayout>

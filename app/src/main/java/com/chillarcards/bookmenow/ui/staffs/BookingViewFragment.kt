@@ -60,6 +60,7 @@ class BookingViewFragment : Fragment(), IAdapterViewUtills {
         bookingViewModel.run {
             doctorID.value = prefManager.getDoctorId().toString()
             date.value = formattedDate
+            entityId.value = ""
             getBookingList()
         }
 

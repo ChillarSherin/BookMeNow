@@ -15,7 +15,8 @@ data class WorkRequestModel(
 )
 data class BookingRequestModel(
     val doctorId: String,
-    val date: String
+    val date: String,
+    val entityId : String
 )
 data class BookUpdateRequestModel(
     val bookingId: String

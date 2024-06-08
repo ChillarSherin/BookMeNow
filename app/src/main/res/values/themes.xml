@@ -4,15 +4,15 @@
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/primary_blue</item>
         <item name="colorPrimaryDark">@color/primary_blue</item>
-        <item name="android:colorPrimaryDark">@color/app_theme</item>
-        <item name="android:navigationBarColor">@color/primary_blue</item>
+        <item name="android:colorPrimaryDark">@color/primary_blue</item>
+        <item name="android:navigationBarColor">@color/theme</item>
         <item name="colorPrimaryVariant">@color/color_pri_v</item>
         <item name="colorOnPrimary">@color/primary_blue</item>
         <item name="android:colorBackground">@color/app_theme</item>
         <item name="colorOnBackground">@color/color_pri_v</item>
         <item name="colorSecondary">@color/primary_red</item>
         <item name="colorSecondaryVariant">@color/primary_brown</item>
-        <item name="android:statusBarColor">@color/primary_blue</item>
+        <item name="android:statusBarColor">@color/theme</item>
         <item name="android:textColor">@color/white</item>
 
     </style>
@@ -53,8 +53,8 @@
         <item name="postSplashScreenTheme">@style/Theme.MyApplication</item>
 
         <!-- Status bar and Nav bar configs -->
-        <item name="android:statusBarColor">@color/app_theme</item>
-        <item name="android:navigationBarColor">@color/app_theme</item>
+        <item name="android:statusBarColor">@color/theme</item>
+        <item name="android:navigationBarColor">@color/theme</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
     </style>
 

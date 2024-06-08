@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.chillarcards.bookmenow.data.model.CategoryResponseModel
 import com.chillarcards.bookmenow.data.model.GeneralResponseModel
 import com.chillarcards.bookmenow.data.model.StatusResponseModel
 import com.chillarcards.bookmenow.data.repository.AuthRepository
@@ -24,6 +25,8 @@ class GeneralViewModel(
 
     private val _statusData = MutableLiveData<Resource<StatusResponseModel>?>()
     val statusData: LiveData<Resource<StatusResponseModel>?> get() = _statusData
+    private val _categoryData = MutableLiveData<Resource<CategoryResponseModel>?>()
+    val categoryData: LiveData<Resource<CategoryResponseModel>?> get() = _categoryData
 
     var doctorID = MutableLiveData<String>()
     var shopStatus = MutableLiveData<Int>()
@@ -71,9 +74,32 @@ class GeneralViewModel(
             }
         }
     }
+    fun getCategory() {
+        viewModelScope.launch(NonCancellable) {
+            try {
+                _categoryData.postValue(Resource.loading(null))
+                if (networkHelper.isNetworkConnected()) {
+                    authRepository.getCategory(
+                    ).let {
+                        if (it.isSuccessful) {
+                            _categoryData.postValue(Resource.success(it.body()))
+                        } else {
+                            _categoryData.postValue(Resource.error(it.errorBody().toString(), null))
+                        }
+                    }
+                } else {
+                    _categoryData.postValue(Resource.error("No Internet Connection", null))
+                }
+            } catch (e: Exception) {
+                Log.e("abc_otp", "verifyOTP: ", e)
+            }
+        }
+    }
 
     fun clear() {
         _settingData.value = null
+        _categoryData.value = null
+        _statusData.value = null
     }
 
 }

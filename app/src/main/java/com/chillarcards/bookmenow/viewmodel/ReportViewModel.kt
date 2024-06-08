@@ -26,6 +26,7 @@ class ReportViewModel(
 
     var doctorID = MutableLiveData<String>()
     var date = MutableLiveData<String>()
+    var entityId = MutableLiveData<String>()
 
     fun getReport() {
         viewModelScope.launch(NonCancellable) {
@@ -34,7 +35,8 @@ class ReportViewModel(
                 if (networkHelper.isNetworkConnected()) {
                     authRepository.getReport(
                         doctorID.value.toString(),
-                        date.value.toString()
+                        date.value.toString(),
+                        entityId.value.toString()
                     ).let {
                         if (it.isSuccessful) {
                             _reportData.postValue(Resource.success(it.body()))

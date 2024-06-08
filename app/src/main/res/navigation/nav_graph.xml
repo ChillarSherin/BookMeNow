@@ -6,6 +6,29 @@
     app:startDestination="@id/mobileFragment">
 
     <fragment
+        android:id="@+id/LoginFragment"
+        android:name="com.chillarcards.bookmenow.ui.register.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_signup">
+        <action
+            android:id="@+id/action_loginFragment_to_mobileFragment"
+            app:destination="@id/mobileFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/RegisterLandFragment" />
+        <argument
+            android:name="isVerifyTrm"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <argument
+            android:name="mobileNo"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="true" />
+
+    </fragment>
+
+    <fragment
         android:id="@+id/mobileFragment"
         android:name="com.chillarcards.bookmenow.ui.register.MobileFragment"
         android:label="MobileFragment"
@@ -24,6 +47,7 @@
             app:nullable="true" />
 
     </fragment>
+
     <fragment
         android:id="@+id/OTPFragment"
         android:name="com.chillarcards.bookmenow.ui.register.OTPFragment"
@@ -73,6 +97,14 @@
     </fragment>
 
     <fragment
+        android:id="@+id/RegisterLandFragment"
+        android:name="com.chillarcards.bookmenow.ui.register.GeneralMenuFragment"
+        android:label="RegisterLandFragment"
+        tools:layout="@layout/fragment_menu" >
+
+    </fragment>
+
+    <fragment
         android:id="@+id/homeBaseFragment"
         android:name="com.chillarcards.bookmenow.ui.home.HomeBaseFragment"
         android:label="HomeBaseFragment"
@@ -83,6 +115,7 @@
             app:argType="string"
             app:nullable="true" />
     </fragment>
+
     <fragment
         android:id="@+id/RegisterFragment"
         android:name="com.chillarcards.bookmenow.ui.register.AddProfileFragment"

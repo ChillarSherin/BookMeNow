@@ -2,7 +2,7 @@
 <resources>
     <color name="app_theme">#742E2E2E</color>
 
-    <color name="theme">#1E3367</color>
+    <color name="theme">#1e3367</color>
     <color name="theme_start">#0e1c26</color>
     <color name="theme_center">#2a454b</color>
     <color name="theme_end">#294861</color>

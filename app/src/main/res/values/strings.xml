@@ -9,6 +9,7 @@
 
     <!--  HEAD-->
     <string name="version">"Version\u0020"</string>
+    <string name="general_head">Welcome on board</string>
     <string name="alert_heading">Are you sure?</string>
     <string name="otp_head">Enter Verification Code</string>
     <string name="register_head">register</string>
@@ -93,6 +94,8 @@
 
     <!--  BUTTON-->
     <string name="retry">try again</string>
+    <string name="signin">Sign in</string>
+    <string name="signup">Register</string>
     <string name="contin">Continue</string>
     <string name="book">View Booking</string>
     <string name="wait">Please Wait For Otp</string>

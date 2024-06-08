@@ -37,18 +37,22 @@ class ApiHelperImpl(private val apiService: ApiService) : ApiHelper {
         apiService.getBankDetails()
    override suspend fun getShopClose(): Response<StatusResponseModel> =
         apiService.getShopClose()
+   override suspend fun getCategory(): Response<CategoryResponseModel> =
+        apiService.getCategory()
 
     override suspend fun getBookigDetails(
         doctorId: String,
-        date: String
+        date: String,
+        entityId: String
     ): Response<BookingResponseModel> = apiService.getBookigDetails(
-        BookingRequestModel(doctorId,date)
+        BookingRequestModel(doctorId,date,entityId)
     )
     override suspend fun getReport(
         doctorId: String,
-        date: String
+        date: String,
+        entityId: String
     ): Response<BookingReportResponseModel> = apiService.getReport(
-        BookingRequestModel(doctorId,date)
+        BookingRequestModel(doctorId,date,entityId)
     )
     override suspend fun getUpdate(
         bookingId: String

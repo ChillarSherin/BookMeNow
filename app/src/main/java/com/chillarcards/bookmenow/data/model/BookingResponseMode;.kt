@@ -12,7 +12,9 @@ data class AppointmentData(
     val pendingAppointments: Int,
     val appointmentDate: String,
     val doctorName: String,
-    val appointmentList: List<Appointment>
+    val appointmentList: List<Appointment>,
+    val entityDetails: List<EntityDetail>
+
 )
 
 data class Appointment(

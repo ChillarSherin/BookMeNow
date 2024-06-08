@@ -22,13 +22,16 @@ interface ApiHelper {
     suspend fun getGeneral():  Response<GeneralResponseModel>
     suspend fun getBankDetails():  Response<BankResponseModel>
     suspend fun getShopClose():  Response<StatusResponseModel>
+    suspend fun getCategory():  Response<CategoryResponseModel>
     suspend fun getBookigDetails(
         doctorId: String,
-        date: String
+        date: String,
+        entityId: String
     ): Response<BookingResponseModel>
     suspend fun getReport(
         doctorId: String,
-        date: String
+        date: String,
+        entityId: String,
     ): Response<BookingReportResponseModel>
 
     suspend fun getUpdate(

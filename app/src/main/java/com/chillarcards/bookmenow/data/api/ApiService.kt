@@ -51,5 +51,7 @@ interface ApiService {
     suspend fun getBankDetails(): Response<BankResponseModel>
     @POST("auth/update-status")
     suspend fun getShopClose(): Response<StatusResponseModel>
+    @POST("app/list-category")
+    suspend fun getCategory(): Response<CategoryResponseModel>
 
 }

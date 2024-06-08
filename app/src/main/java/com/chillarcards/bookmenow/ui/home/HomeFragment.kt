@@ -19,12 +19,15 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chillarcards.bookmenow.R
 import com.chillarcards.bookmenow.databinding.FragmentHomeBinding
 import com.chillarcards.bookmenow.ui.Dummy
 import com.chillarcards.bookmenow.ui.adapter.BookingAdapter
+import com.chillarcards.bookmenow.ui.adapter.ClinicAdapter
 import com.chillarcards.bookmenow.ui.adapter.HorizontalAdapter
+import com.chillarcards.bookmenow.ui.booking.BookingAllFragmentArgs
 import com.chillarcards.bookmenow.ui.interfaces.IAdapterViewUtills
 import com.chillarcards.bookmenow.ui.notification.NotificationViewModel
 import com.chillarcards.bookmenow.utills.CommonDBaseModel
@@ -44,14 +47,14 @@ import java.util.Locale
 class HomeFragment : Fragment(), IAdapterViewUtills {
 
     lateinit var binding: FragmentHomeBinding
-
+    private val args: HomeFragmentArgs by navArgs()
     private lateinit var notificationViewModel: NotificationViewModel
     private val bookingViewModel by viewModel<BookingViewModel>()
     private lateinit var prefManager: PrefManager
     private var doctorName =""
     private var phoneNo =""
     private val PERMISSION_REQUEST_CALL_PHONE = 1
-
+    private var formattedDate = ""
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -70,14 +73,14 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
         getCurrentDate()
 
         val currentDate = Calendar.getInstance().time
-        val formattedDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(currentDate)
+        formattedDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(currentDate)
 
         bookingViewModel.run {
             doctorID.value = prefManager.getDoctorId().toString()
             date.value = formattedDate
+            entityId.value = prefManager.getEntityId()
             getBookingList()
         }
-
         setUpObserver()
 
         binding.menuIcon.setOnClickListener {
@@ -138,6 +141,24 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
                                             }
                                         }
 
+                                        if(bookingData.data.entityDetails.isNotEmpty()) {
+                                            binding.topStaffFrame.visibility=View.VISIBLE
+
+                                            val salesTopPicAdapter = ClinicAdapter(
+                                                bookingData.data.entityDetails,
+                                                requireContext(),
+                                                this@HomeFragment
+                                            )
+                                            binding.topPicRv.adapter = salesTopPicAdapter
+                                            binding.topPicRv.layoutManager = LinearLayoutManager(
+                                                context,
+                                                LinearLayoutManager.HORIZONTAL,
+                                                false
+                                            )
+
+                                        }else{
+                                            binding.topStaffFrame.visibility=View.GONE
+                                        }
                                     }
                                     403 -> {
                                         prefManager.setRefresh("1")
@@ -172,6 +193,7 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
             Log.e("abc_otp", "setUpObserver: ", e)
         }
     }
+
     private fun showProgress() {
         binding.otpProgress.visibility = View.VISIBLE
     }
@@ -186,11 +208,22 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
     ) {
         if(Mode.equals("VIEW")) {
             setBottomSheet(ValueArray)
-        }  else if(Mode.equals("BOOKVIEW")) {
+        }
+        else if(Mode.equals("BOOKVIEW")) {
             val bookingId: String = ValueArray[0].mastIDs.toString()
             findNavController().navigate(
                 HomeFragmentDirections.actionHomeToStaffViewBookFragment(bookingId)
             )
+        }
+        else if(Mode.equals("STAFFVIEW")) {
+            prefManager.setEntityId(ValueArray[0].mastIDs.toString())
+            bookingViewModel.run {
+                doctorID.value = prefManager.getDoctorId().toString()
+                date.value = formattedDate
+                entityId.value = prefManager.getEntityId()
+                getBookingList()
+            }
+            setUpObserver()
         }
     }
 

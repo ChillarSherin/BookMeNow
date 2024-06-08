@@ -153,7 +153,7 @@ class GeneralFragment : Fragment(), IAdapterViewUtills {
                                         binding.shopStatus.setTextColor(resources.getColor(R.color.onoff))
                                     }
 
-                                    binding.interval.setText(settingData.data.consultationDuration.toString())
+                                    binding.interval.setText("10")
                                     generalViewModel.shopStatus.value = settingData.data.entityStatus
                                     prefManager.setDoctorId(settingData.data.doctor_id)
                                 }

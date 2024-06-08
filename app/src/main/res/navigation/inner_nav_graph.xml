@@ -29,7 +29,7 @@
             android:id="@+id/action_homeFragment_to_ReportFragment"
             app:destination="@id/reportFragment" />
         <argument
-            android:name="mobileNo"
+            android:name="mobile"
             android:defaultValue=""
             app:argType="string"
             app:nullable="true" />

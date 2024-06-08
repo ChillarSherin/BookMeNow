@@ -136,7 +136,7 @@
                                 android:id="@+id/ttl_apoint_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Today 10 Appointments"
+                                android:text="Today  Appointments"
                                 android:textSize="@dimen/_13ssp"
                                 android:textStyle="bold"
                                 app:layout_constraintStart_toEndOf="@+id/no_img"
@@ -155,20 +155,20 @@
                                 android:id="@+id/completed_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Completed  : 4 "
+                                android:text="Completed  :  "
                                 android:textSize="@dimen/_12ssp" />
                             <TextView
                                 android:id="@+id/cancel_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Pending    : 6"
+                                android:text="Pending    : "
                                 android:textSize="@dimen/_12ssp" />
                             <TextView
                                 android:visibility="gone"
                                 android:id="@+id/direct_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="direct    : 1"
+                                android:text="direct    : "
                                 android:textSize="@dimen/_12ssp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -177,7 +177,6 @@
             </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/top_staff_frame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -202,7 +201,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="top pick"
+                            android:text="My Clinics"
                             android:textStyle="bold"
                             android:textSize="@dimen/_11sdp"
                             />
@@ -217,6 +216,7 @@
                         android:layout_gravity="center">
 
                         <TextView
+                            android:visibility="invisible"
                             android:id="@+id/staff_all"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -316,7 +316,6 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="6"
                     tools:listitem="@layout/staff_adapter"/>
-
 
             </LinearLayout>
             <ProgressBar

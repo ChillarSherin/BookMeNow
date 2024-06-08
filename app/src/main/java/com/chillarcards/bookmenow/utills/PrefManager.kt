@@ -16,6 +16,7 @@ class PrefManager(_context: Context) {
         private const val STATUS = "STATUS"
         private const val MOBILENO = "MOBILENO"
         private const val DOCTORID = "DOCTORID"
+        private const val entityId = "EntityId"
 
         // shared pref mode
         private const val PRIVATE_MODE = Context.MODE_PRIVATE
@@ -66,6 +67,13 @@ class PrefManager(_context: Context) {
     }
     fun setDoctorId(value: Int) {
         editor.putInt(DOCTORID, value)
+        editor.commit()
+    }
+    fun getEntityId(): String {
+        return pref.getString(entityId, "") ?: ""
+    }
+    fun setEntityId(value: String) {
+        editor.putString(entityId, value)
         editor.commit()
     }
     fun getStatus(): Int {

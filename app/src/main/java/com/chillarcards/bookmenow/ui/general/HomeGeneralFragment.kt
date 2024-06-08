@@ -14,9 +14,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.chillarcards.bookmenow.MainActivity
 import com.chillarcards.bookmenow.R
 import com.chillarcards.bookmenow.databinding.FragmentGeneralHomeBinding
+import com.chillarcards.bookmenow.ui.adapter.ClinicAdapter
+import com.chillarcards.bookmenow.ui.home.HomeFragmentDirections
 import com.chillarcards.bookmenow.ui.interfaces.IAdapterViewUtills
 import com.chillarcards.bookmenow.ui.register.OTPFragmentArgs
 import com.chillarcards.bookmenow.utills.CommonDBaseModel
@@ -35,13 +38,13 @@ class HomeGeneralFragment : Fragment(), IAdapterViewUtills {
     private val generalViewModel by viewModel<GeneralViewModel>()
     private lateinit var prefManager: PrefManager
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_general_home, container, false)
+       //  return binding.root
+        binding = FragmentGeneralHomeBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -56,9 +59,6 @@ class HomeGeneralFragment : Fragment(), IAdapterViewUtills {
         setUpObserver()
 
 
-        binding.intervalFrm.setEndIconOnClickListener {
-            binding.interval.setText("")
-        }
         binding.profile.setOnClickListener{
             findNavController().navigate(
                 HomeGeneralFragmentDirections.actionGeneralFragmentToRegisterFragment(
@@ -158,7 +158,6 @@ class HomeGeneralFragment : Fragment(), IAdapterViewUtills {
                                             binding.shopStatus.setTextColor(resources.getColor(R.color.onoff))
                                         }
 
-                                        binding.interval.setText(settingData.data.consultationDuration.toString())
                                         generalViewModel.shopStatus.value = settingData.data.entityStatus
                                         generalViewModel.doctorID.value = settingData.data.doctor_id.toString()
                                         prefManager.setDoctorId(settingData.data.doctor_id)
@@ -170,6 +169,24 @@ class HomeGeneralFragment : Fragment(), IAdapterViewUtills {
                                             binding.confirmBtn.visibility =View.GONE
                                         }
 
+                                        if(settingData.data.entityDetails.isNotEmpty()) {
+                                            binding.topStaffFrame.visibility=View.VISIBLE
+
+                                            val salesTopPicAdapter = ClinicAdapter(
+                                                settingData.data.entityDetails,
+                                                requireContext(),
+                                                this@HomeGeneralFragment
+                                            )
+                                            binding.topPicRv.adapter = salesTopPicAdapter
+                                            binding.topPicRv.layoutManager = LinearLayoutManager(
+                                                context,
+                                                LinearLayoutManager.HORIZONTAL,
+                                                false
+                                            )
+                                        }
+                                        else{
+                                            binding.topStaffFrame.visibility=View.GONE
+                                        }
                                     }
                                     422 -> {
                                         Const.shortToast(requireContext(), "Profile is not yet completed")
@@ -257,13 +274,17 @@ class HomeGeneralFragment : Fragment(), IAdapterViewUtills {
         ValueArray: ArrayList<CommonDBaseModel>,
         Mode: String?
     ) {
-//        if(Mode.equals("VIEW")) {
-//            val bottomSheetFragment = BottomSheetFragment(ValueArray)
-//            bottomSheetFragment.show(
-//                (context as AppCompatActivity).supportFragmentManager,
-//                bottomSheetFragment.tag
-//            )
-//        }
+        if(Mode.equals("STAFFVIEW")) {
+            val entityId = ValueArray[0].mastIDs.toString()
+            prefManager.setEntityId(entityId)
+
+            findNavController().navigate(
+                HomeGeneralFragmentDirections.actionGeneralFragmentToHomeFragment(
+
+                )
+            )
+
+        }
     }
 
     private fun setBottomSheet() {

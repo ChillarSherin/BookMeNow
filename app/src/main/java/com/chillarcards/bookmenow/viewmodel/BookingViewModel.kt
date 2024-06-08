@@ -30,6 +30,7 @@ class BookingViewModel(
 
     var doctorID = MutableLiveData<String>()
     var date = MutableLiveData<String>()
+    var entityId = MutableLiveData<String>()
     var bookingId = MutableLiveData<String>()
 
     fun getBookingList() {
@@ -39,7 +40,8 @@ class BookingViewModel(
                 if (networkHelper.isNetworkConnected()) {
                     authRepository.getBookigDetails(
                         doctorID.value.toString(),
-                        date.value.toString()
+                        date.value.toString(),
+                        entityId.value.toString(),
                     ).let {
                         if (it.isSuccessful) {
                             _bookingData.postValue(Resource.success(it.body()))
