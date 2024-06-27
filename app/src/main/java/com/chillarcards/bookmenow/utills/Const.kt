@@ -76,6 +76,14 @@ class Const {
                 }
             }
         }
-
+        fun maskPhoneNumber(phoneNumber: String): String {
+            if (phoneNumber.length < 5) {
+                return phoneNumber
+            }
+            val maskedLength = phoneNumber.length - 5
+            val maskedString =
+                "*".repeat(maskedLength)
+            return maskedString + phoneNumber.substring(phoneNumber.length - 5)
+        }
     }
 }

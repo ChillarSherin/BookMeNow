@@ -373,6 +373,7 @@
             android:textStyle="bold" />
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50sdp"
             android:gravity="start"
@@ -483,7 +484,6 @@
             android:gravity="start"
             android:orientation="horizontal"
             android:layout_marginHorizontal="@dimen/_18sdp"
-            android:layout_marginVertical="@dimen/_8sdp"
             android:background="@drawable/theme_border">
 
             <LinearLayout
@@ -536,6 +536,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/confirm_btn"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_18sdp"

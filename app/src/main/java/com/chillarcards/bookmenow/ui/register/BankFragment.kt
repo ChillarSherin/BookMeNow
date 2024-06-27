@@ -118,12 +118,12 @@ class BankFragment : Fragment() {
     }
 
     private fun showProgress() {
-        binding.confirmBtn.visibility = View.INVISIBLE
+     //   binding.confirmBtn.visibility = View.INVISIBLE
         binding.otpProgress.visibility = View.VISIBLE
     }
 
     private fun hideProgress() {
-        binding.confirmBtn.visibility = View.VISIBLE
+      //  binding.confirmBtn.visibility = View.VISIBLE
         binding.otpProgress.visibility = View.GONE
     }
 

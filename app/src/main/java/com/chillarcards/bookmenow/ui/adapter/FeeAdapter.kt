@@ -34,6 +34,7 @@ class FeeAdapter(private val items: List<AdditionalDetail>,
     override fun getItemCount() = filteredItems.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val serviceEntity: TextView = itemView.findViewById(R.id.clinic_title)
         private val serviceName: TextView = itemView.findViewById(R.id.service_name)
         private val serviceFee: TextView = itemView.findViewById(R.id.service_fee)
 
@@ -41,8 +42,9 @@ class FeeAdapter(private val items: List<AdditionalDetail>,
 //            serviceName.text = "Consultation Fee ₹ "+item.consultationCharge.toString()
 //            serviceFee.text = "Consultation Duration :"+item.consultationTime.toString()
 
-            serviceName.setText(item.consultationCharge.toString())
-            serviceFee.setText(item.consultationTime.toString())
+            serviceEntity.text = item.entityName.toString()
+            serviceName.text = item.consultationCharge.toString()
+            serviceFee.text = item.consultationTime.toString()
         }
     }
 

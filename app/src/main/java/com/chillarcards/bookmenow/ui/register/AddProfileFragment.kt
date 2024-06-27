@@ -49,7 +49,7 @@ class AddProfileFragment : Fragment() {
 
         setUpObserver()
         setToolbar()
-        Const.enableButton(binding.confirmBtn)
+       // Const.enableButton(binding.confirmBtn)
 
         binding.confirmBtn.setOnClickListener {
             findNavController().popBackStack()
@@ -57,12 +57,12 @@ class AddProfileFragment : Fragment() {
     }
 
     private fun showProgress() {
-        binding.confirmBtn.visibility = View.INVISIBLE
+      //  binding.confirmBtn.visibility = View.INVISIBLE
         binding.otpProgress.visibility = View.VISIBLE
     }
 
     private fun hideProgress() {
-        binding.confirmBtn.visibility = View.VISIBLE
+     //   binding.confirmBtn.visibility = View.VISIBLE
         binding.otpProgress.visibility = View.GONE
     }
 
@@ -93,7 +93,7 @@ class AddProfileFragment : Fragment() {
                                             binding.topPicRv.adapter = salesTopPicAdapter
                                             binding.topPicRv.layoutManager = LinearLayoutManager(
                                                 context,
-                                                LinearLayoutManager.HORIZONTAL,
+                                                LinearLayoutManager.VERTICAL,
                                                 false
                                             )
 

@@ -66,6 +66,7 @@
     <string name="fullname"> Full Name</string>
     <string name="degree"> Qualification</string>
     <string name="desig"> Designation</string>
+    <string name="detail"> Description</string>
     <string name="worknghrs"> Working Hours</string>
     <string name="fee"> Consultation Fee</string>
     <string name="interval">Consultation Duration</string>
@@ -80,6 +81,7 @@
     <string name="sunday">Sunday</string>
     <string name="login">Login</string>
     <string name="logout"><u> Logout </u></string>
+    <string name="logout_new">Logout</string>
     <string name="lat_long">latitude &amp; longitude</string>
 
     <string name="agree_tnc_one">By proceeding, you agree to the</string>

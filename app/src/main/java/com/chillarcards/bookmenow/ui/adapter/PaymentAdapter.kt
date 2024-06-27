@@ -38,7 +38,7 @@ class PaymentAdapter(private val items: List<BookingReportItem>,
             CustomNameTextView.text = item.customerName
             orderId.text = item.orderId
 
-            //0= vist pending 1 = vist completed  2 cancelled
+            //0= vist pending 1SS 2 cancelled
 
 //            if(item.bookingStatus==2){
 //                PayStatus.setImageDrawable(context?.getDrawable(R.drawable.ic_down))
