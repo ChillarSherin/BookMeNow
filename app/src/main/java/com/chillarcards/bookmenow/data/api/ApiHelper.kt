@@ -19,6 +19,7 @@ interface ApiHelper {
     suspend fun getWork(
         doctor_id: String
     ): Response<WorkResponseModel>
+    suspend fun getShareLink():  Response<ShareLinkResponseModel>
     suspend fun getGeneral():  Response<GeneralResponseModel>
     suspend fun getBankDetails():  Response<BankResponseModel>
     suspend fun getShopClose():  Response<StatusResponseModel>
@@ -31,7 +32,6 @@ interface ApiHelper {
     suspend fun getReport(
         doctorId: String,
         date: String,
-        entityId: String,
     ): Response<BookingReportResponseModel>
 
     suspend fun getUpdate(

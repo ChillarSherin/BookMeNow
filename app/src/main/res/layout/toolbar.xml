@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/white"
+        app:tint="@color/text_black"
         android:contentDescription="@string/app_name" />
 
     <TextView
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
-        android:textColor="@color/white"
+        android:textColor="@color/text_black"
         android:textStyle="bold"
         android:textSize="@dimen/_13ssp"
         app:layout_constraintBottom_toBottomOf="@id/toolbar_back"
@@ -41,7 +41,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/white"
+        app:tint="@color/text_black"
         android:contentDescription="@string/app_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

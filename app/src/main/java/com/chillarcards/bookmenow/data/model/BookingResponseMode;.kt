@@ -7,7 +7,7 @@ data class BookingResponseModel(
 )
 
 data class AppointmentData(
-    val totalAppointments: Int,
+    val totalBooking: Int,
     val completedAppointments: Int,
     val pendingAppointments: Int,
     val appointmentDate: String,

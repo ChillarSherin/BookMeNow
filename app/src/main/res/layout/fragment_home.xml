@@ -38,8 +38,7 @@
                     android:id="@+id/logo_icon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Hi User!"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_16ssp" />
             </LinearLayout>
             <LinearLayout
@@ -78,13 +77,14 @@
                 app:cardPreventCornerOverlap="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:strokeColor="@color/button_theme_ix"
-                app:strokeWidth="0.4dp">
+                app:strokeColor="@color/black"
+                app:strokeWidth="0.4dp"
+                >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/button_theme_ix">
+                    android:background="@drawable/theme_bg_stroke">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -104,7 +104,6 @@
                                 android:id="@+id/daydate"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Sat 9"
                                 android:gravity="center"
                                 android:textSize="@dimen/_15ssp"
                                 android:textStyle="bold"/>
@@ -118,7 +117,6 @@
                                 android:id="@+id/year"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="2023"
                                 android:gravity="center"
                                 android:textSize="@dimen/_15ssp"
                                 android:textStyle="bold"/>
@@ -174,7 +172,59 @@
                     </LinearLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
             </com.google.android.material.card.MaterialCardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/share"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:background="@drawable/theme_bg_stroke">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_gravity="center">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:orientation="vertical"
+                        android:layout_marginStart="@dimen/_2sdp"
+                        android:padding="@dimen/_5sdp"
+                        android:gravity="end">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/booking"
+                            android:textSize="@dimen/_13ssp"
+                            android:textStyle="bold"
+                            android:gravity="end"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.3"
+                        android:gravity="center"
+                        android:layout_margin="@dimen/_3sdp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:drawableStart="@drawable/ic_share"
+                            android:textSize="@dimen/_15ssp"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:id="@+id/top_staff_frame"
@@ -201,7 +251,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="My Clinics"
+                            android:text="My Clinic"
                             android:textStyle="bold"
                             android:textSize="@dimen/_11sdp"
                             />

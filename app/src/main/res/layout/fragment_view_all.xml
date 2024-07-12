@@ -23,13 +23,11 @@
             android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_18sdp"
-            android:layout_marginVertical="@dimen/_18sdp"
-            app:cardBackgroundColor="@color/secondary_peach"
+            app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="@dimen/_10sdp"
             app:cardElevation="0dp"
             app:cardPreventCornerOverlap="true"
-            app:strokeColor="@color/button_theme_ix"
+            app:strokeColor="@color/white"
             app:strokeWidth="0.4dp"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             >
@@ -37,7 +35,10 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/button_theme_ix">
+                android:layout_marginHorizontal="@dimen/_18sdp"
+                android:layout_marginVertical="@dimen/_18sdp"
+
+                android:background="@drawable/theme_bg_stroke">
 
                 <LinearLayout
                     android:layout_width="match_parent"

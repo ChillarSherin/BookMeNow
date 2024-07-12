@@ -70,52 +70,53 @@ class ReportFragment : Fragment() {
             }
         }
 
-//        binding.chooseDate.setOnClickListener {
-//            val calendar = Calendar.getInstance()
-//
-//            // Set the maximum date to today's date
-//            val maxYear = calendar.get(Calendar.YEAR)
-//            val maxMonth = calendar.get(Calendar.MONTH)
-//            val maxDay = calendar.get(Calendar.DAY_OF_MONTH)
-//
-//// Set the minimum date to 3 months ago
-//            calendar.add(Calendar.MONTH, -3)
-//            val minYear = calendar.get(Calendar.YEAR)
-//            val minMonth = calendar.get(Calendar.MONTH)
-//            val minDay = calendar.get(Calendar.DAY_OF_MONTH)
-//
-//            val datePickerDialog = DatePickerDialog(
-//                requireContext(),
-//                { _, year, month, day ->
-//                    // Handle the selected date
-//                    val selectedDate = formatDate(day, month, year)
-//                    binding.date.text = selectedDate
-//
-//                    reportViewModel.run {
-//                        doctorID.value = prefManager.getDoctorId().toString()
-//                        date.value = selectedDate
-//                        getReport()
-//                    }
-//                    setUpObserver()
-//                },
-//                maxYear,
-//                maxMonth,
-//                maxDay
-//            )
-//
-//            datePickerDialog.datePicker.minDate = calendar.timeInMillis
-//            datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
-//
-//            datePickerDialog.datePicker.init(
-//                maxYear, maxMonth, maxDay
-//            ) { _, year, month, day ->
-//                // Handle the date change
-//            }
-//
-//
-//            datePickerDialog.show()
-//
-//        }
+        binding.chooseDate.setOnClickListener {
+            val calendar = Calendar.getInstance()
+
+            // Set the maximum date to today's date
+            val maxYear = calendar.get(Calendar.YEAR)
+            val maxMonth = calendar.get(Calendar.MONTH)
+            val maxDay = calendar.get(Calendar.DAY_OF_MONTH)
+
+// Set the minimum date to 3 months ago
+            calendar.add(Calendar.MONTH, -3)
+            val minYear = calendar.get(Calendar.YEAR)
+            val minMonth = calendar.get(Calendar.MONTH)
+            val minDay = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(
+                requireContext(),
+                { _, year, month, day ->
+                    // Handle the selected date
+                    val selectedDate = formatDate(day, month, year)
+                    binding.date.text = selectedDate
+
+                    reportViewModel.run {
+                        doctorID.value = prefManager.getDoctorId().toString()
+                        date.value = selectedDate
+//                        date.value = "12 Jul 2024"
+                        getReport()
+                    }
+                    setUpObserver()
+                },
+                maxYear,
+                maxMonth,
+                maxDay
+            )
+
+            datePickerDialog.datePicker.minDate = calendar.timeInMillis
+            datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
+
+            datePickerDialog.datePicker.init(
+                maxYear, maxMonth, maxDay
+            ) { _, year, month, day ->
+                // Handle the date change
+            }
+
+
+            datePickerDialog.show()
+
+        }
 
     }
     private fun formatDate(day: Int, month: Int, year: Int): String {

@@ -242,6 +242,9 @@
         <action
             android:id="@+id/action_BookingFragment_to_EstimateFragment"
             app:destination="@id/estimateFragment" />
+        <action
+            android:id="@+id/action_estimateFragment_to_SuccessFragment"
+            app:destination="@id/successFragment" />
         <argument
             android:name="date"
             android:defaultValue=""

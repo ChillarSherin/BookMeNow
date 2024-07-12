@@ -31,6 +31,8 @@ class ApiHelperImpl(private val apiService: ApiService) : ApiHelper {
     ): Response<WorkResponseModel> = apiService.getWork(
         WorkRequestModel(doctor_id)
     )
+    override suspend fun getShareLink(): Response<ShareLinkResponseModel> =
+        apiService.getShareLink()
     override suspend fun getGeneral(): Response<GeneralResponseModel> =
         apiService.getGeneral()
     override suspend fun getBankDetails(): Response<BankResponseModel> =
@@ -49,10 +51,9 @@ class ApiHelperImpl(private val apiService: ApiService) : ApiHelper {
     )
     override suspend fun getReport(
         doctorId: String,
-        date: String,
-        entityId: String
+        date: String
     ): Response<BookingReportResponseModel> = apiService.getReport(
-        BookingRequestModel(doctorId,date,entityId)
+        BookingReportModel(doctorId,date)
     )
     override suspend fun getUpdate(
         bookingId: String

@@ -18,6 +18,10 @@ data class BookingRequestModel(
     val date: String,
     val entityId : String
 )
+data class BookingReportModel(
+    val doctorId: String,
+    val date: String,
+)
 data class BookUpdateRequestModel(
     val bookingId: String
 )

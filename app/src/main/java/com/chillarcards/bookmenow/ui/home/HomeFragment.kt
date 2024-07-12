@@ -22,12 +22,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chillarcards.bookmenow.R
+import com.chillarcards.bookmenow.data.model.EntityDetail
 import com.chillarcards.bookmenow.databinding.FragmentHomeBinding
-import com.chillarcards.bookmenow.ui.Dummy
 import com.chillarcards.bookmenow.ui.adapter.BookingAdapter
 import com.chillarcards.bookmenow.ui.adapter.ClinicAdapter
-import com.chillarcards.bookmenow.ui.adapter.HorizontalAdapter
-import com.chillarcards.bookmenow.ui.booking.BookingAllFragmentArgs
 import com.chillarcards.bookmenow.ui.interfaces.IAdapterViewUtills
 import com.chillarcards.bookmenow.ui.notification.NotificationViewModel
 import com.chillarcards.bookmenow.utills.CommonDBaseModel
@@ -39,8 +37,6 @@ import com.chillarcards.bookmenow.viewmodel.RegisterViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Locale
 
@@ -55,6 +51,7 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
     private var phoneNo =""
     private val PERMISSION_REQUEST_CALL_PHONE = 1
     private var formattedDate = ""
+    private var shareLink = ""
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -78,14 +75,33 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
         bookingViewModel.run {
             doctorID.value = prefManager.getDoctorId().toString()
             date.value = formattedDate
-            entityId.value = prefManager.getEntityId()
+            entityId.value = if (prefManager.getEntityId() == "-1") "" else prefManager.getEntityId()
             getBookingList()
         }
+
+        bookingViewModel.run {
+            getShareLink()
+        }
+
         setUpObserver()
+        getUpObserver()
 
         binding.menuIcon.setOnClickListener {
             openOptionsMenu(it)
+        }
 
+        binding.share.setOnClickListener {
+            if(shareLink!="") {
+                val shareIntent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, shareLink)
+                    type = "text/plain"
+                }
+                startActivity(Intent.createChooser(shareIntent, "Share via"))
+            }else{
+                getUpObserver()
+                Const.shortToast(requireContext(),"Something went wrong! Try Again")
+            }
         }
     }
 
@@ -120,7 +136,7 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
                                 when (bookingData.statusCode) {
                                     200 -> {
                                         binding.logoIcon.text= "Hi "+bookingData.data.doctorName
-                                        binding.ttlApointTv.text = "Today "+bookingData.data.totalAppointments.toString()+" Appointments"
+                                        binding.ttlApointTv.text = "Today "+bookingData.data.totalBooking.toString()+" Appointments"
                                         binding.completedTv.text = "Completed  :"+bookingData.data.completedAppointments.toString()
                                         binding.cancelTv.text = "Pending  :"+bookingData.data.pendingAppointments.toString()
 
@@ -142,20 +158,28 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
                                         }
 
                                         if(bookingData.data.entityDetails.isNotEmpty()) {
-                                            binding.topStaffFrame.visibility=View.VISIBLE
+                                            if(bookingData.data.entityDetails.size>1){
+                                                binding.topStaffFrame.visibility=View.VISIBLE
+                                                val entityDataMastCols: List<EntityDetail>
+                                                val entityMastTemp  = bookingData.data.entityDetails.toMutableList()
+                                                entityMastTemp.add(0, EntityDetail( -1,"View all","",0,1))
+                                                entityDataMastCols  = entityMastTemp
 
-                                            val salesTopPicAdapter = ClinicAdapter(
-                                                bookingData.data.entityDetails,
-                                                requireContext(),
-                                                this@HomeFragment
-                                            )
-                                            binding.topPicRv.adapter = salesTopPicAdapter
-                                            binding.topPicRv.layoutManager = LinearLayoutManager(
-                                                context,
-                                                LinearLayoutManager.HORIZONTAL,
-                                                false
-                                            )
+                                                val salesTopPicAdapter = ClinicAdapter(
+                                                    entityDataMastCols,
+                                                    requireContext(),
+                                                    this@HomeFragment
+                                                )
 
+                                                binding.topPicRv.adapter = salesTopPicAdapter
+                                                binding.topPicRv.layoutManager = LinearLayoutManager(
+                                                    context,
+                                                    LinearLayoutManager.HORIZONTAL,
+                                                    false
+                                                )
+                                            }else{
+                                                binding.topStaffFrame.visibility=View.GONE
+                                            }
                                         }else{
                                             binding.topStaffFrame.visibility=View.GONE
                                         }
@@ -170,6 +194,42 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
                                         )
                                     }
                                     else -> Const.shortToast(requireContext(), bookingData.message)
+                                }
+                            }
+                        }
+                        Status.LOADING -> {
+                            showProgress()
+                        }
+                        Status.ERROR -> {
+                            hideProgress()
+                            prefManager.setRefresh("1")
+                            val authViewModel by viewModel<RegisterViewModel>()
+                            Const.getNewTokenAPI(
+                                requireContext(),
+                                authViewModel,
+                                viewLifecycleOwner
+                            )
+                        }
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Log.e("abc_otp", "setUpObserver: ", e)
+        }
+    }
+   private fun getUpObserver() {
+        try {
+            bookingViewModel.bookLinkData.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    when (it.status) {
+                        Status.SUCCESS -> {
+                            hideProgress()
+                            it.data?.let { booklnkData ->
+                                when (booklnkData.statusCode) {
+                                    200 -> {
+                                        shareLink = booklnkData.data
+                                    }
+                                    else -> Const.shortToast(requireContext(), booklnkData.message)
                                 }
                             }
                         }
@@ -215,13 +275,24 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
                 HomeFragmentDirections.actionHomeToStaffViewBookFragment(bookingId)
             )
         }
-        else if(Mode.equals("STAFFVIEW")) {
-            prefManager.setEntityId(ValueArray[0].mastIDs.toString())
-            bookingViewModel.run {
-                doctorID.value = prefManager.getDoctorId().toString()
-                date.value = formattedDate
-                entityId.value = prefManager.getEntityId()
-                getBookingList()
+        else if(Mode.equals("VIEWBOOKING")) {
+            if(ValueArray[0].mastIDs=="-1"){
+                prefManager.setEntityId(ValueArray[0].mastIDs.toString())
+
+                bookingViewModel.run {
+                    doctorID.value = prefManager.getDoctorId().toString()
+                    date.value = formattedDate
+                    entityId.value = ""
+                    getBookingList()
+                }
+            }else{
+                prefManager.setEntityId(ValueArray[0].mastIDs.toString())
+                bookingViewModel.run {
+                    doctorID.value = prefManager.getDoctorId().toString()
+                    date.value = formattedDate
+                    entityId.value = prefManager.getEntityId()
+                    getBookingList()
+                }
             }
             setUpObserver()
         }
@@ -278,27 +349,33 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
         val inflater: MenuInflater = popup.menuInflater
         inflater.inflate(R.menu.menu_top, popup.menu)
 
-        val notificationItem = popup.menu.findItem(R.id.menu_notification)
-        val notificationCount = getNotificationCount()
+        val version = popup.menu.findItem(R.id.version)
+        val pInfo =
+            activity?.let { activity?.packageManager!!.getPackageInfo(it.packageName, PackageManager.GET_ACTIVITIES) }
+        val versionName = pInfo?.versionName //Version Name
+        version.title = "Version $versionName"
 
-        if (notificationCount > 0) {
-            // Show red dot or notification count
-            notificationItem.setIcon(R.drawable.ic_notification_red_dot)
-        } else {
-            // Hide red dot or notification count
-            notificationItem.setIcon(R.drawable.ic_notification)
-            notificationItem.actionView = null
-        }
+//        val notificationItem = popup.menu.findItem(R.id.menu_notification)
+//        val notificationCount = getNotificationCount()
+//
+//        if (notificationCount > 0) {
+//            // Show red dot or notification count
+//            notificationItem.setIcon(R.drawable.ic_notification_red_dot)
+//        } else {
+//            // Hide red dot or notification count
+//            notificationItem.setIcon(R.drawable.ic_notification)
+//            notificationItem.actionView = null
+//        }
 
-        popup.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.menu_notification -> {
-                    findNavController().navigate(R.id.action_homeFragment_to_NotificationFragment)
-                    true
-                }
-                else -> false
-            }
-        }
+//        popup.setOnMenuItemClickListener { menuItem ->
+//            when (menuItem.itemId) {
+//                R.id.menu_notification -> {
+//                    findNavController().navigate(R.id.action_homeFragment_to_NotificationFragment)
+//                    true
+//                }
+//                else -> false
+//            }
+//        }
 
         popup.show()
     }

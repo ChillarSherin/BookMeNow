@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -27,22 +28,32 @@
             android:layout_height="wrap_content"
             android:text="@string/app_heading"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/text_black"
             android:textSize="@dimen/_18ssp"
             android:layout_marginVertical="@dimen/_18sdp"
             app:layout_constraintBottom_toBottomOf="@+id/logo"
             />
 
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="wrap_content"
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/_60sdp"
+            app:cardBackgroundColor="@color/white"
             android:layout_height="@dimen/_60sdp"
-            android:src="@drawable/login"
-            android:layout_gravity="center"
+            app:cardCornerRadius="@dimen/_360sdp"
             android:layout_marginHorizontal="@dimen/_18sdp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_24sdp"
             android:contentDescription="TODO"
             app:layout_constraintTop_toTopOf="parent"
-            />
+            tools:ignore="MissingConstraints">
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/login"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center"
+                android:contentDescription="TODO" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/otp_head_msg"
@@ -52,7 +63,7 @@
             android:layout_marginVertical="@dimen/_11sdp"
             android:text="Your application need to complete following options to view booking"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/text_black"
             android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="@id/title"/>
 
@@ -89,7 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Booking Link Status"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_black"
                     android:gravity="center_vertical"
                     android:textSize="@dimen/_13ssp" />
 
@@ -146,7 +157,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Profile Setting"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_black"
                     android:gravity="center_vertical"
                     android:textSize="@dimen/_13ssp" />
 
@@ -203,7 +214,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Working Hours"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_black"
                     android:gravity="center_vertical"
                     android:textSize="@dimen/_13ssp" />
 
@@ -261,7 +272,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:text="Bank Account Setting"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_black"
                     android:textSize="@dimen/_13ssp" />
 
             </LinearLayout>
@@ -310,7 +321,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="My Clinics"
+                        android:text="My Saloon"
                         android:textStyle="bold"
                         android:textSize="@dimen/_11sdp"
                         />
@@ -389,7 +400,7 @@
             android:background="@drawable/button_gradient_red"
             android:text="@string/logout_new"
             android:textAllCaps="true"
-            android:textColor="@color/white"
+            android:textColor="@color/text_black"
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

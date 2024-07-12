@@ -12,7 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
-        android:textColor="@color/white"
+        android:layout_marginBottom="@dimen/_10sdp"
+
+        android:textColor="@color/text_black"
         android:textStyle="bold"
         android:textSize="@dimen/_13ssp"
         />
@@ -21,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:errorTextColor="@color/secondary_peach"
-        android:textColorHint="@color/white"
+        android:textColorHint="@color/text_black"
         android:layout_marginBottom="@dimen/_8sdp"
         app:boxStrokeWidth="1dp"
         app:boxBackgroundColor="@color/theme_bg"
@@ -30,8 +32,8 @@
         app:boxCornerRadiusBottomStart="@dimen/_8sdp"
         app:boxCornerRadiusTopEnd="@dimen/_8sdp"
         app:boxCornerRadiusTopStart="@dimen/_8sdp"
-        app:counterTextColor="@color/white"
-        app:hintTextColor="@color/white"
+        app:counterTextColor="@color/text_black"
+        app:hintTextColor="@color/text_black"
         >
 
         <EditText
@@ -40,11 +42,14 @@
             android:layout_height="wrap_content"
             android:hint="@string/fee"
             android:imeOptions="actionNext"
-            android:inputType="text"
-            android:textColorHighlight="@color/white"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:importantForAutofill="no" />
+            android:inputType="none"
+            android:focusable="false"
+            android:textColorHighlight="@color/text_black"
+            android:textColor="@color/text_black"
+            android:textColorHint="@color/text_black"
+            android:importantForAutofill="no"
+            android:windowSoftInputMode="stateHidden"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -53,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:errorTextColor="@color/secondary_peach"
-        android:textColorHint="@color/white"
+        android:textColorHint="@color/text_black"
         android:layout_marginBottom="@dimen/_8sdp"
         app:boxStrokeWidth="1dp"
         app:boxBackgroundColor="@color/theme_bg"
@@ -62,8 +67,8 @@
         app:boxCornerRadiusBottomStart="@dimen/_8sdp"
         app:boxCornerRadiusTopEnd="@dimen/_8sdp"
         app:boxCornerRadiusTopStart="@dimen/_8sdp"
-        app:counterTextColor="@color/white"
-        app:hintTextColor="@color/white"
+        app:counterTextColor="@color/text_black"
+        app:hintTextColor="@color/text_black"
         >
 
         <EditText
@@ -72,11 +77,14 @@
             android:layout_height="wrap_content"
             android:hint="@string/interval"
             android:imeOptions="actionNext"
-            android:inputType="text"
-            android:textColorHighlight="@color/white"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:importantForAutofill="no" />
+            android:inputType="none"
+            android:focusable="false"
+            android:textColorHighlight="@color/text_black"
+            android:textColor="@color/text_black"
+            android:textColorHint="@color/text_black"
+            android:importantForAutofill="no"
+            android:windowSoftInputMode="stateHidden"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 

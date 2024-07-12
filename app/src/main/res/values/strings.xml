@@ -4,7 +4,9 @@
     <string name="compy">Chillar Payments Solutions Pvt ltd</string>
     <string name="currency">₹</string>
     <string name="head">Create Account</string>
-    <string name="sub_title">Sign up to get started!</string>
+    <string name="sub_title">Sign in</string>
+    <string name="sub_title_2">Enter your registered Phone Number</string>
+    <string name="terms_and_conditions">By proceeding, you agree to the <b><u>Terms And Conditions</u></b></string>
     <string name="ver">"Ver\u0020"</string>
 
     <!--  HEAD-->
@@ -95,6 +97,7 @@
     <string name="service_view_msg">Rate management and disable the service if we are not offering  for the day</string>
 
     <!--  BUTTON-->
+    <string name="booking">Share Booking Link</string>
     <string name="retry">try again</string>
     <string name="signin">Sign in</string>
     <string name="signup">Register</string>

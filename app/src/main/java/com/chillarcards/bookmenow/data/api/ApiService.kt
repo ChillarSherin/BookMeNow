@@ -39,12 +39,15 @@ interface ApiService {
     ): Response<BookingResponseModel>
     @POST("booking/bookingReport")
     suspend fun getReport(
-        @Body reqModel: BookingRequestModel
+        @Body reqModel: BookingReportModel
     ): Response<BookingReportResponseModel>
    @POST("booking/updateBooking")
     suspend fun getUpdate(
         @Body reqModel: BookUpdateRequestModel
     ): Response<StatusResponseModel>
+
+    @POST("booking/get-booking-link")
+    suspend fun getShareLink(): Response<ShareLinkResponseModel>
     @GET("auth/generalSettings")
     suspend fun getGeneral(): Response<GeneralResponseModel>
     @POST("auth/bankdata")

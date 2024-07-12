@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chillarcards.bookmenow.data.model.BookingResponseModel
 import com.chillarcards.bookmenow.data.model.ProfileResponseModel
+import com.chillarcards.bookmenow.data.model.ShareLinkResponseModel
 import com.chillarcards.bookmenow.data.model.StatusResponseModel
 import com.chillarcards.bookmenow.data.repository.AuthRepository
 import com.chillarcards.bookmenow.utills.NetworkHelper
@@ -27,6 +28,8 @@ class BookingViewModel(
     val bookingData: LiveData<Resource<BookingResponseModel>?> get() = _bookingData
     private val _bookUpdateData = MutableLiveData<Resource<StatusResponseModel>?>()
     val bookStatusData: LiveData<Resource<StatusResponseModel>?> get() = _bookUpdateData
+    private val _bookLinkData = MutableLiveData<Resource<ShareLinkResponseModel>?>()
+    val bookLinkData: LiveData<Resource<ShareLinkResponseModel>?> get() = _bookLinkData
 
     var doctorID = MutableLiveData<String>()
     var date = MutableLiveData<String>()
@@ -82,9 +85,31 @@ class BookingViewModel(
             }
         }
     }
+    fun getShareLink() {
+        viewModelScope.launch(NonCancellable) {
+            try {
+                _bookLinkData.postValue(Resource.loading(null))
+                if (networkHelper.isNetworkConnected()) {
+                    authRepository.getShareLink().let {
+                        if (it.isSuccessful) {
+                            _bookLinkData.postValue(Resource.success(it.body()))
+                        } else {
+                            Log.e("abc_otp", "verifyProfile 5: "+it.message().toString())
+                            _bookLinkData.postValue(Resource.error(it.errorBody().toString(), null))
+                        }
+                    }
+                } else {
+                    _bookLinkData.postValue(Resource.error("No Internet Connection", null))
+                }
+            } catch (e: Exception) {
+                Log.e("abc_otp", "verifyOTP: ", e)
+            }
+        }
+    }
 
     fun clear() {
         _bookingData.value = null
         _bookUpdateData.value = null
+        _bookLinkData.value = null
     }
 }

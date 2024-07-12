@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Booking Link Status"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_black"
                     android:gravity="center_vertical"
                     android:textSize="@dimen/_13ssp" />
 
@@ -106,7 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Profile Setting"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_black"
                     android:gravity="center_vertical"
                     android:textSize="@dimen/_13ssp" />
 
@@ -162,7 +162,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="@string/add_staff_head"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_black"
                     android:gravity="center_vertical"
                     android:textSize="@dimen/_13ssp" />
 
@@ -219,7 +219,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="@string/add_service_head"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_black"
                     android:gravity="center_vertical"
                     android:textSize="@dimen/_13ssp" />
 
@@ -275,7 +275,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="SMS Notification"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_black"
                     android:gravity="center_vertical"
                     android:textSize="@dimen/_13ssp" />
 
@@ -335,7 +335,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Email Notification"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_black"
                     android:gravity="center_vertical"
                     android:textSize="@dimen/_13ssp" />
 
@@ -369,7 +369,7 @@
             android:layout_marginBottom="@dimen/_10sdp"
             android:layout_marginHorizontal="@dimen/_18sdp"
             android:text="@string/working_hrs"
-            android:textColor="@color/white"
+            android:textColor="@color/text_black"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -385,7 +385,7 @@
                 android:id="@+id/interval_frm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/text_black"
                 app:boxStrokeWidth="1dp"
                 app:boxBackgroundColor="@color/theme_bg"
                 app:boxStrokeColor="@color/select"
@@ -394,11 +394,11 @@
                 app:boxCornerRadiusTopEnd="@dimen/_8sdp"
                 app:boxCornerRadiusTopStart="@dimen/_8sdp"
                 app:suffixText="min"
-                app:suffixTextColor="@color/white"
-                app:counterTextColor="@color/white"
-                app:hintTextColor="@color/white"
+                app:suffixTextColor="@color/text_black"
+                app:counterTextColor="@color/text_black"
+                app:hintTextColor="@color/text_black"
                 app:endIconMode="custom"
-                app:endIconTint="@color/white"
+                app:endIconTint="@color/text_black"
                 >
 <!--                app:endIconDrawable="@android:drawable/ic_delete"-->
 
@@ -412,8 +412,8 @@
                     android:text=""
                     android:maxLength="2"
                     android:focusable="false"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
+                    android:textColor="@color/text_black"
+                    android:textColorHint="@color/text_black"
                     android:importantForAutofill="no" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -454,7 +454,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Working Hours"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_black"
                     android:gravity="center_vertical"
                     android:textSize="@dimen/_13ssp" />
 
@@ -511,7 +511,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:text="Bank Account Setting"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_black"
                     android:textSize="@dimen/_13ssp" />
 
             </LinearLayout>

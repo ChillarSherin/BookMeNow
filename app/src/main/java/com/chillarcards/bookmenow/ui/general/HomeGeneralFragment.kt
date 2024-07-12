@@ -10,18 +10,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chillarcards.bookmenow.MainActivity
 import com.chillarcards.bookmenow.R
 import com.chillarcards.bookmenow.databinding.FragmentGeneralHomeBinding
 import com.chillarcards.bookmenow.ui.adapter.ClinicAdapter
-import com.chillarcards.bookmenow.ui.home.HomeFragmentDirections
 import com.chillarcards.bookmenow.ui.interfaces.IAdapterViewUtills
-import com.chillarcards.bookmenow.ui.register.OTPFragmentArgs
 import com.chillarcards.bookmenow.utills.CommonDBaseModel
 import com.chillarcards.bookmenow.utills.Const
 import com.chillarcards.bookmenow.utills.PrefManager
@@ -101,8 +97,7 @@ class HomeGeneralFragment : Fragment(), IAdapterViewUtills {
         try {
             PrefManager(context)
 
-            val message: String
-            message = if (generalViewModel.shopStatus.value == 1) {
+            val message: String = if (generalViewModel.shopStatus.value == 1) {
                 "Are you sure you want to OFF the booking link ?"
             } else {
                 "Are you sure you want to ON the booking link ?"

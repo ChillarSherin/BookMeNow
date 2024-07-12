@@ -216,7 +216,7 @@ class MobileFragment : Fragment() {
                 ForegroundColorSpan(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.white
+                        R.color.black
                     )
                 ),
                 s.indexOf("Terms"), s.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE

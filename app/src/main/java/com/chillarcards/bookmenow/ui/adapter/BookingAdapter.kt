@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
@@ -27,13 +28,14 @@ class BookingAdapter(private val dataList: List<Appointment>,
         holder.bind(item)
         if(item.bookingStatus == 1) {
             holder.paymentStatus.text = "Done"
-            context?.let { holder.paymentStatus.setTextColor(it.getColor(R.color.primary_green)) }
+            holder.callIcon.visibility=View.GONE
+            context?.let { holder.paymentStatus.setTextColor(it.getColor(R.color.done)) }
         }  else if(item.bookingStatus == 2) {
             holder.paymentStatus.text = "Cancelled"
             context?.let { holder.paymentStatus.setTextColor(it.getColor(R.color.primary_red)) }
         } else {
             holder.paymentStatus.text = "Pending"
-            context?.let { holder.paymentStatus.setTextColor(it.getColor(R.color.white)) }
+            context?.let { holder.paymentStatus.setTextColor(it.getColor(R.color.pending)) }
         }
 
         holder.BookingView.setOnClickListener {
@@ -55,6 +57,7 @@ class BookingAdapter(private val dataList: List<Appointment>,
         private val CustomNameTextView: TextView = itemView.findViewById(R.id.tran_cust_name)
         private val TimeTextView: TextView = itemView.findViewById(R.id.tran_cust_date)
         val paymentStatus: TextView = itemView.findViewById(R.id.tran_sales_name)
+        val callIcon: ImageView = itemView.findViewById(R.id.tran_call)
 
         fun bind(item: Appointment) {
             TimeTextView.text = item.timeSlot

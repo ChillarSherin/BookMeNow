@@ -78,7 +78,8 @@ class MainActivity : AppCompatActivity(), ConnectivityReceiver.ConnectivityRecei
 
         val destination =
             if (prefManager.isLoggedIn()){
-                R.id.GeneralHomeFragment
+                R.id.homeBaseFragment
+              //  R.id.GeneralHomeFragment
             } else R.id.LoginFragment
 
 //        if (prefManager.isLoggedIn()){

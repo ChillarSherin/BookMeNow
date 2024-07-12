@@ -25,7 +25,7 @@
             android:layout_marginHorizontal="@dimen/_18sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="@dimen/_14ssp"
             app:layout_constraintBottom_toTopOf="@id/retry_button"
             app:layout_constraintVertical_bias="0" />

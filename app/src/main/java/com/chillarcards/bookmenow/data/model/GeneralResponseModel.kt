@@ -23,3 +23,8 @@ data class EntityDetail(
     val entityType: Int,
     val entityStatus: Int
 )
+data class ShareLinkResponseModel(
+    val statusCode: Int,
+    val message: String,
+    val data: String
+)

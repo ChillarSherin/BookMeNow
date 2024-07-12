@@ -7,14 +7,14 @@
 <!--        android:title="@string/logout"-->
 <!--        app:showAsAction="never" />-->
 
-    <item
-        android:id="@+id/menu_notification"
-        android:title="Notifications"
-        app:actionLayout="@layout/menu_notification_layout"
-        app:showAsAction="always"/>
+<!--    <item-->
+<!--        android:id="@+id/menu_notification"-->
+<!--        android:title="Notifications"-->
+<!--        app:actionLayout="@layout/menu_notification_layout"-->
+<!--        app:showAsAction="always"/>-->
     <item
         android:id="@+id/version"
-        android:title="Version 1.0.0"
+        android:title="Version "
         app:showAsAction="never" />
 
 </menu>

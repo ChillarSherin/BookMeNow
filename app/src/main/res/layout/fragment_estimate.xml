@@ -38,7 +38,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/dr"
-                    app:civ_border_color="#FFFFFF"
+                    app:civ_border_color="@color/text_black"
                     app:civ_border_width="2dp" />
                 <TextView
                     android:id="@+id/entity_name"
@@ -47,7 +47,7 @@
                     android:textStyle="bold"
                     android:textSize="@dimen/_11ssp"
                     android:gravity="center"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_black"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginBottom="4dp"/>
             </LinearLayout>
@@ -68,7 +68,7 @@
                 android:textStyle="bold"
                 android:textSize="@dimen/_11ssp"
                 android:gravity="center"
-                android:textColor="@color/white"
+                android:textColor="@color/text_black"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginHorizontal="@dimen/_18sdp"
                 android:layout_marginBottom="@dimen/_18sdp"
@@ -98,7 +98,7 @@
                     android:textStyle="bold"
                     android:textSize="@dimen/_11ssp"
                     android:gravity="center"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_black"
                     android:layout_marginStart="@dimen/_10sdp"/>
             </LinearLayout>
 
@@ -109,7 +109,7 @@
                 android:text="UPI ID: "
                 android:textStyle="bold"
                 android:gravity="center"
-                android:textColor="@color/white"
+                android:textColor="@color/text_black"
                 android:layout_margin="@dimen/_10sdp"/>
 
         </LinearLayout>

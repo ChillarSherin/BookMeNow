@@ -41,8 +41,8 @@ class FeeAdapter(private val items: List<AdditionalDetail>,
         fun bind(item: AdditionalDetail) {
 //            serviceName.text = "Consultation Fee ₹ "+item.consultationCharge.toString()
 //            serviceFee.text = "Consultation Duration :"+item.consultationTime.toString()
-
-            serviceEntity.text = item.entityName.toString()
+            serviceEntity.visibility=View.GONE
+            //serviceEntity.text = item.entityName
             serviceName.text = item.consultationCharge.toString()
             serviceFee.text = item.consultationTime.toString()
         }

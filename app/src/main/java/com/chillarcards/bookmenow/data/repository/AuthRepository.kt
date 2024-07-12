@@ -14,7 +14,9 @@ class AuthRepository(private val apiHelper: ApiHelper) {
         apiHelper.getProfile(mobileNumber)
    suspend fun getWork(doctorId: String) =
         apiHelper.getWork(doctorId)
-   suspend fun getGeneral() =
+   suspend fun getShareLink() =
+        apiHelper.getShareLink()
+    suspend fun getGeneral() =
         apiHelper.getGeneral()
    suspend fun getBankDetails() =
         apiHelper.getBankDetails()
@@ -25,8 +27,8 @@ class AuthRepository(private val apiHelper: ApiHelper) {
         apiHelper.getCategory()
     suspend fun getBookigDetails(doctorId: String,date: String,entityId: String) =
         apiHelper.getBookigDetails(doctorId,date,entityId)
-    suspend fun getReport(doctorId: String,date: String,entityId: String) =
-        apiHelper.getReport(doctorId,date,entityId)
+    suspend fun getReport(doctorId: String,date: String) =
+        apiHelper.getReport(doctorId,date)
     suspend fun getUpdate(bookingId: String) =
         apiHelper.getUpdate(bookingId)
 }

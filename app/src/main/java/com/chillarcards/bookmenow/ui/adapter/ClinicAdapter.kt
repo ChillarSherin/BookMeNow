@@ -10,17 +10,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.chillarcards.bookmenow.R
 import com.chillarcards.bookmenow.data.model.EntityDetail
-import com.chillarcards.bookmenow.ui.Dummy
 import com.chillarcards.bookmenow.ui.interfaces.IAdapterViewUtills
 import com.chillarcards.bookmenow.utills.CommonDBaseModel
-import com.chillarcards.bookmenow.utills.Const
 import com.chillarcards.bookmenow.utills.PrefManager
 
 class ClinicAdapter(private val items: List<EntityDetail>,
                     private val context: Context,
                     private val getAdapterUtil: IAdapterViewUtills
 ) : RecyclerView.Adapter<ClinicAdapter.ViewHolder>() {
-    private var filteredItems: List<EntityDetail> = items.filter { it.entityStatus != 1 }
+   // private var filteredItems: List<EntityDetail> = items.filter { it.entityStatus != 1 }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_top_staff, parent, false)
@@ -28,15 +26,15 @@ class ClinicAdapter(private val items: List<EntityDetail>,
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = filteredItems[position]
-//        val item = items[position]
+//        val item = filteredItems[position]
+        val item = items[position]
         holder.bind(item)
     }
 
-    override fun getItemCount() = filteredItems.size
+    override fun getItemCount() = items.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val staffView: LinearLayout = itemView.findViewById(R.id.staff_frm)
+        private val staffView: LinearLayout = itemView.findViewById(R.id.staff_frm)
         private val staffNameTextView: TextView = itemView.findViewById(R.id.staff_name)
         private val ShopNameTextView: TextView = itemView.findViewById(R.id.banner_shop)
 
@@ -49,12 +47,13 @@ class ClinicAdapter(private val items: List<EntityDetail>,
                 Log.d("Debug", "PrefManager Entity ID: $entityId")
                 Log.d("Debug", "Item Entity ID: $itemEntityId")
 
+                //SELECTED
                 if (entityId == itemEntityId) {
                     ShopNameTextView.background = context.getDrawable(R.drawable.round_circle_colour)
-                    Log.d("Debug", "Set background to round_circle_colour")
+                    Log.d("Debug", "Set background to round_circle")
                 } else {
                     ShopNameTextView.background = context.getDrawable(R.drawable.round_circle)
-                    Log.d("Debug", "Set background to round_circle")
+                    Log.d("Debug", "Set background to round_circle_colour")
                 }
             } else {
                 Log.e("Error", "Context is null")
@@ -62,9 +61,11 @@ class ClinicAdapter(private val items: List<EntityDetail>,
 
             staffNameTextView.text = item.entityName
             ShopNameTextView.isAllCaps = true
-            ShopNameTextView.text = getFirstLetterAfterSpace(item.entityName)
-//            itemView.idTextView.text = "ID: ${item.id}"
-//            itemView.imageView.setImageResource(item.imageResId)
+            if (item.entityId==-1){
+                ShopNameTextView.text = "All"
+            }else{
+                ShopNameTextView.text = getFirstLetterAfterSpace(item.entityName)
+            }
             staffView.setOnClickListener {
                 val commonDObj = CommonDBaseModel()
                 commonDObj.mastIDs = item.entityId.toString()
@@ -72,7 +73,16 @@ class ClinicAdapter(private val items: List<EntityDetail>,
                 commonDObj.valueStr1 = item.entityType.toString()
                 val sCommonDAry: ArrayList<CommonDBaseModel> = ArrayList()
                 sCommonDAry.add(commonDObj)
-                getAdapterUtil.getAdapterPosition(position, sCommonDAry, "STAFFVIEW")
+                getAdapterUtil.getAdapterPosition(position, sCommonDAry, "VIEWBOOKING")
+            }
+            ShopNameTextView.setOnClickListener {
+                val commonDObj = CommonDBaseModel()
+                commonDObj.mastIDs = item.entityId.toString()
+                commonDObj.itmName = item.entityName
+                commonDObj.valueStr1 = item.entityType.toString()
+                val sCommonDAry: ArrayList<CommonDBaseModel> = ArrayList()
+                sCommonDAry.add(commonDObj)
+                getAdapterUtil.getAdapterPosition(position, sCommonDAry, "VIEWBOOKING")
             }
         }
     }

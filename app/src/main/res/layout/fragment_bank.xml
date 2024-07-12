@@ -33,7 +33,7 @@
                 android:layout_marginBottom="@dimen/_3sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 app:errorTextColor="@color/secondary_peach"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/text_black"
                 app:boxStrokeWidth="1dp"
                 app:boxBackgroundColor="@color/theme_bg"
                 app:boxStrokeColor="@color/select"
@@ -41,8 +41,8 @@
                 app:boxCornerRadiusBottomStart="@dimen/_8sdp"
                 app:boxCornerRadiusTopEnd="@dimen/_8sdp"
                 app:boxCornerRadiusTopStart="@dimen/_8sdp"
-                app:counterTextColor="@color/white"
-                app:hintTextColor="@color/white"
+                app:counterTextColor="@color/text_black"
+                app:hintTextColor="@color/text_black"
                 tools:ignore="MissingConstraints">
 
                 <EditText
@@ -52,11 +52,13 @@
                     android:hint="@string/enter_bank_acc"
                     android:text="@string/enter_bank_acc"
                     android:imeOptions="actionNext"
-                    android:textColorHighlight="@color/white"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
+                    android:textColorHighlight="@color/text_black"
+                    android:textColor="@color/text_black"
+                    android:textColorHint="@color/text_black"
                     android:inputType="none"
-                    android:focusable="false"/>
+                    android:focusable="false"
+                    android:windowSoftInputMode="stateHidden"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,7 +70,7 @@
                 android:layout_marginHorizontal="@dimen/_18sdp"
                 android:layout_marginBottom="@dimen/_3sdp"
                 app:errorTextColor="@color/secondary_peach"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/text_black"
                 app:boxStrokeWidth="1dp"
                 app:boxBackgroundColor="@color/theme_bg"
                 app:boxStrokeColor="@color/select"
@@ -76,8 +78,8 @@
                 app:boxCornerRadiusBottomStart="@dimen/_8sdp"
                 app:boxCornerRadiusTopEnd="@dimen/_8sdp"
                 app:boxCornerRadiusTopStart="@dimen/_8sdp"
-                app:counterTextColor="@color/white"
-                app:hintTextColor="@color/white"
+                app:counterTextColor="@color/text_black"
+                app:hintTextColor="@color/text_black"
                 tools:ignore="MissingConstraints">
 
                 <EditText
@@ -87,11 +89,13 @@
                     android:hint="@string/enter_bank_acc_re"
                     android:text="@string/enter_bank_acc_re"
                     android:imeOptions="actionNext"
-                    android:textColorHighlight="@color/white"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
+                    android:textColorHighlight="@color/text_black"
+                    android:textColor="@color/text_black"
+                    android:textColorHint="@color/text_black"
                     android:inputType="none"
-                    android:focusable="false"/>
+                    android:focusable="false"
+                    android:windowSoftInputMode="stateHidden"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -102,7 +106,7 @@
                 android:layout_marginHorizontal="@dimen/_18sdp"
                 android:layout_marginBottom="@dimen/_7sdp"
                 app:errorTextColor="@color/secondary_peach"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/text_black"
                 app:boxStrokeWidth="1dp"
                 app:boxBackgroundColor="@color/theme_bg"
                 app:boxStrokeColor="@color/select"
@@ -110,8 +114,8 @@
                 app:boxCornerRadiusBottomStart="@dimen/_8sdp"
                 app:boxCornerRadiusTopEnd="@dimen/_8sdp"
                 app:boxCornerRadiusTopStart="@dimen/_8sdp"
-                app:counterTextColor="@color/white"
-                app:hintTextColor="@color/white"
+                app:counterTextColor="@color/text_black"
+                app:hintTextColor="@color/text_black"
                 tools:ignore="MissingConstraints">
 
                 <EditText
@@ -121,11 +125,13 @@
                     android:hint="@string/enter_bank_ifsc"
                     android:text="@string/enter_bank_ifsc"
                     android:imeOptions="actionNext"
-                    android:textColorHighlight="@color/white"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
+                    android:textColorHighlight="@color/text_black"
+                    android:textColor="@color/text_black"
+                    android:textColorHint="@color/text_black"
                     android:inputType="none"
-                    android:focusable="false"/>
+                    android:focusable="false"
+                    android:windowSoftInputMode="stateHidden"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -136,7 +142,7 @@
                 android:layout_marginHorizontal="@dimen/_18sdp"
                 android:layout_marginBottom="@dimen/_7sdp"
                 app:errorTextColor="@color/secondary_peach"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/text_black"
                 app:boxStrokeWidth="1dp"
                 app:boxBackgroundColor="@color/theme_bg"
                 app:boxStrokeColor="@color/select"
@@ -144,8 +150,8 @@
                 app:boxCornerRadiusBottomStart="@dimen/_8sdp"
                 app:boxCornerRadiusTopEnd="@dimen/_8sdp"
                 app:boxCornerRadiusTopStart="@dimen/_8sdp"
-                app:counterTextColor="@color/white"
-                app:hintTextColor="@color/white"
+                app:counterTextColor="@color/text_black"
+                app:hintTextColor="@color/text_black"
                 tools:ignore="MissingConstraints">
 
                 <EditText
@@ -155,11 +161,13 @@
                     android:hint="@string/enter_bank_name"
                     android:text="@string/enter_bank_name"
                     android:imeOptions="actionNext"
-                    android:textColorHighlight="@color/white"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
+                    android:textColorHighlight="@color/text_black"
+                    android:textColor="@color/text_black"
+                    android:textColorHint="@color/text_black"
                     android:inputType="none"
-                    android:focusable="false"/>
+                    android:focusable="false"
+                    android:windowSoftInputMode="stateHidden"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -170,7 +178,7 @@
                 android:layout_marginHorizontal="@dimen/_18sdp"
                 android:layout_marginBottom="@dimen/_7sdp"
                 app:errorTextColor="@color/secondary_peach"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/text_black"
                 app:boxStrokeWidth="1dp"
                 app:boxBackgroundColor="@color/theme_bg"
                 app:boxStrokeColor="@color/select"
@@ -178,8 +186,8 @@
                 app:boxCornerRadiusBottomStart="@dimen/_8sdp"
                 app:boxCornerRadiusTopEnd="@dimen/_8sdp"
                 app:boxCornerRadiusTopStart="@dimen/_8sdp"
-                app:counterTextColor="@color/white"
-                app:hintTextColor="@color/white"
+                app:counterTextColor="@color/text_black"
+                app:hintTextColor="@color/text_black"
                 tools:ignore="MissingConstraints">
 
                 <EditText
@@ -189,11 +197,13 @@
                     android:hint="@string/enter_bank_holder"
                     android:text="@string/enter_bank_holder"
                     android:imeOptions="actionNext"
-                    android:textColorHighlight="@color/white"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
+                    android:textColorHighlight="@color/text_black"
+                    android:textColor="@color/text_black"
+                    android:textColorHint="@color/text_black"
                     android:inputType="none"
-                    android:focusable="false"/>
+                    android:focusable="false"
+                    android:windowSoftInputMode="stateHidden"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -239,7 +249,7 @@
                 android:ellipsize="marquee"
                 android:singleLine="true"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/text_black"
                 android:textSize="@dimen/_11ssp"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent" />

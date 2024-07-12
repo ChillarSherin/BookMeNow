@@ -100,8 +100,7 @@ class GeneralFragment : Fragment(), IAdapterViewUtills {
         try {
             PrefManager(context)
 
-            val message: String
-            message = if (generalViewModel.shopStatus.value == 1) {
+            val message: String = if (generalViewModel.shopStatus.value == 1) {
                 "Are you sure you want to OFF the booking link ?"
             } else {
                 "Are you sure you want to ON the booking link ?"

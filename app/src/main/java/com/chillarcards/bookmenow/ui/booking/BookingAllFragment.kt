@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -62,9 +63,23 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
         setToolbar()
         binding.headTran.text = getString(R.string.book_head)
 
+//        bookingViewModel.run {
+//            if(prefManager.getEntityId() =="-1"){
+//                doctorID.value = prefManager.getDoctorId().toString()
+//                date.value = args.date
+//                entityId.value = ""
+//            }else{
+//                doctorID.value = prefManager.getDoctorId().toString()
+//                date.value = args.date
+//                entityId.value = prefManager.getEntityId()
+//            }
+//            getBookingList()
+//        }
+
         bookingViewModel.run {
             doctorID.value = prefManager.getDoctorId().toString()
             date.value = args.date
+            entityId.value = if (prefManager.getEntityId() == "-1") "" else prefManager.getEntityId()
             getBookingList()
         }
         setUpObserver()
@@ -74,7 +89,6 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
             val currentYear = calendar.get(Calendar.YEAR)
             val currentMonth = calendar.get(Calendar.MONTH)
             val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
-
             val datePickerDialog = DatePickerDialog(
                 requireContext(),
                 { _, year, month, day ->
@@ -83,6 +97,7 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
                     bookingViewModel.run {
                         doctorID.value = prefManager.getDoctorId().toString()
                         date.value = selectedDate
+                        entityId.value = if (prefManager.getEntityId() == "-1") "" else prefManager.getEntityId()
                         getBookingList()
                     }
                     setUpObserver()
@@ -138,7 +153,7 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
                                         binding.currentDay.text = dateOfMonth
                                         binding.currentYear.text = year.toString()
 
-                                        binding.ttlApointTv.text = "Today "+bookingData.data.totalAppointments.toString()+" Appointments"
+                                        binding.ttlApointTv.text = "Today "+bookingData.data.totalBooking.toString()+" Appointments"
                                         binding.completedTv.text = "Completed  :"+bookingData.data.completedAppointments.toString()
                                         binding.cancelTv.text = "Pending  :"+bookingData.data.pendingAppointments.toString()
 
@@ -204,6 +219,59 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
             Log.e("abc_otp", "setUpObserver: ", e)
         }
     }
+
+    private fun viewUpObserver() {
+        try {
+            bookingViewModel.bookStatusData.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    when (it.status) {
+                        Status.SUCCESS -> {
+                            it.data?.let { bookStatusData ->
+                                when (bookStatusData.statusCode) {
+                                    200 -> {
+
+                                        findNavController().navigate(
+                                            EstimateFragmentDirections.actionEstimateFragmentToSuccessFragment(
+                                            )
+                                        )
+
+                                    }
+                                    403 -> {
+                                        prefManager.setRefresh("1")
+                                        val authViewModel by viewModel<RegisterViewModel>()
+                                        Const.getNewTokenAPI(
+                                            requireContext(),
+                                            authViewModel,
+                                            viewLifecycleOwner
+                                        )
+
+                                    }
+                                    else -> Const.shortToast(requireContext(), bookStatusData.message)
+
+                                }
+                            }
+                        }
+                        Status.LOADING -> {
+                        }
+                        Status.ERROR -> {
+                            prefManager.setRefresh("1")
+                            val authViewModel by viewModel<RegisterViewModel>()
+                            Const.getNewTokenAPI(
+                                requireContext(),
+                                authViewModel,
+                                viewLifecycleOwner
+                            )
+
+                        }
+                    }
+                }
+            }
+
+        } catch (e: Exception) {
+            Log.e("abc_otp", "setUpObserver: ", e)
+        }
+    }
+
     private fun showProgress() {
         binding.otpProgress.visibility = View.VISIBLE
     }
@@ -212,6 +280,7 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
     }
 
     private fun setBottomSheet(selectedData: ArrayList<CommonDBaseModel>) {
+        var mediaPlayer: MediaPlayer? = null
 
         val bottomSheetView = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_persistent, null)
         val bottomSheetDialog = BottomSheetDialog(requireContext())
@@ -227,11 +296,24 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
             actionButton.visibility=View.GONE
         }else{
             completeButton.setOnClickListener {
-                findNavController().navigate(
-                    BookingAllFragmentDirections.actionBookingFragmentToEstimateFragment(
-                        selectedData[0].mastIDs,doctorName
-                    )
-                )
+
+                // Initialize MediaPlayer in onCreate or another appropriate method
+                mediaPlayer = MediaPlayer.create(context, R.raw.bell_audio)
+                if (!mediaPlayer!!.isPlaying) {
+                    mediaPlayer!!.start()
+                }
+                bookingViewModel.run {
+                    bookingId.value = selectedData[0].mastIDs
+                    getConfirmBooking()
+                }
+                viewUpObserver()
+
+                //REMOVE THIS PAGE
+//                findNavController().navigate(
+//                    BookingAllFragmentDirections.actionBookingFragmentToEstimateFragment(
+//                        selectedData[0].mastIDs,doctorName
+//                    )
+//                )
                 bottomSheetDialog.dismiss()
             }
         }

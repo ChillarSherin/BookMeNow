@@ -17,5 +17,6 @@ data class Data(
     val refresh_token: String,
     val profile_completed: Int = 0,
     val status: Int = 0,
+    val doctor_id: Int,
     val entity_type: Any?,
 )

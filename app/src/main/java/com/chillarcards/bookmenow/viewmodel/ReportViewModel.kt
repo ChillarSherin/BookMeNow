@@ -36,7 +36,7 @@ class ReportViewModel(
                     authRepository.getReport(
                         doctorID.value.toString(),
                         date.value.toString(),
-                        entityId.value.toString()
+//                        entityId.value.toString()
                     ).let {
                         if (it.isSuccessful) {
                             _reportData.postValue(Resource.success(it.body()))

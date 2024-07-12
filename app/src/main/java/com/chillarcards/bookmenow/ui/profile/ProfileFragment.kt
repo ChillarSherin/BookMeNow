@@ -81,8 +81,9 @@ class ProfileFragment : Fragment(), IAdapterViewUtills {
                                         val consultationChargeText = profileData.data.consultation_charge.toString()
 
 
+                                        //HIDE VIEW AS PER FIRST PHASE
                                         if(profileData.data.additionalInfo.isNotEmpty()) {
-                                            binding.topFeeFrame.visibility=View.VISIBLE
+                                            binding.topFeeFrame.visibility=View.GONE
                                             binding.pFee.visibility=View.GONE
 
                                             val salesTopPicAdapter = FeeAdapter(
@@ -108,6 +109,21 @@ class ProfileFragment : Fragment(), IAdapterViewUtills {
                                             .into(binding.imProfile)
                                     }
                                     403 -> {
+                                        prefManager.setRefresh("1")
+                                        val authViewModel by viewModel<RegisterViewModel>()
+                                        Const.getNewTokenAPI(
+                                            requireContext(),
+                                            authViewModel,
+                                            viewLifecycleOwner
+                                        )
+
+                                        profileViewModel.run {
+                                            mob.value = prefManager.getMobileNo()
+                                            getProfile()
+                                        }
+                                        setUpObserver()
+                                    }
+                                    422 -> {
                                         prefManager.setRefresh("1")
                                         val authViewModel by viewModel<RegisterViewModel>()
                                         Const.getNewTokenAPI(

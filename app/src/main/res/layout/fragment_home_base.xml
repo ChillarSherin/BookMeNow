@@ -54,7 +54,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="?android:attr/selectableItemBackground"
-                            android:drawableTop="@drawable/ic_profile_set"
+                            android:drawableTop="@drawable/ic_profile"
                             android:gravity="center"
                             android:orientation="vertical"
                             android:text="Profile"
@@ -82,18 +82,19 @@
                         </TextView>
 
                         <TextView
+                            android:id="@+id/walk_book"
                             style="?android:attr/borderlessButtonStyle"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="?android:attr/selectableItemBackground"
-                            android:drawableTop="@drawable/ic_report"
+                            android:drawableTop="@drawable/ic_calender"
                             android:gravity="center"
+                            android:layout_marginTop="@dimen/_11sdp"
                             android:orientation="vertical"
                             android:textColor="#000000"
                             android:textSize="@dimen/_10ssp"
-                            android:textAllCaps="false"
-                            android:visibility="invisible">
+                            android:textAllCaps="false">
 
                         </TextView>
 
@@ -139,7 +140,6 @@
 
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fabre"
                     android:visibility="gone"
                     android:layout_width="@dimen/_50sdp"
                     android:layout_height="41dp"
@@ -155,7 +155,7 @@
                     app:layout_anchorGravity="center" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/walk_book"
+                    android:visibility="gone"
                     android:layout_width="@dimen/_50sdp"
                     android:layout_height="@dimen/_50sdp"
                     android:contentDescription="@string/app_name"

@@ -37,12 +37,12 @@ class SuccessFragment : Fragment(){
         Const.enableButton(binding.bchHomeBtn)
 
 
-      //  Handler().postDelayed(Runnable { redirect() }, 2000)
 
         binding.bchHomeBtn.setOnClickListener {
             redirect()
         }
-    }
+    }//        Handler().postDelayed(Runnable { redirect() }, 2000)
+
 
     private fun redirect(){
         findNavController().navigate(

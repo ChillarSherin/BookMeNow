@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.graphics.Typeface
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -28,6 +29,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.chillarcards.bookmenow.R
 import com.chillarcards.bookmenow.databinding.FragmentOtpBinding
+import com.chillarcards.bookmenow.ui.general.HomeGeneralFragmentDirections
 import com.chillarcards.bookmenow.utills.Const
 import com.chillarcards.bookmenow.utills.GenericKeyEvent
 import com.chillarcards.bookmenow.utills.GenericTextWatcher
@@ -117,6 +119,10 @@ open class OTPFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val pInfo =
+            activity?.let { activity?.packageManager!!.getPackageInfo(it.packageName, PackageManager.GET_ACTIVITIES) }
+        val versionName = pInfo?.versionName //Version Name
+        binding.version.text = "${getString(R.string.version)}" + Const.ver_title + versionName
 
 //        FirebaseApp.initializeApp(this.requireContext())
         firebaseAuth = FirebaseAuth.getInstance()
@@ -158,7 +164,7 @@ open class OTPFragment : Fragment() {
         }
 
         try {
-            val s = "didn't receive OTP? RESEND"
+            val s = "Didn't receive OTP? RESEND"
             val wordToSpan: Spannable = SpannableString(s)
             wordToSpan.setSpan(
                 ForegroundColorSpan(
@@ -235,7 +241,7 @@ open class OTPFragment : Fragment() {
 
                 startSMSListener()
 
-                Const.shortToast(requireContext(),"otp sent successfully")
+                Const.shortToast(requireContext(),"OTP sent successfully")
             }
         }
     }
@@ -385,34 +391,32 @@ open class OTPFragment : Fragment() {
     }
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
         firebaseAuth.signInWithCredential(credential)
-            .addOnCompleteListener(requireActivity()) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success
-                    val user = task.result?.user
-                    mobileVerify()
-                } else {
-                    // Sign in failed
-                    if (task.exception is FirebaseAuthInvalidCredentialsException) {
-                        // The verification code entered was invalid
-                        binding.textinputError.text="Invalid OTP"
+        .addOnCompleteListener(requireActivity()) { task ->
+            if (task.isSuccessful) {
+                // Sign in success
+                val user = task.result?.user
+                mobileVerify()
+            } else {
+                // Sign in failed
+                if (task.exception is FirebaseAuthInvalidCredentialsException) {
+                    // The verification code entered was invalid
+                    binding.textinputError.text="Invalid OTP"
 
-                        binding.otpA.setText("")
-                        binding.otpB.setText("")
-                        binding.otpC.setText("")
-                        binding.otpD.setText("")
-                        binding.otpE.setText("")
-                        binding.otpF.setText("")
-                        binding.otpA.requestFocus()
-                    }
+                    binding.otpA.setText("")
+                    binding.otpB.setText("")
+                    binding.otpC.setText("")
+                    binding.otpD.setText("")
+                    binding.otpE.setText("")
+                    binding.otpF.setText("")
+                    binding.otpA.requestFocus()
                 }
             }
+        }
     }
-
 
     companion object {
         private const val TAG = "OTPFragment"
     }
-
 
     private fun mobileVerify() {
         mobileViewModel.run {
@@ -431,16 +435,17 @@ open class OTPFragment : Fragment() {
                             it.data?.let { mobileData ->
                                 when (mobileData.statusCode) {
                                     "200" -> {
-
                                         // TODO: check if response from verifying otp or sending otp
                                         prefManager.setMobileNo(mobileData.data.phone)
                                         prefManager.setRefToken(mobileData.data.refresh_token.trim())
                                         prefManager.setToken(mobileData.data.access_token.trim())
                                         prefManager.setStatus(mobileData.data.profile_completed)
+                                        prefManager.setDoctorId(mobileData.data.doctor_id)
                                         prefManager.setIsLoggedIn(true)
                                         prefManager.setRefresh("0")
 
-                                        gotoGeneralHome()
+                                        findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToHomeFragment())
+                                       // gotoGeneralHome()
                                     }
                                     "400" -> {
                                         if(mobileData.message.contentEquals("Invalid OTP.")){
@@ -455,6 +460,11 @@ open class OTPFragment : Fragment() {
                                         }else{
                                             Const.shortToast(requireContext(), mobileData.message)
                                         }
+                                    }
+                                    "422" -> {
+                                        Const.messageToast(requireContext(), mobileData.message, "This application is exclusively for doctors registered through our web portal.")
+                                        findNavController().popBackStack()
+                                        mobileViewModel.clear()
                                     }
                                     else -> Const.shortToast(requireContext(), mobileData.message)
                                 }
