@@ -30,10 +30,10 @@
             app:layout_constraintBottom_toTopOf="@id/retry_button"
             app:layout_constraintVertical_bias="0" />
 
-        <com.google.android.material.button.MaterialButton
+        <TextView
             android:id="@+id/retry_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_35sdp"
             android:layout_marginHorizontal="@dimen/_18sdp"
             android:layout_marginTop="@dimen/_18sdp"
             android:layout_marginBottom="@dimen/_40sdp"
@@ -44,6 +44,7 @@
             android:textColor="@color/primary_blue"
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent" />
 
 

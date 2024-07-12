@@ -142,6 +142,8 @@ open class OTPFragment : Fragment() {
         binding.resendText.visibility = View.GONE
 
         binding.confirmBtn.setOnClickListener {
+            binding.textinputError.visibility=View.GONE
+
             if (binding.otpA.text.isNullOrEmpty() || binding.otpB.text.isNullOrEmpty() || binding.otpC.text.isNullOrEmpty() || binding.otpD.text.isNullOrEmpty() || binding.otpE.text.isNullOrEmpty() || binding.otpF.text.isNullOrEmpty()) {
                 Const.shortToast(requireContext(), "please enter the 6 digit OTP code")
             } else {
@@ -273,6 +275,8 @@ open class OTPFragment : Fragment() {
     private fun focusOnFirstIfEmpty() {
         if (binding.otpA.isEmpty()) {
             binding.otpA.requestFocus()
+        }else{
+            binding.textinputError.visibility=View.GONE
         }
     }
     private fun otpViewActions() {
@@ -309,7 +313,7 @@ open class OTPFragment : Fragment() {
             checkValidationStatus()
         }
 
-// Attach key listener to handle navigation between EditText fields
+        // Attach key listener to handle navigation between EditText fields
         binding.otpA.setOnKeyListener(GenericKeyEvent(binding.otpA, null))
         binding.otpB.setOnKeyListener(GenericKeyEvent(binding.otpB, binding.otpA))
         binding.otpC.setOnKeyListener(GenericKeyEvent(binding.otpC, binding.otpB))
@@ -366,9 +370,11 @@ open class OTPFragment : Fragment() {
     private fun checkValidationStatus() {
         val textName = binding.timer.text
 
-        if (aOk && bOk && cOk && dOk && eOk && fOk && !textName.equals(getString(R.string.otp_expired)))
+        if (aOk && bOk && cOk && dOk && eOk && fOk && !textName.equals(getString(R.string.otp_expired))) {
             Const.enableButton(binding.confirmBtn)
-        else
+            binding.textinputError.visibility=View.GONE
+
+        } else
             Const.disableButton(binding.confirmBtn)
     }
 
@@ -400,6 +406,7 @@ open class OTPFragment : Fragment() {
                 // Sign in failed
                 if (task.exception is FirebaseAuthInvalidCredentialsException) {
                     // The verification code entered was invalid
+                    binding.textinputError.visibility=View.VISIBLE
                     binding.textinputError.text="Invalid OTP"
 
                     binding.otpA.setText("")
@@ -444,8 +451,7 @@ open class OTPFragment : Fragment() {
                                         prefManager.setIsLoggedIn(true)
                                         prefManager.setRefresh("0")
 
-                                        findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToHomeFragment())
-                                       // gotoGeneralHome()
+                                        gotoHomePage()
                                     }
                                     "400" -> {
                                         if(mobileData.message.contentEquals("Invalid OTP.")){
@@ -488,7 +494,9 @@ open class OTPFragment : Fragment() {
 
     private fun gotoHomePage() {
         try {
-            findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToHomeFragment())
+            findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToHomeFragment(
+                prefManager.getMobileNo()
+            ))
         } catch (e: Exception) {
             e.printStackTrace()
         }

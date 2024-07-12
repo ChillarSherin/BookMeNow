@@ -166,7 +166,7 @@ class MobileFragment : Fragment() {
         try {
 
             val message ="123456 is your verification OTP for accessing the KR COIN wallet. Do not share this OTP or your number with anyone.yaMqX9A+vNH"
-            val uri: Uri = Uri.parse("smsto:+919744496378")
+            val uri: Uri = Uri.parse("smsto:+91")
             val intent = Intent(Intent.ACTION_SENDTO, uri)
             intent.putExtra("sms_body", message)
             startActivity(intent)
@@ -247,7 +247,7 @@ class MobileFragment : Fragment() {
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
-   companion object {
+    companion object {
         private const val TAG = "MobileFragment"
     }
 }
