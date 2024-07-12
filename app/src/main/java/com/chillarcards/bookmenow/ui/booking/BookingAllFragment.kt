@@ -231,7 +231,7 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
                                     200 -> {
 
                                         findNavController().navigate(
-                                            EstimateFragmentDirections.actionEstimateFragmentToSuccessFragment(
+                                            BookingAllFragmentDirections.actionEstimateFragmentToSuccessFragment(
                                             )
                                         )
 
@@ -280,7 +280,6 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
     }
 
     private fun setBottomSheet(selectedData: ArrayList<CommonDBaseModel>) {
-        var mediaPlayer: MediaPlayer? = null
 
         val bottomSheetView = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_persistent, null)
         val bottomSheetDialog = BottomSheetDialog(requireContext())
@@ -298,9 +297,9 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
             completeButton.setOnClickListener {
 
                 // Initialize MediaPlayer in onCreate or another appropriate method
-                mediaPlayer = MediaPlayer.create(context, R.raw.bell_audio)
+                val mediaPlayer: MediaPlayer? = MediaPlayer.create(context, R.raw.bell_audio)
                 if (!mediaPlayer!!.isPlaying) {
-                    mediaPlayer!!.start()
+                    mediaPlayer.start()
                 }
                 bookingViewModel.run {
                     bookingId.value = selectedData[0].mastIDs

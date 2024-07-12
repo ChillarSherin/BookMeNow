@@ -3,6 +3,7 @@ package com.chillarcards.bookmenow.ui.home
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -26,6 +27,7 @@ import com.chillarcards.bookmenow.data.model.EntityDetail
 import com.chillarcards.bookmenow.databinding.FragmentHomeBinding
 import com.chillarcards.bookmenow.ui.adapter.BookingAdapter
 import com.chillarcards.bookmenow.ui.adapter.ClinicAdapter
+import com.chillarcards.bookmenow.ui.booking.EstimateFragmentDirections
 import com.chillarcards.bookmenow.ui.interfaces.IAdapterViewUtills
 import com.chillarcards.bookmenow.ui.notification.NotificationViewModel
 import com.chillarcards.bookmenow.utills.CommonDBaseModel
@@ -299,6 +301,7 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
     }
 
     private fun setBottomSheet(selectedData: ArrayList<CommonDBaseModel>) {
+        var mediaPlayer: MediaPlayer?
 
         val bottomSheetView = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_persistent, null)
         val bottomSheetDialog = BottomSheetDialog(requireContext())
@@ -314,12 +317,21 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
             actionButton.visibility=View.GONE
         }else{
             completeButton.setOnClickListener {
-
-                findNavController().navigate(
-                    HomeFragmentDirections.actionHomeFragmentToEstimateFragment(
-                        selectedData[0].mastIDs,doctorName
-                    )
-                )
+                // Initialize MediaPlayer in onCreate or another appropriate method
+                mediaPlayer = MediaPlayer.create(context, R.raw.bell_audio)
+                if (!mediaPlayer!!.isPlaying) {
+                    mediaPlayer!!.start()
+                }
+                bookingViewModel.run {
+                    bookingId.value = selectedData[0].mastIDs
+                    getConfirmBooking()
+                }
+                viewUpObserver()
+//                findNavController().navigate(
+//                    HomeFragmentDirections.actionHomeFragmentToEstimateFragment(
+//                        selectedData[0].mastIDs,doctorName
+//                    )
+//                )
                 bottomSheetDialog.dismiss()
             }
         }
@@ -329,17 +341,60 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
             phoneNo = selectedData[0].mobile.toString()
             makePhoneCall(phoneNo)
             bottomSheetDialog.dismiss()
-//            val phoneNumber = "tel:" + selectedData[0].mobile
-//            val dialIntent = Intent(Intent.ACTION_DIAL)
-//            dialIntent.data = Uri.parse(phoneNumber)
-//            if (dialIntent.resolveActivity(requireContext().packageManager) != null) {
-//                startActivity(dialIntent)
-//            }
-
-            bottomSheetDialog.dismiss()
         }
         bottomSheetDialog.show()
 
+    }
+    private fun viewUpObserver() {
+        try {
+            bookingViewModel.bookStatusData.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    when (it.status) {
+                        Status.SUCCESS -> {
+                            it.data?.let { bookStatusData ->
+                                when (bookStatusData.statusCode) {
+                                    200 -> {
+
+                                        findNavController().navigate(
+                                            HomeFragmentDirections.actionEstimateFragmentToSuccessFragment(
+                                            )
+                                        )
+
+                                    }
+                                    403 -> {
+                                        prefManager.setRefresh("1")
+                                        val authViewModel by viewModel<RegisterViewModel>()
+                                        Const.getNewTokenAPI(
+                                            requireContext(),
+                                            authViewModel,
+                                            viewLifecycleOwner
+                                        )
+
+                                    }
+                                    else -> Const.shortToast(requireContext(), bookStatusData.message)
+
+                                }
+                            }
+                        }
+                        Status.LOADING -> {
+                        }
+                        Status.ERROR -> {
+                            prefManager.setRefresh("1")
+                            val authViewModel by viewModel<RegisterViewModel>()
+                            Const.getNewTokenAPI(
+                                requireContext(),
+                                authViewModel,
+                                viewLifecycleOwner
+                            )
+
+                        }
+                    }
+                }
+            }
+
+        } catch (e: Exception) {
+            Log.e("abc_otp", "setUpObserver: ", e)
+        }
     }
 
     private fun openOptionsMenu(view: View) {

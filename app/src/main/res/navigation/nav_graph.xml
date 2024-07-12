@@ -192,6 +192,9 @@
         <action
             android:id="@+id/action_homeFragment_to_ReportFragment"
             app:destination="@id/reportFragment" />
+        <action
+            android:id="@+id/action_estimateFragment_to_SuccessFragment"
+            app:destination="@id/successFragment" />
         <argument
             android:name="mobileNo"
             android:defaultValue=""
