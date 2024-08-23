@@ -147,10 +147,12 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
                                         calendar.time = date
                                         val dayOfWeek = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())
                                         val dateOfMonth = calendar.get(Calendar.DAY_OF_MONTH).toString().padStart(2, '0')
+                                        val month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())
                                         val year = calendar.get(Calendar.YEAR)
 
                                         binding.currentDate.text = "$dayOfWeek"
                                         binding.currentDay.text = dateOfMonth
+                                        binding.currentMonth.text=month
                                         binding.currentYear.text = year.toString()
 
                                         binding.ttlApointTv.text = "Appointments : "+bookingData.data.totalBooking.toString()
