@@ -3,7 +3,6 @@ package com.chillarcards.bookmenow.ui.register
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.graphics.Typeface
 import android.os.Bundle
@@ -29,7 +28,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.chillarcards.bookmenow.R
 import com.chillarcards.bookmenow.databinding.FragmentOtpBinding
-import com.chillarcards.bookmenow.ui.general.HomeGeneralFragmentDirections
 import com.chillarcards.bookmenow.utills.Const
 import com.chillarcards.bookmenow.utills.GenericKeyEvent
 import com.chillarcards.bookmenow.utills.GenericTextWatcher
@@ -37,7 +35,6 @@ import com.chillarcards.bookmenow.utills.PrefManager
 import com.chillarcards.bookmenow.utills.Status
 import com.chillarcards.bookmenow.viewmodel.RegisterViewModel
 import com.google.android.gms.auth.api.phone.SmsRetriever
-import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuth
@@ -124,7 +121,6 @@ open class OTPFragment : Fragment() {
         val versionName = pInfo?.versionName //Version Name
         binding.version.text = "${getString(R.string.version)}" + Const.ver_title + versionName
 
-//        FirebaseApp.initializeApp(this.requireContext())
         firebaseAuth = FirebaseAuth.getInstance()
         prefManager = PrefManager(requireContext())
 
@@ -152,8 +148,6 @@ open class OTPFragment : Fragment() {
                 Log.d("abc_otp", "onViewCreated: $otp")
                 if (otp.isNotEmpty()){
                     verifyPhoneNumberWithCode(otp)
-                    otpObserver()
-
                 }
                 else
                     Const.shortToast(requireContext(), getString(R.string.enter_otp))
@@ -241,7 +235,7 @@ open class OTPFragment : Fragment() {
                 if (binding.timer.text == "00:60")
                     startTimer()
 
-                startSMSListener()
+             //   startSMSListener()
 
                 Const.shortToast(requireContext(),"OTP sent successfully")
             }
@@ -341,29 +335,31 @@ open class OTPFragment : Fragment() {
     private fun startTimer() {
         if (this@OTPFragment::timer.isInitialized)
             timer.cancel()
-        timer = object : CountDownTimer(60000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                val s = "00:${(millisUntilFinished / 1000)}"
-                binding.timer.text = s
-                binding.resendText.visibility = View.GONE
-            }
+            timer = object : CountDownTimer(60000, 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    val s = "00:${(millisUntilFinished / 1000)}"
+                    binding.timer.text = s
+                    binding.resendText.visibility = View.GONE
+                }
 
-            override fun onFinish() {
-                Handler(Looper.getMainLooper()).postDelayed({
-                    try {
-                        Const.disableButton(binding.confirmBtn)
-                        binding.sec.visibility = View.GONE
-                        binding.timer.text = getString(R.string.otp_expired)
-                        binding.resendText.visibility = View.VISIBLE
-                        binding.textinputError.visibility =View.GONE
+                override fun onFinish() {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        try {
+                            Const.disableButton(binding.confirmBtn)
+                            binding.sec.visibility = View.GONE
+                            if (isAdded) {
+                                binding.timer.text = getString(R.string.otp_expired)
+                            }
+                            binding.resendText.visibility = View.VISIBLE
+                            binding.textinputError.visibility =View.GONE
 
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                }, 1000)
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }, 1000)
+                }
             }
-        }
-        timer.start()
+            timer.start()
     }
 
 
@@ -430,6 +426,8 @@ open class OTPFragment : Fragment() {
             mob.value = args.mobile
             verifyMobile()
         }
+        otpObserver()
+
     }
 
     private fun otpObserver() {
@@ -442,16 +440,19 @@ open class OTPFragment : Fragment() {
                             it.data?.let { mobileData ->
                                 when (mobileData.statusCode) {
                                     "200" -> {
-                                        // TODO: check if response from verifying otp or sending otp
+                                        prefManager.clearAll()
                                         prefManager.setMobileNo(mobileData.data.phone)
                                         prefManager.setRefToken(mobileData.data.refresh_token.trim())
                                         prefManager.setToken(mobileData.data.access_token.trim())
                                         prefManager.setStatus(mobileData.data.profile_completed)
-                                        prefManager.setDoctorId(mobileData.data.doctor_id)
+                                        prefManager.setDoctorId(mobileData.data.doctor_id.toString())
                                         prefManager.setIsLoggedIn(true)
                                         prefManager.setRefresh("0")
 
-                                        gotoHomePage()
+                                        findNavController().navigate(
+                                            OTPFragmentDirections.
+                                            actionOTPFragmentToHomeFragment()
+                                        )
                                     }
                                     "400" -> {
                                         if(mobileData.message.contentEquals("Invalid OTP.")){
@@ -492,15 +493,6 @@ open class OTPFragment : Fragment() {
         }
     }
 
-    private fun gotoHomePage() {
-        try {
-            findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToHomeFragment(
-                prefManager.getMobileNo()
-            ))
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
     private fun gotoGeneralHome() {
         try {
             findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToRegFragment())
@@ -524,8 +516,8 @@ open class OTPFragment : Fragment() {
                 }
             }
         }
-        val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
-        requireActivity().registerReceiver(smsBroadcastReceiver, intentFilter)
+//        val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
+//        requireActivity().registerReceiver(smsBroadcastReceiver, intentFilter)
     }
 
     // Process the received SMS message to extract the OTP code

@@ -36,6 +36,21 @@
             android:defaultValue=""
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_homeFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_termsAndConditionsFragment"
+            app:destination="@id/termsAndConditionsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_privacyPolicyFragment"
+            app:destination="@id/privacyPolicyFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_refundPolicyFragment"
+            app:destination="@id/refundPolicyFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_contactUsFragment"
+            app:destination="@id/contactUsFragment" />
     </fragment>
 
     <fragment
@@ -296,5 +311,41 @@
             app:destination="@id/homeFragment" />
 
     </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.chillarcards.bookmenow.ui.webpage.AboutFragment"
+        android:label="AboutFragment" />
+    <argument
+        android:name="aboutURL"
+        app:argType="string" />
+
+    <fragment
+        android:id="@+id/termsAndConditionsFragment"
+        android:name="com.chillarcards.bookmenow.ui.webpage.TermsAndConditionsFragment"
+        android:label="TermsAndConditionsFragment" />
+    <argument
+        android:name="termsURL"
+        app:argType="string" />
+    <fragment
+        android:id="@+id/privacyPolicyFragment"
+        android:name="com.chillarcards.bookmenow.ui.webpage.PrivacyPolicyFragment"
+        android:label="PrivacyPolicyFragment" />
+    <argument
+        android:name="privacyURL"
+        app:argType="string" />
+    <fragment
+        android:id="@+id/refundPolicyFragment"
+        android:name="com.chillarcards.bookmenow.ui.webpage.RefundPolicyFragment"
+        android:label="RefundPolicyFragment" />
+    <argument
+        android:name="refundURL"
+        app:argType="string" />
+    <fragment
+        android:id="@+id/contactUsFragment"
+        android:name="com.chillarcards.bookmenow.ui.webpage.ContactUsFragment"
+        android:label="ContactUsFragment" />
+    <argument
+        android:name="contactURL"
+        app:argType="string" />
 
 </navigation>

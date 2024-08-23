@@ -3,6 +3,7 @@ package com.chillarcards.bookmenow.ui.profile
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -54,8 +55,13 @@ class ProfileFragment : Fragment(), IAdapterViewUtills {
         profileViewModel.getProfile()
 
         setUpObserver()
-        binding.floatingActionButton.setOnClickListener{
-            showChooseImageDialog()
+
+            binding.floatingActionButton.setOnClickListener {
+                val intent = Intent(Intent.ACTION_DIAL)
+                intent.data = Uri.parse("tel:+91 9995699899") // Replace with the actual phone number
+                startActivity(intent)
+
+            // showChooseImageDialog()
         }
 
         binding.confirmBtn.setOnClickListener{

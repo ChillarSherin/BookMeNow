@@ -1,6 +1,7 @@
 package com.chillarcards.bookmenow.ui.home
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
@@ -13,6 +14,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.app.ActivityCompat
@@ -27,7 +30,6 @@ import com.chillarcards.bookmenow.data.model.EntityDetail
 import com.chillarcards.bookmenow.databinding.FragmentHomeBinding
 import com.chillarcards.bookmenow.ui.adapter.BookingAdapter
 import com.chillarcards.bookmenow.ui.adapter.ClinicAdapter
-import com.chillarcards.bookmenow.ui.booking.EstimateFragmentDirections
 import com.chillarcards.bookmenow.ui.interfaces.IAdapterViewUtills
 import com.chillarcards.bookmenow.ui.notification.NotificationViewModel
 import com.chillarcards.bookmenow.utills.CommonDBaseModel
@@ -38,9 +40,11 @@ import com.chillarcards.bookmenow.viewmodel.BookingViewModel
 import com.chillarcards.bookmenow.viewmodel.RegisterViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import kotlin.system.exitProcess
 
 class HomeFragment : Fragment(), IAdapterViewUtills {
 
@@ -54,6 +58,42 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
     private val PERMISSION_REQUEST_CALL_PHONE = 1
     private var formattedDate = ""
     private var shareLink = ""
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // in here you can do logic when backPress is clicked
+                alertMsg(requireContext())
+            }
+        })
+    }
+
+    fun alertMsg(context: Context) {
+        try {
+            PrefManager(context)
+            val builder = AlertDialog.Builder(context)
+
+            builder.setTitle(R.string.alert_heading)
+            builder.setMessage(R.string.pop_back_message)
+            builder.setIcon(R.mipmap.ic_launcher)
+            builder.setCancelable(false)
+
+            //performing positive action
+            builder.setPositiveButton(context.getString(R.string.ok)) { _, _ ->
+                ActivityCompat.finishAffinity(requireActivity())
+                exitProcess(0)            }
+            builder.setNegativeButton(context.getString(R.string.cancel)) { _, _ ->
+//                alertDialog.dismiss()
+            }
+            val alertDialog: AlertDialog = builder.create()
+
+            alertDialog.setCanceledOnTouchOutside(false)
+            alertDialog.show()
+        } catch (e: Exception) {
+            //e.printstackTrace()
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -75,7 +115,7 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
         formattedDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(currentDate)
 
         bookingViewModel.run {
-            doctorID.value = prefManager.getDoctorId().toString()
+            doctorID.value = prefManager.getDoctorId()
             date.value = formattedDate
             entityId.value = if (prefManager.getEntityId() == "-1") "" else prefManager.getEntityId()
             getBookingList()
@@ -119,12 +159,13 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
     override fun onStop() {
         super.onStop()
         Log.d("abc_mob", "onStop: ")
-        // mobileViewModel.clear()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         Log.d("abc_mob", "onDestroy: ")
+        bookingViewModel.clear()
+
     }
 
     private fun setUpObserver() {
@@ -138,9 +179,9 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
                                 when (bookingData.statusCode) {
                                     200 -> {
                                         binding.logoIcon.text= "Hi "+bookingData.data.doctorName
-                                        binding.ttlApointTv.text = "Today "+bookingData.data.totalBooking.toString()+" Appointments"
-                                        binding.completedTv.text = "Completed  :"+bookingData.data.completedAppointments.toString()
-                                        binding.cancelTv.text = "Pending  :"+bookingData.data.pendingAppointments.toString()
+                                        binding.ttlApointTv.text = "Today's Appointments : "+bookingData.data.totalBooking.toString()
+                                        binding.completedTv.text = "Completed  : "+bookingData.data.completedAppointments.toString()
+                                        binding.cancelTv.text = "Pending  : "+bookingData.data.pendingAppointments.toString()
 
                                         doctorName = bookingData.data.doctorName
 
@@ -345,6 +386,7 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
         bottomSheetDialog.show()
 
     }
+
     private fun viewUpObserver() {
         try {
             bookingViewModel.bookStatusData.observe(viewLifecycleOwner) {
@@ -397,6 +439,10 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
         }
     }
 
+
+
+
+
     private fun openOptionsMenu(view: View) {
 
         val contextWrapper = ContextThemeWrapper(requireContext(), R.style.PopupMenuStyle)
@@ -412,7 +458,7 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
 
 //        val notificationItem = popup.menu.findItem(R.id.menu_notification)
 //        val notificationCount = getNotificationCount()
-//
+
 //        if (notificationCount > 0) {
 //            // Show red dot or notification count
 //            notificationItem.setIcon(R.drawable.ic_notification_red_dot)
@@ -422,17 +468,128 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
 //            notificationItem.actionView = null
 //        }
 
-//        popup.setOnMenuItemClickListener { menuItem ->
-//            when (menuItem.itemId) {
-//                R.id.menu_notification -> {
-//                    findNavController().navigate(R.id.action_homeFragment_to_NotificationFragment)
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
+        popup.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+
+                R.id.about->{
+                    val bundle = Bundle().apply {
+                        putString("aboutURL", "https://www.chillarpayments.com/privatepractice.html")
+                    }
+                    findNavController().navigate(R.id.aboutFragment, bundle)
+                    true
+                }
+
+                R.id.terms_and_conditions->{
+                    val bundle = Bundle().apply {
+                        putString("termsURL", "https://www.chillarpayments.com/terms-and-conditions.html")
+                    }
+                    findNavController().navigate(R.id.termsAndConditionsFragment, bundle)
+                    true
+                }
+                R.id.privacy_policy->{
+                    val bundle = Bundle().apply {
+                        putString("privacyURL", "https://www.chillarpayments.com/privacy-policy.html")
+                    }
+                    findNavController().navigate(R.id.privacyPolicyFragment, bundle)
+                    true
+                }
+                R.id.refund->{
+                    val bundle = Bundle().apply {
+                        putString("refundURL", "https://www.chillarpayments.com/Cancellation-Policy.html")
+                    }
+                    findNavController().navigate(R.id.refundPolicyFragment, bundle)
+                    true
+                }
+                R.id.contact_us->{
+                    val bundle = Bundle().apply {
+                        putString("contactURL", "https://www.chillarpayments.com/contactus.html")
+                    }
+                    findNavController().navigate(R.id.contactUsFragment, bundle)
+                    true
+                }
+
+                R.id.action_logout -> {
+                    setBottomSheet()
+                  //  findNavController().navigate(R.id.action_homeFragment_to_NotificationFragment)
+                    true
+                }
+
+                else -> false
+            }
+        }
 
         popup.show()
+    }
+    private fun setBottomSheet() {
+
+        val bottomSheetView = LayoutInflater.from(context).inflate(R.layout.logout, null)
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
+        bottomSheetDialog.setContentView(bottomSheetView)
+
+        val completeButton: TextView = bottomSheetView.findViewById(R.id.cancelButton)
+        completeButton.setOnClickListener {
+            bottomSheetDialog.dismiss()
+        }
+
+        val callButton: TextView = bottomSheetView.findViewById(R.id.okButton)
+        callButton.setOnClickListener {
+            performLogout()
+            bottomSheetDialog.dismiss()
+        }
+        bottomSheetDialog.show()
+
+    }
+
+    private fun performLogout() {
+
+        // Clear any user session or authentication data
+        val prefManager = PrefManager(requireContext())
+        prefManager.clearAll()
+        prefManager.setIsLoggedIn(false)
+
+        clearAppCache(requireContext())
+        closeApp()
+
+        // Clear all activities and start MainActivity
+//        val intent = Intent(requireContext(), MainActivity::class.java)
+//        ActivityCompat.finishAffinity(requireActivity())
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//        startActivity(intent)
+
+//        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//        startActivity(intent)
+    }
+
+    private fun clearAppCache(context: Context) {
+        try {
+            val cacheDir = context.cacheDir
+            deleteDir(cacheDir)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun deleteDir(dir: File?): Boolean {
+        if (dir != null && dir.isDirectory) {
+            val children = dir.list()
+            if (children != null) {
+                for (child in children) {
+                    val success = deleteDir(File(dir, child))
+                    if (!success) {
+                        return false
+                    }
+                }
+            }
+            return dir.delete()
+        } else if (dir != null && dir.isFile) {
+            return dir.delete()
+        } else {
+            return false
+        }
+    }
+    private fun closeApp() {
+        ActivityCompat.finishAffinity(requireActivity())
+        exitProcess(0)
     }
 
     private fun getNotificationCount(): Int {
@@ -467,6 +624,7 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
             Log.e("PhoneCall", "Phone number is empty or null")
         }
     }
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         if (requestCode == PERMISSION_REQUEST_CALL_PHONE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

@@ -7,16 +7,24 @@ package com.chillarcards.bookmenow.data.model
 data class RegisterModel(
     val statusCode: String,
     val message: String,
-    val data: Data,
+    val data: Data
 )
 
 data class Data(
-    val entity_id:  Int = 0,
+    val entity_id: Int,
     val phone: String,
+    val doctor_id: Int,
     val access_token: String,
     val refresh_token: String,
-    val profile_completed: Int = 0,
-    val status: Int = 0,
-    val doctor_id: Int,
-    val entity_type: Any?,
+    val profile_completed: Int,
+    val status: Int,
+    val entity_type: Int,
+    val entityDetails: List<EntityDetailReg>
+)
+
+data class EntityDetailReg(
+    val entityId: Int,
+    val entityName: String,
+    val phone: String,
+    val entityType: Int
 )

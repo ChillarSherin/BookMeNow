@@ -1,6 +1,7 @@
 package com.chillarcards.bookmenow.ui.home
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -18,8 +19,10 @@ import com.chillarcards.bookmenow.R
 import com.chillarcards.bookmenow.databinding.FragmentHomeBaseBinding
 import com.chillarcards.bookmenow.utills.PrefManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.io.File
 import java.util.Calendar
 import java.util.Locale
+import kotlin.system.exitProcess
 
 class HomeBaseFragment : Fragment() {
 
@@ -40,7 +43,9 @@ class HomeBaseFragment : Fragment() {
         val navHostFragment = childFragmentManager
             .findFragmentById(R.id.inner_host_nav) as NavHostFragment
         val navController = navHostFragment.navController
-
+        binding.home.setOnClickListener {
+            navController.navigate(R.id.homeFragment)
+        }
         binding.report.setOnClickListener {
             navController.navigate(R.id.reportFragment)
         }
@@ -61,12 +66,15 @@ class HomeBaseFragment : Fragment() {
                 requireContext(),
                 { _, year, month, day ->
                     // Handle the selected date
-                    val selectedDate = "$year-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}"
+                    val selectedDate = "$year-${(month + 1).toString().padStart(2, '0')}-${
+                        day.toString().padStart(2, '0')
+                    }"
                     // TODO: Do something with the selected date (e.g., display it)
-                   //   navController.navigate(R.id.BookingFragment)
+                    //   navController.navigate(R.id.BookingFragment)
 
                     // Navigate to BookingFragment with selected date using Safe Args
-                    val action = HomeFragmentDirections.actionHomeFragmentToBookingFragment(selectedDate,)
+                    val action =
+                        HomeFragmentDirections.actionHomeFragmentToBookingFragment(selectedDate)
                     navController.navigate(action)
 
                 },
@@ -93,12 +101,13 @@ class HomeBaseFragment : Fragment() {
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when (destination.id) {
                 R.id.BookingFragment, R.id.StaffBookFragment, R.id.estimateFragment,
-                R.id.successFragment,  R.id.walk_book_Fragment , R.id.reportFragment ,
-                R.id.generalFragment, R.id.profileFragment, R.id.TimeFragment ,
-                R.id.RegisterFragment, R.id.StaffFragment , R.id.AddStaffFragment,
-                R.id.BankFragment , R.id.StaffModuleFragment, R.id.ServiceModuleFragment  -> {
+                R.id.successFragment, R.id.walk_book_Fragment, R.id.reportFragment,
+                R.id.generalFragment, R.id.profileFragment, R.id.TimeFragment,
+                R.id.RegisterFragment, R.id.StaffFragment, R.id.AddStaffFragment,
+                R.id.BankFragment, R.id.StaffModuleFragment, R.id.ServiceModuleFragment -> {
                     binding.bottomMenu.visibility = View.GONE
                 }
+
                 else -> {
                     binding.bottomMenu.visibility = View.VISIBLE
                 }
@@ -106,7 +115,7 @@ class HomeBaseFragment : Fragment() {
         }
 
 
-     }
+    }
 
     private fun setBottomSheet() {
 
@@ -116,7 +125,6 @@ class HomeBaseFragment : Fragment() {
 
         val completeButton: TextView = bottomSheetView.findViewById(R.id.cancelButton)
         completeButton.setOnClickListener {
-
             bottomSheetDialog.dismiss()
         }
 
@@ -132,24 +140,53 @@ class HomeBaseFragment : Fragment() {
     private fun performLogout() {
 
         // Clear any user session or authentication data
-        clearUserSession()
-
-        Log.d("abc_home", "showLogoutAlert: recreating activity.. all data cleared")
-        val intent = Intent(requireContext(), MainActivity::class.java)
-        ActivityCompat.finishAffinity(requireActivity())
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        startActivity(intent)
-    }
-
-    private fun clearUserSession() {
-
-//        val preferences = getSharedPreferences("user_data", MODE_PRIVATE)
-//        val editor = preferences.edit()
-//        editor.clear()
-//        editor.apply()
-
         val prefManager = PrefManager(requireContext())
         prefManager.clearAll()
+        prefManager.setIsLoggedIn(false)
+
+        clearAppCache(requireContext())
+        closeApp()
+
+        // Clear all activities and start MainActivity
+//        val intent = Intent(requireContext(), MainActivity::class.java)
+//        ActivityCompat.finishAffinity(requireActivity())
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//        startActivity(intent)
+
+//        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//        startActivity(intent)
     }
 
+    private fun clearAppCache(context: Context) {
+        try {
+            val cacheDir = context.cacheDir
+            deleteDir(cacheDir)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun deleteDir(dir: File?): Boolean {
+        if (dir != null && dir.isDirectory) {
+            val children = dir.list()
+            if (children != null) {
+                for (child in children) {
+                    val success = deleteDir(File(dir, child))
+                    if (!success) {
+                        return false
+                    }
+                }
+            }
+            return dir.delete()
+        } else if (dir != null && dir.isFile) {
+            return dir.delete()
+        } else {
+            return false
+        }
+    }
+
+    private fun closeApp() {
+        ActivityCompat.finishAffinity(requireActivity())
+        exitProcess(0)
+    }
 }

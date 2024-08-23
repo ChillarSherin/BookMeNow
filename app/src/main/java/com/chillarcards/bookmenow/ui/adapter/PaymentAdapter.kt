@@ -54,7 +54,7 @@ class PaymentAdapter(private val items: List<BookingReportItem>,
                 2, 3 -> context?.getDrawable(R.drawable.ic_down)
                 0 -> context?.getDrawable(R.drawable.ic_pending)
                 1 -> context?.getDrawable(R.drawable.ic_top)
-                else -> null // Handle any other unexpected statuses if necessary
+                else -> context?.getDrawable(R.drawable.ic_down)
             }
 
             PayStatus.setImageDrawable(drawable)

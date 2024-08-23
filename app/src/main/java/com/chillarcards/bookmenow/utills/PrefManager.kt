@@ -62,11 +62,12 @@ class PrefManager(_context: Context) {
         editor.putString(MOBILENO, value)
         editor.commit()
     }
-    fun getDoctorId(): Int {
-        return pref.getInt(DOCTORID, 0)
+    fun getDoctorId(): String {
+       // return pref.getInt(DOCTORID, 0)
+        return pref.getString(DOCTORID, "") ?: ""
     }
-    fun setDoctorId(value: Int) {
-        editor.putInt(DOCTORID, value)
+    fun setDoctorId(value: String) {
+        editor.putString(DOCTORID, value)
         editor.commit()
     }
     fun getEntityId(): String {
@@ -87,6 +88,7 @@ class PrefManager(_context: Context) {
     fun clearAll() {
         editor.clear()
         editor.commit()
+        editor.apply()
     }
 
     fun clearField(keyName: String) {

@@ -7,16 +7,16 @@
 
     <ImageView
         android:id="@+id/toolbar_back"
-        android:layout_width="@dimen/_35sdp"
-        android:layout_height="@dimen/_35sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/_5sdp"
+        android:contentDescription="@string/app_name"
         android:padding="@dimen/_10sdp"
         android:src="@drawable/ic_back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/text_black"
-        android:contentDescription="@string/app_name" />
+        app:tint="@color/text_black" />
 
     <TextView
         android:id="@+id/toolbar_title"

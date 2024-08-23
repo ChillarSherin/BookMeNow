@@ -25,6 +25,16 @@
                 android:id="@+id/toolbar"
                 layout="@layout/toolbar" />
 
+            <ImageView
+                android:id="@+id/floatingActionButton"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_gravity="end"
+                android:src="@drawable/call"
+                android:visibility="visible" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/bank_account"
                 android:layout_width="match_parent"

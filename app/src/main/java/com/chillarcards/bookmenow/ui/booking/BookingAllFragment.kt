@@ -153,9 +153,9 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
                                         binding.currentDay.text = dateOfMonth
                                         binding.currentYear.text = year.toString()
 
-                                        binding.ttlApointTv.text = "Today "+bookingData.data.totalBooking.toString()+" Appointments"
-                                        binding.completedTv.text = "Completed  :"+bookingData.data.completedAppointments.toString()
-                                        binding.cancelTv.text = "Pending  :"+bookingData.data.pendingAppointments.toString()
+                                        binding.ttlApointTv.text = "Appointments : "+bookingData.data.totalBooking.toString()
+                                        binding.completedTv.text = "Completed  : "+bookingData.data.completedAppointments.toString()
+                                        binding.cancelTv.text = "Pending  : "+bookingData.data.pendingAppointments.toString()
 
                                         if(bookingData.data.appointmentList.isNotEmpty()) {
                                             binding.nodata.visibility=View.GONE

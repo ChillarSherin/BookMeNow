@@ -155,7 +155,7 @@ class HomeGeneralFragment : Fragment(), IAdapterViewUtills {
 
                                         generalViewModel.shopStatus.value = settingData.data.entityStatus
                                         generalViewModel.doctorID.value = settingData.data.doctor_id.toString()
-                                        prefManager.setDoctorId(settingData.data.doctor_id)
+                                        prefManager.setDoctorId(settingData.data.doctor_id.toString())
 
                                         if(settingData.data.profile_completed==1) {
                                             binding.confirmBtn.visibility =View.VISIBLE

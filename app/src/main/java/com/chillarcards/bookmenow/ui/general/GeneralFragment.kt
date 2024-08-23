@@ -100,10 +100,10 @@ class GeneralFragment : Fragment(), IAdapterViewUtills {
         try {
             PrefManager(context)
 
-            val message: String = if (generalViewModel.shopStatus.value == 1) {
-                "Are you sure you want to OFF the booking link ?"
-            } else {
-                "Are you sure you want to ON the booking link ?"
+            val message: String = if (generalViewModel.shopStatus.value == 1) { //OFF
+                "Are you sure you want to change the status?"
+            } else { //ON
+                "Are you sure you want to change the status?"
             }
 
             val builder = AlertDialog.Builder(context)
@@ -152,9 +152,9 @@ class GeneralFragment : Fragment(), IAdapterViewUtills {
                                         binding.shopStatus.setTextColor(resources.getColor(R.color.onoff))
                                     }
 
-                                    binding.interval.setText("10")
+                                    //binding.interval.setText("10")
                                     generalViewModel.shopStatus.value = settingData.data.entityStatus
-                                    prefManager.setDoctorId(settingData.data.doctor_id)
+                                    prefManager.setDoctorId(settingData.data.doctor_id.toString())
                                 }
                                 else -> Const.shortToast(requireContext(), settingData.message)
 

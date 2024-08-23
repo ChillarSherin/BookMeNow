@@ -2,6 +2,8 @@ package com.chillarcards.bookmenow.ui.register
 
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -51,6 +53,12 @@ class BankFragment : Fragment() {
             getBankDetails()
         }
         setUpObserver()
+
+        binding.floatingActionButton.setOnClickListener {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:+91 9995699899") // Replace with the actual phone number
+            startActivity(intent)
+        }
 
         binding.confirmBtn.setOnClickListener {
             findNavController().popBackStack()

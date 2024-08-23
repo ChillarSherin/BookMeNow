@@ -48,6 +48,40 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/home"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:drawableTop="@drawable/home"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:text="Home"
+                            android:textSize="@dimen/_10ssp"
+                            android:textAllCaps="false"
+                            android:textColor="#000000">
+
+                        </TextView>
+
+                        <TextView
+                            android:id="@+id/walk_book"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:drawableTop="@drawable/ic_calender"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:textColor="#000000"
+                            android:textSize="@dimen/_10ssp"
+                            android:text="Appointment"
+                            android:textAllCaps="false">
+
+                        </TextView>
+
+                        <TextView
                             android:id="@+id/add_profile"
                             style="?android:attr/borderlessButtonStyle"
                             android:layout_width="0dp"
@@ -75,29 +109,12 @@
                             android:gravity="center"
                             android:orientation="vertical"
                             android:text="Report"
+                            android:visibility="gone"
                             android:textSize="@dimen/_10ssp"
                             android:textAllCaps="false"
                             android:textColor="#000000">
 
                         </TextView>
-
-                        <TextView
-                            android:id="@+id/walk_book"
-                            style="?android:attr/borderlessButtonStyle"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="?android:attr/selectableItemBackground"
-                            android:drawableTop="@drawable/ic_calender"
-                            android:gravity="center"
-                            android:layout_marginTop="@dimen/_11sdp"
-                            android:orientation="vertical"
-                            android:textColor="#000000"
-                            android:textSize="@dimen/_10ssp"
-                            android:textAllCaps="false">
-
-                        </TextView>
-
 
                         <TextView
                             android:id="@+id/setting"
@@ -127,6 +144,7 @@
                             android:gravity="center"
                             android:orientation="vertical"
                             android:text="Logout"
+                            android:visibility="gone"
                             android:textSize="@dimen/_10ssp"
                             android:textAllCaps="false"
                             android:textColor="#000000">
